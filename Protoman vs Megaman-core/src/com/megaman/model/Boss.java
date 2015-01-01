@@ -1,6 +1,7 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.enums.BossType;
 import com.megaman.gamestates.logic.GSGameLogic;
 

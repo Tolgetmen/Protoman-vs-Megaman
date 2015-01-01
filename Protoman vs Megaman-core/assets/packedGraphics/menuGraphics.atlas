@@ -32,3 +32,16 @@ select_missile
   orig: 288, 32
   offset: 0, 0
   index: -1
+
+menuGraphics2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background_controls
+  rotate: false
+  xy: 2, 2
+  size: 800, 600
+  orig: 800, 600
+  offset: 0, 0
+  index: -1

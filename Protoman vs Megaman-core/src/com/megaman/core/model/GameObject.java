@@ -1,4 +1,4 @@
-package com.megaman.model;
+package com.megaman.core.model;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;

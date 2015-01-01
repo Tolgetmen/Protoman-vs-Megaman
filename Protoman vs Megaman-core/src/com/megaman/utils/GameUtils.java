@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.megaman.core.ResourceManager;
+import com.megaman.core.model.GameObject;
 import com.megaman.enums.AudioType;
-import com.megaman.model.GameObject;
 
 public final class GameUtils {
 	private static Rectangle	cameraBounds;

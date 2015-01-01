@@ -1,8 +1,5 @@
 package com.megaman.gamestates;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.GDXGame;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameState;
@@ -11,21 +8,12 @@ import com.megaman.enums.AudioType;
 import com.megaman.enums.TextureType;
 
 public class GSGame extends GameState {
-	public GSGame(GDXGame game, Camera camera, SpriteBatch spriteBatch, Class<? extends GameLogic> logicClass) {
-		super(game, camera, spriteBatch, logicClass);
+	public GSGame(GameLogic logic) {
+		super(logic);
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-	}
-
-	private void loadResources() {
+	protected void loadResources() {
 		// load texture atlas
 		ResourceManager.INSTANCE.loadTextureAtlas(GameConstants.ATLAS_PATH_GAME);
 
@@ -77,18 +65,7 @@ public class GSGame extends GameState {
 	}
 
 	@Override
-	public void show() {
-		loadResources();
-		logic.initialize();
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void freeResources() {
+	protected void disposeResources() {
 		// free texture atlas and sprites
 		ResourceManager.INSTANCE.disposeTextureAtlasAndSprites(GameConstants.ATLAS_PATH_GAME);
 
@@ -114,11 +91,5 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_SNAKEMAN);
 		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_TOPMAN);
-	}
-
-	@Override
-	public void dispose() {
-		freeResources();
-		logic.dispose();
 	}
 }

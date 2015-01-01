@@ -1,8 +1,5 @@
 package com.megaman.gamestates;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.GDXGame;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameState;
 import com.megaman.core.ResourceManager;
@@ -11,24 +8,14 @@ import com.megaman.enums.SkinType;
 import com.megaman.enums.TextureType;
 
 public class GSMainMenu extends GameState {
-	public GSMainMenu(GDXGame game, Camera camera, SpriteBatch spriteBatch, Class<? extends GameLogic> logicClass) {
-		super(game, camera, spriteBatch, logicClass);
+
+	public GSMainMenu(GameLogic logic) {
+		super(logic);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void show() {
+	protected void loadResources() {
 		// load skin and texture atlas
 		ResourceManager.INSTANCE.loadSkin(SkinType.SKIN_MAIN_MENU);
 
@@ -40,28 +27,42 @@ public class GSMainMenu extends GameState {
 		// load music
 		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_MENU);
 		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_MENU_QUIT);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_GEMINIMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_HARDMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_MAGNETMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_NEEDLEMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_PROTOMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SHADOWMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SNAKEMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SPARKMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_TOPMAN);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_WILY_STAGE);
+		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_MENU_QUIT);
 
 		// load sounds
 		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_MENU_MOVE);
 		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_MENU_SELECT);
 		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_MENU_SELECT_SHOOT);
-
-		logic.initialize();
 	}
 
 	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose() {
+	protected void disposeResources() {
 		// dispose skin, textureatlas and sprites
 		ResourceManager.INSTANCE.disposeSkin(SkinType.SKIN_MAIN_MENU);
 
 		// dispose music
 		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_MENU);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_MENU_QUIT);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_GEMINIMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_HARDMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_MAGNETMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_NEEDLEMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_PROTOMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SHADOWMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SNAKEMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SPARKMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_TOPMAN);
+		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_WILY_STAGE);
 		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_MENU_QUIT);
 
 		// dispose sounds
@@ -69,7 +70,6 @@ public class GSMainMenu extends GameState {
 		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_MENU_SELECT);
 		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_MENU_SELECT_SHOOT);
 
-		logic.dispose();
 	}
 
 }

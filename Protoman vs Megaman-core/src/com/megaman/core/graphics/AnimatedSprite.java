@@ -1,4 +1,4 @@
-package com.megaman.graphics;
+package com.megaman.core.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

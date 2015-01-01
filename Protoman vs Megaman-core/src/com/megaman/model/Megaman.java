@@ -3,6 +3,7 @@ package com.megaman.model;
 import com.badlogic.gdx.ai.fsm.StackStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.megaman.ai.states.MegamanState;
+import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.gamestates.logic.GSGameLogic;
 
 public class Megaman extends AnimatedGameObject {

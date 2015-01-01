@@ -9,10 +9,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.megaman.core.graphics.AnimatedSprite;
 import com.megaman.enums.AudioType;
 import com.megaman.enums.SkinType;
 import com.megaman.enums.TextureType;
-import com.megaman.graphics.AnimatedSprite;
 
 public enum ResourceManager {
 	INSTANCE;

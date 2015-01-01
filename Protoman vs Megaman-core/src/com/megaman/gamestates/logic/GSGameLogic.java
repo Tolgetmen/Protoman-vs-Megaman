@@ -15,20 +15,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.megaman.GDXGame;
 import com.megaman.constants.GameConstants;
+import com.megaman.core.GDXGame;
 import com.megaman.core.GameLogic;
-import com.megaman.core.GameState;
 import com.megaman.core.ResourceManager;
-import com.megaman.enums.BossType;
+import com.megaman.core.graphics.AnimatedSprite;
+import com.megaman.core.model.AnimatedGameObject;
+import com.megaman.core.model.GameObject;
 import com.megaman.enums.AudioType;
+import com.megaman.enums.BossType;
 import com.megaman.enums.GameStateType;
-import com.megaman.enums.TextureType;
 import com.megaman.enums.MissileType;
-import com.megaman.graphics.AnimatedSprite;
-import com.megaman.model.AnimatedGameObject;
+import com.megaman.enums.TextureType;
 import com.megaman.model.Boss;
-import com.megaman.model.GameObject;
 import com.megaman.model.Megaman;
 import com.megaman.model.Missile;
 import com.megaman.model.Protoman;
@@ -36,7 +35,12 @@ import com.megaman.utils.GameUtils;
 
 public class GSGameLogic extends GameLogic {
 	private Array<GameObject>				gameObjects;
-	private Map<GameObject, AnimatedSprite>	animatedGameObjects;
+	// create two maps for linking character/sprite and missile/sprite
+	// since characters share one texture and missiles share one texture
+	//
+	// this should avoid texture binding calls and therefore increase render performance
+	private Map<GameObject, AnimatedSprite>	animatedCharacters;
+	private Map<GameObject, AnimatedSprite>	animatedMissiles;
 	private Array<Missile>					activeMissiles;
 	private Pool<Missile>					poolMissiles;
 	private Array<Boss>						activeBosses;
@@ -45,21 +49,17 @@ public class GSGameLogic extends GameLogic {
 	private Megaman							megaman;
 	private Protoman						protoman;
 
-	private GameStateType					nextState;
-
-	private final int						PROTOMAN_SPEED	= 600;
-
-	public GSGameLogic(GameState gameState, GDXGame game) {
-		super(gameState, game);
+	public GSGameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
+		super(game, camera, spriteBatch);
 	}
 
 	@Override
 	public void initialize() {
 		GameUtils.playMusic(AudioType.MUSIC_PROTOMAN, true);
 
-		nextState = null;
 		gameObjects = new Array<GameObject>();
-		animatedGameObjects = new HashMap<GameObject, AnimatedSprite>();
+		animatedCharacters = new HashMap<GameObject, AnimatedSprite>();
+		animatedMissiles = new HashMap<GameObject, AnimatedSprite>();
 		activeMissiles = new Array<Missile>();
 		poolMissiles = new Pool<Missile>() {
 			@Override
@@ -83,13 +83,13 @@ public class GSGameLogic extends GameLogic {
 		megaman.setPosition(0, GameConstants.GAME_HEIGHT / 2 - 16);
 		megaman.setSize(sprMegaman.getWidth(), sprMegaman.getHeight());
 		gameObjects.add(megaman);
-		animatedGameObjects.put(megaman, sprMegaman);
+		animatedCharacters.put(megaman, sprMegaman);
 
 		protoman = new Protoman(this, 2, 1, 10);
 		protoman.setPosition(GameConstants.GAME_WIDTH - 80, GameConstants.GAME_HEIGHT / 2 - 16);
 		protoman.setSize(sprProtoman.getWidth(), sprProtoman.getHeight());
 		gameObjects.add(protoman);
-		animatedGameObjects.put(protoman, sprProtoman);
+		animatedCharacters.put(protoman, sprProtoman);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class GSGameLogic extends GameLogic {
 			boss.update(deltaTime);
 			if (!boss.isAlive()) {
 				poolBosses.free(boss);
-				animatedGameObjects.remove(boss);
+				animatedCharacters.remove(boss);
 				iterBosses.remove();
 			}
 		}
@@ -135,24 +135,14 @@ public class GSGameLogic extends GameLogic {
 
 			if (!missile.isAlive()) {
 				poolMissiles.free(missile);
-				animatedGameObjects.remove(missile);
+				animatedMissiles.remove(missile);
 				iterMissiles.remove();
 			}
 		}
 	}
 
-	@Override
-	public void render(SpriteBatch spriteBatch, Camera camera) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		camera.update();
-
-		//		Gdx.app.log("Num animated objects", "" + animatedGameObjects.size());
-
-		spriteBatch.setProjectionMatrix(camera.combined);
-		spriteBatch.begin();
-		for (Map.Entry<GameObject, AnimatedSprite> entry : animatedGameObjects.entrySet()) {
+	private void renderSprites(Map<GameObject, AnimatedSprite> sprites) {
+		for (Map.Entry<GameObject, AnimatedSprite> entry : sprites.entrySet()) {
 			GameObject gameObj = entry.getKey();
 			AnimatedSprite sprite = entry.getValue();
 
@@ -168,13 +158,22 @@ public class GSGameLogic extends GameLogic {
 				spriteBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
 			}
 		}
-		spriteBatch.end();
 	}
 
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
+	public void render() {
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		camera.update();
+
+		//		Gdx.app.log("Num animated objects", "" + animatedGameObjects.size());
+
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		renderSprites(animatedCharacters);
+		renderSprites(animatedMissiles);
+		spriteBatch.end();
 	}
 
 	public void spawnMissile(MissileType type, float startX, float startY) {
@@ -183,7 +182,7 @@ public class GSGameLogic extends GameLogic {
 		Missile missile = poolMissiles.obtain();
 		missile.initialize(type, startX, startY, sprMissile.getWidth(), sprMissile.getHeight(), 0);
 		activeMissiles.add(missile);
-		animatedGameObjects.put(missile, sprMissile);
+		animatedMissiles.put(missile, sprMissile);
 
 		GameUtils.playSound(type.getSound());
 	}
@@ -194,7 +193,7 @@ public class GSGameLogic extends GameLogic {
 		Boss boss = poolBosses.obtain();
 		boss.initialize(type, spawnX, spawnY, sprite.getWidth(), sprite.getHeight());
 		activeBosses.add(boss);
-		animatedGameObjects.put(boss, sprite);
+		animatedCharacters.put(boss, sprite);
 	}
 
 	public void setProtomanSpeed(float speed, float angleInDegrees) {
@@ -206,18 +205,17 @@ public class GSGameLogic extends GameLogic {
 		switch (keycode) {
 			case Keys.UP: {
 				// move protoman up
-				setProtomanSpeed(PROTOMAN_SPEED, 90);
+				setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 90);
 				break;
 			}
 			case Keys.DOWN: {
 				// move protoman down
-				setProtomanSpeed(PROTOMAN_SPEED, 270);
+				setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 270);
 				break;
 			}
 			case Keys.ESCAPE: {
 				// switch to state menu
-				nextState = GameStateType.MAIN_MENU;
-				game.closeCurrentGameState();
+				game.setGameState(GameStateType.MAIN_MENU);
 				break;
 			}
 		}
@@ -232,10 +230,10 @@ public class GSGameLogic extends GameLogic {
 			case Keys.UP: {
 				if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 					// down key still pressed -> move protoman down
-					setProtomanSpeed(PROTOMAN_SPEED, 270);
+					setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 270);
 				} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 					// up key still pressed -> move protoman up
-					setProtomanSpeed(PROTOMAN_SPEED, 90);
+					setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 90);
 				} else {
 					// both keys released -> stop protoman
 					setProtomanSpeed(0, 0);
@@ -275,13 +273,11 @@ public class GSGameLogic extends GameLogic {
 	}
 
 	@Override
-	public GameStateType getNextState() {
-		return nextState;
+	public void resize(int width, int height) {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+	public void dispose() {
 
 	}
 }

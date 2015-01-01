@@ -1,4 +1,4 @@
-package com.megaman.model;
+package com.megaman.core.model;
 
 import com.megaman.gamestates.logic.GSGameLogic;
 

@@ -5,8 +5,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
-import com.megaman.GDXGame;
 import com.megaman.constants.GameConstants;
+import com.megaman.core.GDXGame;
 
 public class DesktopLauncher {
 	public static void main(String[] arg) {
@@ -22,8 +22,8 @@ public class DesktopLauncher {
 
 		//TODO TexturePacker to create TextureAtlas
 		Settings settings = new Settings();
-		TexturePacker.process(settings, "../core/assets/graphics/game", "../core/assets/packedGraphics", "gameGraphics");
-		TexturePacker.process(settings, "../core/assets/graphics/menu", "../core/assets/packedGraphics", "menuGraphics");
+		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/game", "../Protoman vs Megaman-core/assets/packedGraphics", "gameGraphics");
+		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/menu", "../Protoman vs Megaman-core/assets/packedGraphics", "menuGraphics");
 
 		new LwjglApplication(new GDXGame(), config);
 	}

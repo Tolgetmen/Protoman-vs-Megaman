@@ -2,30 +2,29 @@ package com.megaman.core;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.GDXGame;
-import com.megaman.enums.GameStateType;
 
 public abstract class GameLogic extends GameInputAdapter {
-	protected final GameState	gameState;
+	// each state holds a reference to the "Game" instance in order to call the "closeCurrentGameState" method
 	protected final GDXGame		game;
+	// each state holds a reference to the spritebatch of the game in order to avoid creating multiple spritebatches
+	protected final SpriteBatch	spriteBatch;
+	// each state holds a reference to the camera of the game
+	protected final Camera		camera;
 
-	public GameLogic(GameState gameState, GDXGame game) {
+	public GameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
 		super();
 		this.game = game;
-		this.gameState = gameState;
+		this.camera = camera;
+		this.spriteBatch = spriteBatch;
 	}
 
 	public abstract void initialize();
 
 	public abstract void update(float deltaTime);
 
-	public abstract void render(SpriteBatch spriteBatch, Camera camera);
+	public abstract void render();
 
 	public abstract void resize(int width, int height);
 
 	public abstract void dispose();
-
-	// return null to just terminate this state
-	// return any other gamestatetype to set that type of state as next state when closing this state
-	public abstract GameStateType getNextState();
 }

@@ -1,4 +1,4 @@
-package com.megaman;
+package com.megaman.core;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -7,10 +7,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.constants.GameConstants;
-import com.megaman.core.GameInputAdapter;
-import com.megaman.core.GameLogic;
-import com.megaman.core.GameState;
-import com.megaman.core.ResourceManager;
 import com.megaman.enums.GameStateType;
 
 public class GDXGame extends Game {
@@ -35,7 +31,7 @@ public class GDXGame extends Game {
 		hideMouseCursor(true);
 
 		// set the initial gamestate
-		setCurrentGameState(GameStateType.getInitialState());
+		setGameState(GameStateType.getInitialState());
 		// check if state was successfully set
 		// if no -> close game
 		if (currentState == null) {
@@ -47,7 +43,13 @@ public class GDXGame extends Game {
 		Gdx.input.setCursorCatched(show);
 	}
 
-	private void setCurrentGameState(GameStateType newState) {
+	public void setGameState(GameStateType newState) {
+		if (currentState != null) {
+			// clean up the resources of the current state
+			currentState.dispose();
+			currentState = null;
+		}
+
 		if (newState != null) {
 			Class<? extends GameState> gameStateClass = newState.getGameStateClass();
 			Class<? extends GameLogic> gameLogicClass = newState.getGameLogicClass();
@@ -55,7 +57,9 @@ public class GDXGame extends Game {
 
 			if (gameStateClass != null) {
 				try {
-					gameState = gameStateClass.getDeclaredConstructor(GDXGame.class, Camera.class, SpriteBatch.class, GameLogic.class.getClass()).newInstance(this, camera, spriteBatch, gameLogicClass);
+					GameLogic logic = gameLogicClass.getDeclaredConstructor(GDXGame.class, Camera.class, SpriteBatch.class).newInstance(this, camera, spriteBatch);
+					gameState = gameStateClass.getDeclaredConstructor(GameLogic.class).newInstance(logic);
+					setGameInput(logic);
 				} catch (IllegalArgumentException e) {
 					Gdx.app.error("SetCurrentGameState", "Illegal arguments", e);
 				} catch (NoSuchMethodException e) {
@@ -69,19 +73,6 @@ public class GDXGame extends Game {
 					setScreen(currentState);
 				}
 			}
-		}
-	}
-
-	public void closeCurrentGameState() {
-		// clean up the resources of the current state
-		currentState.dispose();
-
-		// check if there is new state to be set
-		GameStateType nextState = currentState.getNextState();
-		currentState = null;
-		if (nextState != null) {
-			// set the new state as new current state
-			setCurrentGameState(nextState);
 		} else {
 			// there is no other state to be set -> close the game
 			Gdx.app.exit();
