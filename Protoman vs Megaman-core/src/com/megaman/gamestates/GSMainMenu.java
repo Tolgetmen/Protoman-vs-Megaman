@@ -2,16 +2,15 @@ package com.megaman.gamestates;
 
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameState;
-import com.megaman.core.ResourceManager;
+import com.megaman.core.utils.ResourceManager;
 import com.megaman.enums.AudioType;
+import com.megaman.enums.GameStateType;
 import com.megaman.enums.SkinType;
 import com.megaman.enums.TextureType;
 
 public class GSMainMenu extends GameState {
-
-	public GSMainMenu(GameLogic logic) {
-		super(logic);
-		// TODO Auto-generated constructor stub
+	public GSMainMenu(GameStateType type, GameLogic logic) {
+		super(type, logic);
 	}
 
 	@Override

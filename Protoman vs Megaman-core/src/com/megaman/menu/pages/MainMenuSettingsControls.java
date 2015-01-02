@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
-import com.megaman.core.MenuPage;
+import com.megaman.core.GameMenuPage;
 
-public class MainMenuSettingsControls extends MenuPage {
+public class MainMenuSettingsControls extends GameMenuPage {
 	private final int	OPTION_BACK	= 0;
 
 	public MainMenuSettingsControls(GameMenu gameMenu, GameLogic logic, Skin skin, boolean fill, Drawable background) {

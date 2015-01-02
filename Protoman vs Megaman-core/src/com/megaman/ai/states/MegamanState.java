@@ -4,11 +4,11 @@ import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.MathUtils;
 import com.megaman.constants.GameConstants;
-import com.megaman.enums.BossType;
+import com.megaman.core.utils.SoundManager;
 import com.megaman.enums.AudioType;
+import com.megaman.enums.BossType;
 import com.megaman.enums.MissileType;
 import com.megaman.model.Megaman;
-import com.megaman.utils.GameUtils;
 
 public enum MegamanState implements State<Megaman> {
 	IDLE() {
@@ -29,7 +29,7 @@ public enum MegamanState implements State<Megaman> {
 		@Override
 		public void enter(Megaman megaman) {
 			megaman.getGameLogic().spawnMissile(MissileType.MEGAMAN, megaman.getX() + 21, megaman.getY() + 13);
-			GameUtils.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
+			SoundManager.INSTANCE.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
 			megaman.setAnimation(2);
 			megaman.setFadeOut(true);
 		}
@@ -49,7 +49,7 @@ public enum MegamanState implements State<Megaman> {
 		@Override
 		public void enter(Megaman megaman) {
 			megaman.getGameLogic().spawnMissile(MissileType.MEGAMAN, megaman.getX() + 21, megaman.getY() + 13);
-			GameUtils.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
+			SoundManager.INSTANCE.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
 			megaman.setAnimation(2);
 			megaman.setFadeOut(true);
 

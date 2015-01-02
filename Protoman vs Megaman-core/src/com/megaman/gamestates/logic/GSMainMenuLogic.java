@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GDXGame;
 import com.megaman.core.GameLogic;
+import com.megaman.core.utils.SoundManager;
 import com.megaman.enums.AudioType;
 import com.megaman.enums.GameMenuPageType;
 import com.megaman.enums.GameStateType;
 import com.megaman.menu.MainMenu;
-import com.megaman.utils.GameUtils;
 
 public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 	private MainMenu	mainMenu;
@@ -26,7 +26,7 @@ public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 
 	@Override
 	public void initialize() {
-		GameUtils.playMusic(AudioType.MUSIC_MENU, true);
+		SoundManager.INSTANCE.playMusic(AudioType.MUSIC_MENU, true);
 
 		quitGame = false;
 		mainMenu = new MainMenu(this, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, true, GameMenuPageType.MAIN_MENU_MAIN);
@@ -78,7 +78,7 @@ public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 	public void onCompletion(Music music) {
 		// used for "Quit game" option
 		// wait until protoman music was played to close the game
-		game.setGameState(null);
+		game.setGameState(null, true, true);
 	}
 
 	@Override
@@ -90,13 +90,17 @@ public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 		mainMenu.dispose();
 	}
 
-	public void changeGameState(GameStateType newState) {
+	public void changeGameState(GameStateType newState, boolean resetExisting) {
 		if (newState != null) {
-			game.setGameState(newState);
+			game.setGameState(newState, true, resetExisting);
 		} else {
 			// quit game
-			GameUtils.playMusic(AudioType.MUSIC_MENU_QUIT, false, this);
+			SoundManager.INSTANCE.playMusic(AudioType.MUSIC_MENU_QUIT, false, this);
 			quitGame = true;
 		}
+	}
+
+	public boolean isGameStateGameRunning() {
+		return game.isGameStateAvailable(GameStateType.GAME);
 	}
 }

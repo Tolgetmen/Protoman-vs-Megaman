@@ -1,6 +1,6 @@
 package com.megaman.enums;
 
-import com.megaman.core.MenuPage;
+import com.megaman.core.GameMenuPage;
 import com.megaman.menu.pages.MainMenuMain;
 import com.megaman.menu.pages.MainMenuSettings;
 import com.megaman.menu.pages.MainMenuSettingsAudio;
@@ -14,17 +14,17 @@ public enum GameMenuPageType {
 	MAIN_MENU_SETTINGS_CONTROLS(MainMenuSettingsControls.class, SkinType.SKIN_MAIN_MENU, "background_controls"),
 	MAIN_MENU_SETTINGS_AUDIO(MainMenuSettingsAudio.class, SkinType.SKIN_MAIN_MENU, "background");
 
-	private final Class<? extends MenuPage>	pageClass;
+	private final Class<? extends GameMenuPage>	pageClass;
 	private final SkinType					skinType;
 	private final String					skinBackgroundImage;
 
-	private GameMenuPageType(Class<? extends MenuPage> pageClass, SkinType skinType, String skinBackgroundImage) {
+	private GameMenuPageType(Class<? extends GameMenuPage> pageClass, SkinType skinType, String skinBackgroundImage) {
 		this.pageClass = pageClass;
 		this.skinType = skinType;
 		this.skinBackgroundImage = skinBackgroundImage;
 	}
 
-	public Class<? extends MenuPage> getPageClass() {
+	public Class<? extends GameMenuPage> getPageClass() {
 		return pageClass;
 	}
 

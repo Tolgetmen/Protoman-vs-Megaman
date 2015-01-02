@@ -13,16 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
-import com.megaman.core.MenuPage;
+import com.megaman.core.GameMenuPage;
+import com.megaman.core.utils.GameUtils;
 
-public class MainMenuSettingsVideo extends MenuPage {
+public class MainMenuSettingsVideo extends GameMenuPage {
 	private final int				OPTION_FULLSCREEN		= 0;
 	private final int				OPTION_FULLSCREEN_INFO	= 1;
 	private final int				OPTION_WINDOW_SIZE		= 2;
 	private final int				OPTION_WINDOW_SIZE_INFO	= 3;
 	private final int				OPTION_BACK				= 4;
 
-	private boolean					fullscreen;
 	private Map<Integer, Integer>	availableDisplayModes;
 	private int						currentMode;
 
@@ -32,7 +32,6 @@ public class MainMenuSettingsVideo extends MenuPage {
 
 	@Override
 	public void initialize() {
-		fullscreen = false;
 		currentMode = 800;
 		availableDisplayModes = new TreeMap<Integer, Integer>();
 		DisplayMode[] displayModes = Gdx.graphics.getDisplayModes();
@@ -47,8 +46,8 @@ public class MainMenuSettingsVideo extends MenuPage {
 		}
 
 		addOption("fullscreen", skin.get("default", LabelStyle.class), GameConstants.MENU_OFFSET_TOP, 0, 0, 0);
-		addOption("" + fullscreen, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0, false);
-		addOption("window size", skin.get("default", LabelStyle.class), 0, 0, 0, 0, !fullscreen);
+		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0, false);
+		addOption("window size", skin.get("default", LabelStyle.class), 0, 0, 0, 0, !GameUtils.getCfgFileValue("fullscreen", Boolean.class));
 		addOption("" + currentMode + " x " + availableDisplayModes.get(currentMode), skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0, false);
 		addOption("back", skin.get("default", LabelStyle.class), 0, 0, 0, 0);
 	}
@@ -86,41 +85,53 @@ public class MainMenuSettingsVideo extends MenuPage {
 		return smallestWidth;
 	}
 
+	private void updateVideoConfig(int width, int height, boolean fullscreen) {
+		GameUtils.setCfgFileValue("fullscreen", "" + fullscreen);
+		GameUtils.setCfgFileValue("windowWidth", "" + width);
+		GameUtils.setCfgFileValue("windowHeight", "" + height);
+
+		Gdx.graphics.setDisplayMode(currentMode, availableDisplayModes.get(currentMode), fullscreen);
+
+		options.get(OPTION_WINDOW_SIZE_INFO).setText("" + width + " x " + height);
+		options.get(OPTION_FULLSCREEN_INFO).setText("" + fullscreen);
+		enableOption(OPTION_WINDOW_SIZE, !fullscreen, fullscreen ? skin.get("title_disabled", LabelStyle.class) : skin.get("default", LabelStyle.class));
+	}
+
 	@Override
 	public boolean keyDown(int optionIndex, int keyCode) {
 		switch (optionIndex) {
 			case OPTION_FULLSCREEN: {
 				if (Keys.LEFT == keyCode || Keys.RIGHT == keyCode) {
+					boolean fullscreen = GameUtils.getCfgFileValue("fullscreen", Boolean.class);
 					fullscreen = !fullscreen;
+
+					if (fullscreen) {
+						// set window configuration to primary device
+						DisplayMode desktopDisplayMode = Gdx.graphics.getDesktopDisplayMode();
+						updateVideoConfig(desktopDisplayMode.width, desktopDisplayMode.height, fullscreen);
+					} else {
+						updateVideoConfig(currentMode, availableDisplayModes.get(currentMode), fullscreen);
+						Gdx.graphics.setDisplayMode(currentMode, availableDisplayModes.get(currentMode), fullscreen);
+					}
 				} else if (Keys.ENTER == keyCode) {
 					//return true in this case to not start the selection missile
 					return true;
 				}
-				if (fullscreen) {
-					// set window configuration to primary device
-					DisplayMode desktopDisplayMode = Gdx.graphics.getDesktopDisplayMode();
-					Gdx.graphics.setDisplayMode(desktopDisplayMode.width, desktopDisplayMode.height, fullscreen);
-					options.get(OPTION_WINDOW_SIZE_INFO).setText("" + desktopDisplayMode.width + " x " + desktopDisplayMode.height);
-				} else {
-					Gdx.graphics.setDisplayMode(currentMode, availableDisplayModes.get(currentMode), fullscreen);
-					options.get(OPTION_WINDOW_SIZE_INFO).setText("" + currentMode + " x " + availableDisplayModes.get(currentMode));
-				}
-				options.get(OPTION_FULLSCREEN_INFO).setText("" + fullscreen);
-				enableOption(OPTION_WINDOW_SIZE, !fullscreen, fullscreen ? skin.get("title_disabled", LabelStyle.class) : skin.get("default", LabelStyle.class));
+
 				break;
 			}
 			case OPTION_WINDOW_SIZE: {
 				if (isOptionEnabled(OPTION_WINDOW_SIZE)) {
 					if (Keys.LEFT == keyCode) {
 						currentMode = getPreviousModeKey(currentMode);
+						updateVideoConfig(currentMode, availableDisplayModes.get(currentMode), GameUtils.getCfgFileValue("fullscreen", Boolean.class));
 					} else if (Keys.RIGHT == keyCode) {
 						currentMode = getNextModeKey(currentMode);
+						updateVideoConfig(currentMode, availableDisplayModes.get(currentMode), GameUtils.getCfgFileValue("fullscreen", Boolean.class));
 					} else if (Keys.ENTER == keyCode) {
 						//return true in this case to not start the selection missile
 						return true;
 					}
-					Gdx.graphics.setDisplayMode(currentMode, availableDisplayModes.get(currentMode), fullscreen);
-					options.get(OPTION_WINDOW_SIZE_INFO).setText("" + currentMode + " x " + availableDisplayModes.get(currentMode));
 				}
 				break;
 			}

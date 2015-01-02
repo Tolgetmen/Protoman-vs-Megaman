@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
-import com.megaman.core.ResourceManager;
 import com.megaman.core.graphics.AnimatedSprite;
+import com.megaman.core.utils.ResourceManager;
+import com.megaman.core.utils.SoundManager;
 import com.megaman.enums.AudioType;
 import com.megaman.enums.GameMenuPageType;
 import com.megaman.enums.TextureType;
-import com.megaman.utils.GameUtils;
 
 public class MainMenu extends GameMenu {
 	private AnimatedSprite	megaman;
@@ -46,13 +46,13 @@ public class MainMenu extends GameMenu {
 	@Override
 	public void increaseSelection() {
 		super.increaseSelection();
-		GameUtils.playSound(AudioType.SOUND_MENU_MOVE);
+		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_MOVE);
 	}
 
 	@Override
 	public void decreaseSelection() {
 		super.decreaseSelection();
-		GameUtils.playSound(AudioType.SOUND_MENU_MOVE);
+		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_MOVE);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class MainMenu extends GameMenu {
 		missile.setFrameIndex(0, 0);
 		megaman.setFrameIndex(2, 0);
 		missileX = getCurrentOption().getX() - megaman.getWidth() - 30;
-		GameUtils.playSound(AudioType.SOUND_MENU_SELECT_SHOOT);
+		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_SELECT_SHOOT);
 	}
 
 	public void update(float deltaTime) {

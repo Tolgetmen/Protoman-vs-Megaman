@@ -45,8 +45,12 @@
 <node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420040330235" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1420151385913" ID="ID_85691639" MODIFIED="1420151404558" TEXT="konfigurationen vom hauptmen&#xfc; in cfg datei abspeichern und entsprechend laden bei spielstart"/>
+<node CREATED="1420151385913" ID="ID_85691639" MODIFIED="1420188720259" TEXT="konfigurationen vom hauptmen&#xfc; in cfg datei abspeichern und entsprechend laden bei spielstart">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1419842129212" ID="ID_869470759" MODIFIED="1419889324582" TEXT="F&#xfc;nf GameStates einf&#xfc;gen">
+<node CREATED="1419889331525" ID="ID_1430151275" MODIFIED="1420191479938" TEXT="Game Over"/>
+<node CREATED="1419889335362" ID="ID_685054708" MODIFIED="1420191479939" TEXT="Highscore"/>
 <node CREATED="1419842145730" FOLDED="true" ID="ID_1413027856" MODIFIED="1420151364001" TEXT="Hauptmen&#xfc;">
 <icon BUILTIN="button_ok"/>
 <node CREATED="1419935348595" ID="ID_1024485679" MODIFIED="1419935352540" TEXT="resume game"/>
@@ -71,9 +75,9 @@
 <node CREATED="1419842149276" ID="ID_678395994" MODIFIED="1420137527931" TEXT="Spiel">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1419889326868" ID="ID_1702368906" MODIFIED="1419889329618" TEXT="Pause"/>
-<node CREATED="1419889331525" ID="ID_1430151275" MODIFIED="1419889333847" TEXT="Game Over"/>
-<node CREATED="1419889335362" ID="ID_685054708" MODIFIED="1419889337714" TEXT="Highscore"/>
+<node CREATED="1419889326868" ID="ID_1702368906" MODIFIED="1420191466199" TEXT="Pause">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1419889246751" ID="ID_1144299163" MODIFIED="1420032250998" TEXT="tutorial im wiki anschauen f&#xfc;r erweiterungen von &quot;a simple game&quot;">
 <icon BUILTIN="button_ok"/>
 </node>
@@ -84,6 +88,19 @@
 <node CREATED="1420020955608" ID="ID_991042120" MODIFIED="1420151425262" TEXT="internationalisierung ">
 <node CREATED="1420020962076" ID="ID_1837786978" MODIFIED="1420020972811" TEXT="name attribute f&#xfc;r gameobjects benutzen"/>
 <node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420130545688" TEXT="und men&#xfc;punkte"/>
+</node>
+<node CREATED="1420191499953" ID="ID_1838735578" MODIFIED="1420191507187" TEXT="spielelogik um&#xe4;ndern">
+<node CREATED="1420191510398" ID="ID_19310888" MODIFIED="1420191519255" TEXT="megaman schie&#xdf;t zu beginn 5x"/>
+<node CREATED="1420191521200" ID="ID_1170755219" MODIFIED="1420191530144" TEXT="dann wechselt er in zustand call boss">
+<node CREATED="1420191531331" ID="ID_810287915" MODIFIED="1420191657899" TEXT="dort wird alle 3 runden ein boss zus&#xe4;tzlich gespawned"/>
+<node CREATED="1420191603822" ID="ID_1644524510" MODIFIED="1420191680903" TEXT="wenn boss wechselt -&gt; &#xe4;ndere musik auf bossmusik"/>
+<node CREATED="1420192023669" ID="ID_1353227832" MODIFIED="1420192034543" TEXT="boss wechselt nach 9 sch&#xfc;ssen"/>
+</node>
+<node CREATED="1420191687893" ID="ID_1096057471" MODIFIED="1420191699387" TEXT="megaman wird alle 5 sch&#xfc;sse schneller">
+<node CREATED="1420191702959" ID="ID_36852352" MODIFIED="1420192012522" TEXT="start bei 1.95 sekunden"/>
+<node CREATED="1420191823940" ID="ID_1902458511" MODIFIED="1420191871004" TEXT="pro intervall -0.1 sekunden"/>
+<node CREATED="1420191872870" ID="ID_1337727024" MODIFIED="1420191951188" TEXT="megaman verschie&#xdf;t insgesamt 60 sch&#xfc;sse"/>
+</node>
 </node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1419935568614" TEXT="Finalisierungen">

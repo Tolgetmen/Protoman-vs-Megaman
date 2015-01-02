@@ -18,10 +18,12 @@ import com.badlogic.gdx.utils.Pool;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GDXGame;
 import com.megaman.core.GameLogic;
-import com.megaman.core.ResourceManager;
 import com.megaman.core.graphics.AnimatedSprite;
 import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.core.model.GameObject;
+import com.megaman.core.utils.GameUtils;
+import com.megaman.core.utils.ResourceManager;
+import com.megaman.core.utils.SoundManager;
 import com.megaman.enums.AudioType;
 import com.megaman.enums.BossType;
 import com.megaman.enums.GameStateType;
@@ -31,7 +33,6 @@ import com.megaman.model.Boss;
 import com.megaman.model.Megaman;
 import com.megaman.model.Missile;
 import com.megaman.model.Protoman;
-import com.megaman.utils.GameUtils;
 
 public class GSGameLogic extends GameLogic {
 	private Array<GameObject>				gameObjects;
@@ -49,13 +50,21 @@ public class GSGameLogic extends GameLogic {
 	private Megaman							megaman;
 	private Protoman						protoman;
 
+	private AudioType						currentMusic;
+	private float							lastMusicPosition;
+
 	public GSGameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
 		super(game, camera, spriteBatch);
 	}
 
+	private void playMusic(AudioType type) {
+		currentMusic = type;
+		SoundManager.INSTANCE.playMusic(currentMusic, true);
+	}
+
 	@Override
 	public void initialize() {
-		GameUtils.playMusic(AudioType.MUSIC_PROTOMAN, true);
+		playMusic(AudioType.MUSIC_PROTOMAN);
 
 		gameObjects = new Array<GameObject>();
 		animatedCharacters = new HashMap<GameObject, AnimatedSprite>();
@@ -122,11 +131,11 @@ public class GSGameLogic extends GameLogic {
 
 				switch (missile.getType()) {
 					case MEGAMAN: {
-						GameUtils.playSound(AudioType.SOUND_BLOCK);
+						SoundManager.INSTANCE.playSound(AudioType.SOUND_BLOCK);
 						break;
 					}
 					default: {
-						GameUtils.playMusic(missile.getType().getMusic(), true);
+						playMusic(missile.getType().getMusic());
 						break;
 					}
 				}
@@ -184,7 +193,7 @@ public class GSGameLogic extends GameLogic {
 		activeMissiles.add(missile);
 		animatedMissiles.put(missile, sprMissile);
 
-		GameUtils.playSound(type.getSound());
+		SoundManager.INSTANCE.playSound(type.getSound());
 	}
 
 	public void spawnBoss(BossType type, float spawnX, float spawnY) {
@@ -215,7 +224,7 @@ public class GSGameLogic extends GameLogic {
 			}
 			case Keys.ESCAPE: {
 				// switch to state menu
-				game.setGameState(GameStateType.MAIN_MENU);
+				game.setGameState(GameStateType.MAIN_MENU, false, true);
 				break;
 			}
 		}
@@ -279,5 +288,16 @@ public class GSGameLogic extends GameLogic {
 	@Override
 	public void dispose() {
 
+	}
+
+	@Override
+	public void pause() {
+		lastMusicPosition = SoundManager.INSTANCE.stopCurrentMusic();
+	}
+
+	@Override
+	public void resume() {
+		SoundManager.INSTANCE.playMusic(currentMusic, true);
+		SoundManager.INSTANCE.setMusicPosition(lastMusicPosition);
 	}
 }

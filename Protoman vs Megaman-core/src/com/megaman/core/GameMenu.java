@@ -9,11 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.megaman.core.utils.ResourceManager;
 import com.megaman.enums.GameMenuPageType;
 
 public abstract class GameMenu {
 	private Stage			stage;
-	private Stack<MenuPage>	menuPages;
+	private Stack<GameMenuPage>	menuPages;
 	protected GameLogic		logic;
 
 	private Array<Label>	currentOptions;
@@ -22,7 +23,7 @@ public abstract class GameMenu {
 	private boolean			stretch;
 
 	public GameMenu(GameLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
-		menuPages = new Stack<MenuPage>();
+		menuPages = new Stack<GameMenuPage>();
 		stage = new Stage(new StretchViewport(menuWidth, menuHeight));
 		this.logic = logic;
 		this.stretch = stretch;
@@ -60,7 +61,7 @@ public abstract class GameMenu {
 		} while (!menuPages.peek().isOptionEnabled(currentOptionIndex));
 	}
 
-	private void setActiveMenuPage(MenuPage page) {
+	private void setActiveMenuPage(GameMenuPage page) {
 		stage.addActor(page.getTable());
 		currentOptions = page.getOptions();
 		currentOptionIndex = page.getInitialOptionIndex();

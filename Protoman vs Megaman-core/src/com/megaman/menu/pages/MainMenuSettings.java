@@ -6,10 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
-import com.megaman.core.MenuPage;
+import com.megaman.core.GameMenuPage;
 import com.megaman.enums.GameMenuPageType;
 
-public class MainMenuSettings extends MenuPage {
+public class MainMenuSettings extends GameMenuPage {
 	private final int	OPTION_VIDEO	= 0;
 	private final int	OPTION_AUDIO	= 1;
 	private final int	OPTION_CONTROLS	= 2;

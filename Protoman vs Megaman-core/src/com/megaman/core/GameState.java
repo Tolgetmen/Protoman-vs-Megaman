@@ -1,28 +1,39 @@
 package com.megaman.core;
 
 import com.badlogic.gdx.Screen;
+import com.megaman.enums.GameStateType;
 
 public abstract class GameState implements Screen {
 	// each state has its own logic class to process events,etc.
 	protected final GameLogic	logic;
+	private final GameStateType	type;
 
-	public GameState(GameLogic logic) {
+	public GameState(GameStateType type, GameLogic logic) {
 		super();
+		this.type = type;
 		this.logic = logic;
+	}
+
+	public GameStateType getType() {
+		return type;
 	}
 
 	@Override
 	public void show() {
 		loadResources();
-		logic.initialize();
+		if (!logic.initialized) {
+			logic.initialize();
+			logic.initialized = true;
+		} else {
+			logic.resume();
+		}
 	}
 
 	protected abstract void loadResources();
 
 	@Override
 	public void hide() {
-		logic.dispose();
-		disposeResources();
+		logic.pause();
 	}
 
 	protected abstract void disposeResources();
@@ -50,6 +61,7 @@ public abstract class GameState implements Screen {
 
 	@Override
 	public void dispose() {
-		// ignore those calls since we call it automatically when "hide" is called
+		logic.dispose();
+		disposeResources();
 	}
 }

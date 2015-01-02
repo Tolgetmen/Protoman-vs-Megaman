@@ -6,12 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
-import com.megaman.core.MenuPage;
+import com.megaman.core.GameMenuPage;
 import com.megaman.enums.GameMenuPageType;
 import com.megaman.enums.GameStateType;
 import com.megaman.gamestates.logic.GSMainMenuLogic;
 
-public class MainMenuMain extends MenuPage {
+public class MainMenuMain extends GameMenuPage {
 	private final int	OPTION_RESUME	= 0;
 	private final int	OPTION_NEW		= 1;
 	private final int	OPTION_SETTINGS	= 2;
@@ -23,7 +23,11 @@ public class MainMenuMain extends MenuPage {
 
 	@Override
 	public void initialize() {
-		addOption("resume game", skin.get("title_disabled", LabelStyle.class), GameConstants.MENU_OFFSET_TOP, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0, false);
+		GSMainMenuLogic menuLogic = (GSMainMenuLogic) logic;
+
+		boolean isGameRunning = menuLogic.isGameStateGameRunning();
+
+		addOption("resume game", isGameRunning ? skin.get("default", LabelStyle.class) : skin.get("title_disabled", LabelStyle.class), GameConstants.MENU_OFFSET_TOP, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0, isGameRunning);
 		addOption("new game", skin.get("default", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
 		addOption("settings", skin.get("default", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
 		addOption("exit game", skin.get("default", LabelStyle.class), 0, 0, GameConstants.MENU_OFFSET_BOTTOM, 0);
@@ -35,10 +39,11 @@ public class MainMenuMain extends MenuPage {
 
 		switch (optionIndex) {
 			case OPTION_RESUME: {
+				menuLogic.changeGameState(GameStateType.GAME, false);
 				break;
 			}
 			case OPTION_NEW: {
-				menuLogic.changeGameState(GameStateType.GAME);
+				menuLogic.changeGameState(GameStateType.GAME, true);
 				break;
 			}
 			case OPTION_SETTINGS: {
@@ -46,7 +51,7 @@ public class MainMenuMain extends MenuPage {
 				break;
 			}
 			case OPTION_EXIT: {
-				menuLogic.changeGameState(null);
+				menuLogic.changeGameState(null, true);
 				break;
 			}
 		}
