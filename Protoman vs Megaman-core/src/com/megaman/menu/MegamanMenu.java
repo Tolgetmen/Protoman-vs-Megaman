@@ -7,26 +7,26 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
+import com.megaman.core.enums.GameMenuPageType;
+import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.graphics.AnimatedSprite;
 import com.megaman.core.utils.ResourceManager;
 import com.megaman.core.utils.SoundManager;
-import com.megaman.enums.AudioType;
-import com.megaman.enums.GameMenuPageType;
-import com.megaman.enums.TextureType;
 
-public class MainMenu extends GameMenu {
-	private AnimatedSprite	megaman;
-	private AnimatedSprite	protoman;
-	private AnimatedSprite	missile;
+public class MegamanMenu extends GameMenu {
+	protected AnimatedSprite	megaman;
+	protected AnimatedSprite	protoman;
+	protected AnimatedSprite	missile;
 
-	private float			missileX;
-	private float			missileSpeed;
-	private float			currentMissileFrameX;
-	private float			missileFPS;
+	protected float				missileX;
+	private float				missileSpeed;
+	private float				currentMissileFrameX;
+	private float				missileFPS;
 
-	private boolean			disableControls;
+	private boolean				disableControls;
 
-	public MainMenu(GameLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
+	public MegamanMenu(GameLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
 		super(logic, menuWidth, menuHeight, stretch, startPage);
 
 		megaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_MENU_MEGAMAN);
@@ -46,13 +46,13 @@ public class MainMenu extends GameMenu {
 	@Override
 	public void increaseSelection() {
 		super.increaseSelection();
-		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_MOVE);
+		SoundManager.INSTANCE.playSound(SoundType.MENU_MOVE);
 	}
 
 	@Override
 	public void decreaseSelection() {
 		super.decreaseSelection();
-		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_MOVE);
+		SoundManager.INSTANCE.playSound(SoundType.MENU_MOVE);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class MainMenu extends GameMenu {
 		missile.setFrameIndex(0, 0);
 		megaman.setFrameIndex(2, 0);
 		missileX = getCurrentOption().getX() - megaman.getWidth() - 30;
-		SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_SELECT_SHOOT);
+		SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 	}
 
 	public void update(float deltaTime) {

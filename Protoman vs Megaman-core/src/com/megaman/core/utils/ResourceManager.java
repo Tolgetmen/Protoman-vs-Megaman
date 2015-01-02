@@ -9,10 +9,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.enums.SkinType;
+import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.graphics.AnimatedSprite;
-import com.megaman.enums.AudioType;
-import com.megaman.enums.SkinType;
-import com.megaman.enums.TextureType;
 
 public enum ResourceManager {
 	INSTANCE;
@@ -21,16 +22,16 @@ public enum ResourceManager {
 	private Map<SkinType, Skin>									skinMap;
 	private Map<TextureAtlas, Map<TextureType, AtlasRegion>>	atlasRegionMap;
 	private Map<TextureType, AnimatedSprite>					spriteMap;
-	private Map<AudioType, Sound>								soundMap;
-	private Map<AudioType, Music>								musicMap;
+	private Map<SoundType, Sound>								soundMap;
+	private Map<MusicType, Music>								musicMap;
 
 	private ResourceManager() {
 		skinMap = new HashMap<SkinType, Skin>();
 		textureAtlasMap = new HashMap<String, TextureAtlas>();
 		atlasRegionMap = new HashMap<TextureAtlas, Map<TextureType, AtlasRegion>>();
 		spriteMap = new HashMap<TextureType, AnimatedSprite>();
-		soundMap = new HashMap<AudioType, Sound>();
-		musicMap = new HashMap<AudioType, Music>();
+		soundMap = new HashMap<SoundType, Sound>();
+		musicMap = new HashMap<MusicType, Music>();
 	}
 
 	public void loadTextureAtlas(String internalAtlasName) {
@@ -105,14 +106,14 @@ public enum ResourceManager {
 		}
 	}
 
-	public void loadSound(AudioType sound) {
-		if (!sound.isMusic() && soundMap != null && !soundMap.containsKey(sound)) {
+	public void loadSound(SoundType sound) {
+		if (soundMap != null && !soundMap.containsKey(sound)) {
 			soundMap.put(sound, Gdx.audio.newSound(Gdx.files.internal(sound.getFilePath())));
 		}
 	}
 
-	public Sound getSound(AudioType sound) {
-		if (!sound.isMusic() && soundMap != null && soundMap.containsKey(sound)) {
+	public Sound getSound(SoundType sound) {
+		if (soundMap != null && soundMap.containsKey(sound)) {
 			return soundMap.get(sound);
 		} else {
 			Gdx.app.log("getSound", "Sound was not successfully loaded yet: " + sound.getFilePath());
@@ -120,21 +121,21 @@ public enum ResourceManager {
 		}
 	}
 
-	public void disposeSound(AudioType sound) {
-		if (!sound.isMusic() && soundMap != null && soundMap.containsKey(sound)) {
+	public void disposeSound(SoundType sound) {
+		if (soundMap != null && soundMap.containsKey(sound)) {
 			soundMap.get(sound).dispose();
 			soundMap.remove(sound);
 		}
 	}
 
-	public void loadMusic(AudioType music) {
-		if (music.isMusic() && musicMap != null && !musicMap.containsKey(music)) {
+	public void loadMusic(MusicType music) {
+		if (musicMap != null && !musicMap.containsKey(music)) {
 			musicMap.put(music, Gdx.audio.newMusic(Gdx.files.internal(music.getFilePath())));
 		}
 	}
 
-	public Music getMusic(AudioType music) {
-		if (music.isMusic() && musicMap != null && musicMap.containsKey(music)) {
+	public Music getMusic(MusicType music) {
+		if (musicMap != null && musicMap.containsKey(music)) {
 			return musicMap.get(music);
 		} else {
 			Gdx.app.log("getMusic", "Music was not successfully loaded yet: " + music.getFilePath());
@@ -142,8 +143,8 @@ public enum ResourceManager {
 		}
 	}
 
-	public void disposeMusic(AudioType music) {
-		if (music.isMusic() && musicMap != null && musicMap.containsKey(music)) {
+	public void disposeMusic(MusicType music) {
+		if (musicMap != null && musicMap.containsKey(music)) {
 			musicMap.get(music).dispose();
 			musicMap.remove(music);
 		}

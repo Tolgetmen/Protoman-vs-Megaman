@@ -16,7 +16,8 @@ public final class GameConstants {
 	public static final int		MENU_OFFSET_BOTTOM				= 0;
 	public static final int		MENU_PADDING_BETWEEN_OPTIONS	= 50;
 
-	public static final int		PROTOMAN_SPEED					= 530;
+	public static final int		PROTOMAN_SPEED					= 550;
+	public static final int		MAX_LIFE						= 20;
 
 	private GameConstants() {
 

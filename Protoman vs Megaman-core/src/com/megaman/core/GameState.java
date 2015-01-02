@@ -1,21 +1,17 @@
 package com.megaman.core;
 
 import com.badlogic.gdx.Screen;
-import com.megaman.enums.GameStateType;
+import com.megaman.core.enums.GameStateType;
 
 public abstract class GameState implements Screen {
 	// each state has its own logic class to process events,etc.
-	protected final GameLogic	logic;
-	private final GameStateType	type;
+	protected final GameLogic		logic;
+	protected final GameStateType	type;
 
 	public GameState(GameStateType type, GameLogic logic) {
 		super();
 		this.type = type;
 		this.logic = logic;
-	}
-
-	public GameStateType getType() {
-		return type;
 	}
 
 	@Override

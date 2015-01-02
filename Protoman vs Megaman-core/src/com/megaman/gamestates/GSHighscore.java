@@ -9,8 +9,8 @@ import com.megaman.core.enums.SoundType;
 import com.megaman.core.enums.TextureType;
 import com.megaman.core.utils.ResourceManager;
 
-public class GSMainMenu extends GameState {
-	public GSMainMenu(GameStateType type, GameLogic logic) {
+public class GSHighscore extends GameState {
+	public GSHighscore(GameStateType type, GameLogic logic) {
 		super(type, logic);
 	}
 
@@ -25,18 +25,8 @@ public class GSMainMenu extends GameState {
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MENU_MISSLE);
 
 		// load music
-		ResourceManager.INSTANCE.loadMusic(MusicType.MENU);
-		ResourceManager.INSTANCE.loadMusic(MusicType.GEMINIMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.HARDMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.MAGNETMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.NEEDLEMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.PROTOMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.SHADOWMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.SNAKEMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.SPARKMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.TOPMAN);
-		ResourceManager.INSTANCE.loadMusic(MusicType.WILY_STAGE);
 		ResourceManager.INSTANCE.loadMusic(MusicType.MENU_QUIT);
+		ResourceManager.INSTANCE.loadMusic(MusicType.WILY_STAGE);
 
 		// load sounds
 		ResourceManager.INSTANCE.loadSound(SoundType.MENU_MOVE);
@@ -50,17 +40,7 @@ public class GSMainMenu extends GameState {
 		ResourceManager.INSTANCE.disposeSkin(SkinType.SKIN_MAIN_MENU);
 
 		// dispose music
-		ResourceManager.INSTANCE.disposeMusic(MusicType.MENU);
 		ResourceManager.INSTANCE.disposeMusic(MusicType.MENU_QUIT);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.GEMINIMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.HARDMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.MAGNETMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.NEEDLEMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.PROTOMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.SHADOWMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.SNAKEMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.SPARKMAN);
-		ResourceManager.INSTANCE.disposeMusic(MusicType.TOPMAN);
 		ResourceManager.INSTANCE.disposeMusic(MusicType.WILY_STAGE);
 
 		// dispose sounds

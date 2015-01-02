@@ -9,18 +9,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.megaman.core.enums.GameMenuPageType;
 import com.megaman.core.utils.ResourceManager;
-import com.megaman.enums.GameMenuPageType;
 
 public abstract class GameMenu {
-	private Stage			stage;
+	private Stage				stage;
 	private Stack<GameMenuPage>	menuPages;
-	protected GameLogic		logic;
+	protected GameLogic			logic;
 
-	private Array<Label>	currentOptions;
-	private int				currentOptionIndex;
+	private Array<Label>		currentOptions;
+	private int					currentOptionIndex;
 
-	private boolean			stretch;
+	private boolean				stretch;
 
 	public GameMenu(GameLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
 		menuPages = new Stack<GameMenuPage>();
@@ -62,7 +62,7 @@ public abstract class GameMenu {
 	}
 
 	private void setActiveMenuPage(GameMenuPage page) {
-		stage.addActor(page.getTable());
+		stage.addActor(page.table);
 		currentOptions = page.getOptions();
 		currentOptionIndex = page.getInitialOptionIndex();
 	}
@@ -71,7 +71,7 @@ public abstract class GameMenu {
 		if (pageType != null) {
 			try {
 				if (menuPages.size() > 0) {
-					menuPages.peek().getTable().remove();
+					menuPages.peek().table.remove();
 				}
 				Skin skin = ResourceManager.INSTANCE.getSkin(pageType.getSkinType());
 				menuPages.add(pageType.getPageClass().getDeclaredConstructor(GameMenu.class, GameLogic.class, Skin.class, boolean.class, Drawable.class).newInstance(this, logic, skin, stretch, skin.getDrawable(pageType.getSkinBackgroundImage())));
@@ -85,7 +85,7 @@ public abstract class GameMenu {
 			}
 		} else {
 			// switch to previous page
-			menuPages.pop().getTable().remove();
+			menuPages.pop().table.remove();
 			if (menuPages.size() > 0) {
 				setActiveMenuPage(menuPages.peek());
 			}

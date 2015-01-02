@@ -1,18 +1,21 @@
-package com.megaman.enums;
+package com.megaman.core.enums;
 
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameState;
 import com.megaman.gamestates.GSGame;
+import com.megaman.gamestates.GSGameOver;
+import com.megaman.gamestates.GSHighscore;
 import com.megaman.gamestates.GSMainMenu;
 import com.megaman.gamestates.logic.GSGameLogic;
+import com.megaman.gamestates.logic.GSGameOverLogic;
+import com.megaman.gamestates.logic.GSHighscoreLogic;
 import com.megaman.gamestates.logic.GSMainMenuLogic;
 
 public enum GameStateType {
 	MAIN_MENU(GSMainMenu.class, GSMainMenuLogic.class, true),
 	GAME(GSGame.class, GSGameLogic.class, false),
-	PAUSE(null, null, false),
-	GAME_OVER(null, null, false),
-	HIGHSCORE(null, null, false);
+	GAME_OVER(GSGameOver.class, GSGameOverLogic.class, false),
+	HIGHSCORE(GSHighscore.class, GSHighscoreLogic.class, false);
 
 	private final Class<? extends GameState>	gameStateClass;
 	private final Class<? extends GameLogic>	gameLogicClass;

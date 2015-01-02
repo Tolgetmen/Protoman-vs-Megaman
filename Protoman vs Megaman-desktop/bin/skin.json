@@ -9,6 +9,11 @@
 		"8bit_20": 
 		{
 			"file": "fonts/8bit_20.fnt"
+		},
+
+		"8bit_25": 
+		{
+			"file": "fonts/8bit_25.fnt"
 		}
 	},
 
@@ -65,6 +70,12 @@
 		{
 			"font": "8bit_20",
 			"fontColor": "red"
+		},
+
+		"highscore": 
+		{
+			"font": "8bit_25",
+			"fontColor": "white"
 		}
 	},
 

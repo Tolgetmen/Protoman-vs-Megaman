@@ -1,4 +1,4 @@
-package com.megaman.enums;
+package com.megaman.core.enums;
 
 import com.megaman.constants.GameConstants;
 

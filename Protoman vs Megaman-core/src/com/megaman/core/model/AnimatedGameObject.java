@@ -34,6 +34,7 @@ public abstract class AnimatedGameObject extends GameObject {
 
 	@Override
 	public void update(float deltaTime) {
+		super.update(deltaTime);
 		if ((numRows > 1 || numColumns > 1) && animationsPerSecond > 0 && !isAnimationStopped) {
 			currentAnimationTime += deltaTime;
 			if (currentAnimationTime < 0)
@@ -112,6 +113,8 @@ public abstract class AnimatedGameObject extends GameObject {
 	}
 
 	public void setLoopAnimations(int startAnimation, int endAnimation) {
+		isAnimationStopped = false;
+
 		int newAnimationStartRow = startAnimation / numColumns;
 		int newAnimationStartColumn = startAnimation % numColumns;
 

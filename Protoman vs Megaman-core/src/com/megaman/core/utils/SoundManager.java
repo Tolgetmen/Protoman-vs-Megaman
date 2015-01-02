@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
-import com.megaman.enums.AudioType;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.enums.SoundType;
 
 public enum SoundManager {
 	INSTANCE;
@@ -34,7 +35,7 @@ public enum SoundManager {
 		}
 	}
 
-	public void playSound(AudioType sound) {
+	public void playSound(SoundType sound) {
 		Sound snd = ResourceManager.INSTANCE.getSound(sound);
 		snd.setVolume(snd.play(), soundVolume / 100.0f);
 	}
@@ -55,7 +56,7 @@ public enum SoundManager {
 		}
 	}
 
-	public void playMusic(AudioType music, boolean loop, OnCompletionListener onCompleteListener) {
+	public void playMusic(MusicType music, boolean loop, OnCompletionListener onCompleteListener) {
 		Music msc = ResourceManager.INSTANCE.getMusic(music);
 
 		if (currentMusic != null) {
@@ -74,7 +75,7 @@ public enum SoundManager {
 		}
 	}
 
-	public void playMusic(AudioType music, boolean loop) {
+	public void playMusic(MusicType music, boolean loop) {
 		playMusic(music, loop, null);
 	}
 

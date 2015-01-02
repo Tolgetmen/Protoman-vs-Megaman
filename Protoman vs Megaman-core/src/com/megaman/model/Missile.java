@@ -2,7 +2,6 @@ package com.megaman.model;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.megaman.constants.GameConstants;
 import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.enums.MissileType;
 import com.megaman.gamestates.logic.GSGameLogic;
@@ -50,9 +49,6 @@ public class Missile extends AnimatedGameObject implements Poolable {
 		super.update(deltaTime);
 
 		position.add(speedX * deltaTime, speedY * deltaTime);
-
-		if (position.x > GameConstants.GAME_WIDTH)
-			isAlive = false;
 	}
 
 	public void kill() {

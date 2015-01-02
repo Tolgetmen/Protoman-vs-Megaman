@@ -8,19 +8,20 @@ import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
 import com.megaman.core.GameMenuPage;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.enums.SoundType;
 import com.megaman.core.utils.SoundManager;
-import com.megaman.enums.AudioType;
 
 public class MainMenuSettingsAudio extends GameMenuPage {
 	private final int	OPTION_MUSIC			= 0;
-	private final int	OPTION_MUSIC_INFO		= 1;
+	private final int	OPTION_INFO				= 1;
 	private final int	OPTION_SOUND			= 2;
 	private final int	OPTION_SOUND_INFO		= 3;
 	private final int	OPTION_JUKEBOX			= 4;
 	private final int	OPTION_JUKEBOX_TITLE	= 5;
 	private final int	OPTION_BACK				= 6;
 
-	private AudioType[]	jukeBoxMusic;
+	private MusicType[]	jukeBoxMusic;
 	private int			currentJukeboxTitle;
 
 	public MainMenuSettingsAudio(GameMenu gameMenu, GameLogic logic, Skin skin, boolean fill, Drawable background) {
@@ -30,8 +31,7 @@ public class MainMenuSettingsAudio extends GameMenuPage {
 	@Override
 	public void initialize() {
 		currentJukeboxTitle = 0;
-		jukeBoxMusic = new AudioType[] { AudioType.MUSIC_MENU, AudioType.MUSIC_GEMINIMAN, AudioType.MUSIC_HARDMAN, AudioType.MUSIC_MAGNETMAN, AudioType.MUSIC_NEEDLEMAN, AudioType.MUSIC_PROTOMAN, AudioType.MUSIC_SHADOWMAN, AudioType.MUSIC_SNAKEMAN, AudioType.MUSIC_SPARKMAN, AudioType.MUSIC_TOPMAN,
-				AudioType.MUSIC_WILY_STAGE };
+		jukeBoxMusic = new MusicType[] { MusicType.MENU, MusicType.GEMINIMAN, MusicType.HARDMAN, MusicType.MAGNETMAN, MusicType.NEEDLEMAN, MusicType.PROTOMAN, MusicType.SHADOWMAN, MusicType.SNAKEMAN, MusicType.SPARKMAN, MusicType.TOPMAN, MusicType.WILY_STAGE };
 
 		addOption("music", skin.get("default", LabelStyle.class), GameConstants.MENU_OFFSET_TOP, 0, 0, 0);
 		addOption("" + SoundManager.INSTANCE.getMusicVolume(), skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0, false);
@@ -54,16 +54,16 @@ public class MainMenuSettingsAudio extends GameMenuPage {
 					//return true in this case to not start the selection missile
 					return true;
 				}
-				options.get(OPTION_MUSIC_INFO).setText("" + SoundManager.INSTANCE.getMusicVolume());
+				options.get(OPTION_INFO).setText("" + SoundManager.INSTANCE.getMusicVolume());
 				break;
 			}
 			case OPTION_SOUND: {
 				if (Keys.LEFT == keyCode) {
 					SoundManager.INSTANCE.setSoundVolume(SoundManager.INSTANCE.getSoundVolume() - 5);
-					SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_SELECT_SHOOT);
+					SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 				} else if (Keys.RIGHT == keyCode) {
 					SoundManager.INSTANCE.setSoundVolume(SoundManager.INSTANCE.getSoundVolume() + 5);
-					SoundManager.INSTANCE.playSound(AudioType.SOUND_MENU_SELECT_SHOOT);
+					SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 				} else if (Keys.ENTER == keyCode) {
 					//return true in this case to not start the selection missile
 					return true;

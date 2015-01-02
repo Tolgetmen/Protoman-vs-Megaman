@@ -11,6 +11,7 @@ public abstract class GameLogic extends GameInputAdapter {
 	// each state holds a reference to the camera of the game
 	protected final Camera		camera;
 	protected boolean			initialized;
+	protected Object			data;
 
 	public GameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
 		super();

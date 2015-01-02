@@ -45,62 +45,9 @@
 <node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420040330235" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1420151385913" ID="ID_85691639" MODIFIED="1420188720259" TEXT="konfigurationen vom hauptmen&#xfc; in cfg datei abspeichern und entsprechend laden bei spielstart">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1419842129212" ID="ID_869470759" MODIFIED="1419889324582" TEXT="F&#xfc;nf GameStates einf&#xfc;gen">
-<node CREATED="1419889331525" ID="ID_1430151275" MODIFIED="1420191479938" TEXT="Game Over"/>
-<node CREATED="1419889335362" ID="ID_685054708" MODIFIED="1420191479939" TEXT="Highscore"/>
-<node CREATED="1419842145730" FOLDED="true" ID="ID_1413027856" MODIFIED="1420151364001" TEXT="Hauptmen&#xfc;">
-<icon BUILTIN="button_ok"/>
-<node CREATED="1419935348595" ID="ID_1024485679" MODIFIED="1419935352540" TEXT="resume game"/>
-<node CREATED="1419935353848" ID="ID_1234271383" MODIFIED="1419935358005" TEXT="new game"/>
-<node CREATED="1419935359582" ID="ID_1080852838" MODIFIED="1419935362366" TEXT="settings">
-<node CREATED="1419935471900" ID="ID_1068332442" MODIFIED="1419935473771" TEXT="video">
-<node CREATED="1419935475100" ID="ID_1310101357" MODIFIED="1419935480315" TEXT="fullscreen y/n"/>
-<node CREATED="1419935484060" ID="ID_491648371" MODIFIED="1419935488295" TEXT="windowsize"/>
-</node>
-<node CREATED="1419935368731" ID="ID_1211149118" MODIFIED="1419935372325" TEXT="controller settings">
-<node CREATED="1419935373420" ID="ID_357430666" MODIFIED="1419935376796" TEXT="tastatur + controller"/>
-</node>
-<node CREATED="1419935380186" ID="ID_286785633" MODIFIED="1419935382244" TEXT="audio settings">
-<node CREATED="1419935383549" ID="ID_1033422370" MODIFIED="1419935386300" TEXT="volume music"/>
-<node CREATED="1419935387430" ID="ID_1320736589" MODIFIED="1419935389854" TEXT="volume sound"/>
-<node CREATED="1419935393981" ID="ID_1620540920" MODIFIED="1419935404064" TEXT="juke box f&#xfc;r alle musiktitel"/>
-</node>
-</node>
-<node CREATED="1419935363794" ID="ID_624567701" MODIFIED="1419935365407" TEXT="quit game"/>
-<node CREATED="1420032263879" ID="ID_222502451" MODIFIED="1420032268605" TEXT="scene 2d libgdx wiki"/>
-</node>
-<node CREATED="1419842149276" ID="ID_678395994" MODIFIED="1420137527931" TEXT="Spiel">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1419889326868" ID="ID_1702368906" MODIFIED="1420191466199" TEXT="Pause">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1419889246751" ID="ID_1144299163" MODIFIED="1420032250998" TEXT="tutorial im wiki anschauen f&#xfc;r erweiterungen von &quot;a simple game&quot;">
-<icon BUILTIN="button_ok"/>
-</node>
-</node>
-<node CREATED="1420130573814" ID="ID_290885679" MODIFIED="1420151417242" TEXT="fade zu animatedgameobj hinzuf&#xfc;gen">
-<node CREATED="1420130582174" ID="ID_699438795" MODIFIED="1420130600770" TEXT="methode fade(targettransparency,time)"/>
-</node>
 <node CREATED="1420020955608" ID="ID_991042120" MODIFIED="1420151425262" TEXT="internationalisierung ">
 <node CREATED="1420020962076" ID="ID_1837786978" MODIFIED="1420020972811" TEXT="name attribute f&#xfc;r gameobjects benutzen"/>
 <node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420130545688" TEXT="und men&#xfc;punkte"/>
-</node>
-<node CREATED="1420191499953" ID="ID_1838735578" MODIFIED="1420191507187" TEXT="spielelogik um&#xe4;ndern">
-<node CREATED="1420191510398" ID="ID_19310888" MODIFIED="1420191519255" TEXT="megaman schie&#xdf;t zu beginn 5x"/>
-<node CREATED="1420191521200" ID="ID_1170755219" MODIFIED="1420191530144" TEXT="dann wechselt er in zustand call boss">
-<node CREATED="1420191531331" ID="ID_810287915" MODIFIED="1420191657899" TEXT="dort wird alle 3 runden ein boss zus&#xe4;tzlich gespawned"/>
-<node CREATED="1420191603822" ID="ID_1644524510" MODIFIED="1420191680903" TEXT="wenn boss wechselt -&gt; &#xe4;ndere musik auf bossmusik"/>
-<node CREATED="1420192023669" ID="ID_1353227832" MODIFIED="1420192034543" TEXT="boss wechselt nach 9 sch&#xfc;ssen"/>
-</node>
-<node CREATED="1420191687893" ID="ID_1096057471" MODIFIED="1420191699387" TEXT="megaman wird alle 5 sch&#xfc;sse schneller">
-<node CREATED="1420191702959" ID="ID_36852352" MODIFIED="1420192012522" TEXT="start bei 1.95 sekunden"/>
-<node CREATED="1420191823940" ID="ID_1902458511" MODIFIED="1420191871004" TEXT="pro intervall -0.1 sekunden"/>
-<node CREATED="1420191872870" ID="ID_1337727024" MODIFIED="1420191951188" TEXT="megaman verschie&#xdf;t insgesamt 60 sch&#xfc;sse"/>
-</node>
 </node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1419935568614" TEXT="Finalisierungen">
@@ -108,7 +55,8 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1419935468246" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung"/>
-<node CREATED="1419935503819" ID="ID_1496544748" MODIFIED="1419935512565" TEXT="metools als statemachine integrieren">
+<node CREATED="1419935503819" FOLDED="true" ID="ID_1496544748" MODIFIED="1420223316758" TEXT="metools als statemachine integrieren">
+<icon BUILTIN="button_ok"/>
 <node CREATED="1419935513053" ID="ID_320241651" MODIFIED="1419935514316" TEXT="IDLE">
 <node CREATED="1419935516087" ID="ID_654793222" MODIFIED="1419935528447" TEXT="schaut zuf&#xe4;llig aus seinem helm hervor alle X sekunden"/>
 </node>
@@ -294,6 +242,66 @@
 <node CREATED="1420130683216" ID="ID_108760482" MODIFIED="1420130716998" TEXT="getOptions"/>
 <node CREATED="1420130907551" ID="ID_32941337" MODIFIED="1420130970232" TEXT="processSelection(int index)"/>
 </node>
+</node>
+</node>
+<node CREATED="1420151385913" ID="ID_85691639" MODIFIED="1420194099819" TEXT="konfigurationen vom hauptmen&#xfc; in cfg datei abspeichern und entsprechend laden bei spielstart">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420130573814" FOLDED="true" ID="ID_290885679" MODIFIED="1420195171994" TEXT="fade zu animatedgameobj hinzuf&#xfc;gen">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420130582174" ID="ID_699438795" MODIFIED="1420130600770" TEXT="methode fade(targettransparency,time)"/>
+</node>
+<node CREATED="1420191499953" FOLDED="true" ID="ID_1838735578" MODIFIED="1420197004522" TEXT="spielelogik um&#xe4;ndern">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420191510398" ID="ID_19310888" MODIFIED="1420191519255" TEXT="megaman schie&#xdf;t zu beginn 5x"/>
+<node CREATED="1420191521200" ID="ID_1170755219" MODIFIED="1420191530144" TEXT="dann wechselt er in zustand call boss">
+<node CREATED="1420191531331" ID="ID_810287915" MODIFIED="1420191657899" TEXT="dort wird alle 3 runden ein boss zus&#xe4;tzlich gespawned"/>
+<node CREATED="1420191603822" ID="ID_1644524510" MODIFIED="1420191680903" TEXT="wenn boss wechselt -&gt; &#xe4;ndere musik auf bossmusik"/>
+<node CREATED="1420192023669" ID="ID_1353227832" MODIFIED="1420192034543" TEXT="boss wechselt nach 9 sch&#xfc;ssen"/>
+</node>
+<node CREATED="1420191687893" ID="ID_1096057471" MODIFIED="1420191699387" TEXT="megaman wird alle 5 sch&#xfc;sse schneller">
+<node CREATED="1420191702959" ID="ID_36852352" MODIFIED="1420192012522" TEXT="start bei 1.95 sekunden"/>
+<node CREATED="1420191823940" ID="ID_1902458511" MODIFIED="1420191871004" TEXT="pro intervall -0.1 sekunden"/>
+<node CREATED="1420191872870" ID="ID_1337727024" MODIFIED="1420191951188" TEXT="megaman verschie&#xdf;t insgesamt 60 sch&#xfc;sse"/>
+</node>
+</node>
+<node CREATED="1419842129212" FOLDED="true" ID="ID_869470759" MODIFIED="1420209299508" TEXT="F&#xfc;nf GameStates einf&#xfc;gen">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1419889331525" ID="ID_1430151275" MODIFIED="1420209293845" TEXT="Game Over">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1419889335362" ID="ID_685054708" MODIFIED="1420209293846" TEXT="Highscore">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1419842145730" FOLDED="true" ID="ID_1413027856" MODIFIED="1420151364001" TEXT="Hauptmen&#xfc;">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1419935348595" ID="ID_1024485679" MODIFIED="1419935352540" TEXT="resume game"/>
+<node CREATED="1419935353848" ID="ID_1234271383" MODIFIED="1419935358005" TEXT="new game"/>
+<node CREATED="1419935359582" ID="ID_1080852838" MODIFIED="1419935362366" TEXT="settings">
+<node CREATED="1419935471900" ID="ID_1068332442" MODIFIED="1419935473771" TEXT="video">
+<node CREATED="1419935475100" ID="ID_1310101357" MODIFIED="1419935480315" TEXT="fullscreen y/n"/>
+<node CREATED="1419935484060" ID="ID_491648371" MODIFIED="1419935488295" TEXT="windowsize"/>
+</node>
+<node CREATED="1419935368731" ID="ID_1211149118" MODIFIED="1419935372325" TEXT="controller settings">
+<node CREATED="1419935373420" ID="ID_357430666" MODIFIED="1419935376796" TEXT="tastatur + controller"/>
+</node>
+<node CREATED="1419935380186" ID="ID_286785633" MODIFIED="1419935382244" TEXT="audio settings">
+<node CREATED="1419935383549" ID="ID_1033422370" MODIFIED="1419935386300" TEXT="volume music"/>
+<node CREATED="1419935387430" ID="ID_1320736589" MODIFIED="1419935389854" TEXT="volume sound"/>
+<node CREATED="1419935393981" ID="ID_1620540920" MODIFIED="1419935404064" TEXT="juke box f&#xfc;r alle musiktitel"/>
+</node>
+</node>
+<node CREATED="1419935363794" ID="ID_624567701" MODIFIED="1419935365407" TEXT="quit game"/>
+<node CREATED="1420032263879" ID="ID_222502451" MODIFIED="1420032268605" TEXT="scene 2d libgdx wiki"/>
+</node>
+<node CREATED="1419842149276" ID="ID_678395994" MODIFIED="1420137527931" TEXT="Spiel">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1419889326868" ID="ID_1702368906" MODIFIED="1420191466199" TEXT="Pause">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1419889246751" ID="ID_1144299163" MODIFIED="1420032250998" TEXT="tutorial im wiki anschauen f&#xfc;r erweiterungen von &quot;a simple game&quot;">
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 </node>

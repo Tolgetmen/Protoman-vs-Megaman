@@ -30,10 +30,6 @@ public abstract class GameMenuPage {
 		initialize();
 	}
 
-	public Table getTable() {
-		return table;
-	}
-
 	public void addOption(String label, LabelStyle style, int padTop, int padRight, int padBottom, int padLeft, boolean enabled) {
 		Label lbl = new Label(label, style);
 		options.add(lbl);

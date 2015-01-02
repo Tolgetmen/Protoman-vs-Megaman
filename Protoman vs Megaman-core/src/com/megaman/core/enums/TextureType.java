@@ -1,4 +1,4 @@
-package com.megaman.enums;
+package com.megaman.core.enums;
 
 import com.megaman.constants.GameConstants;
 
@@ -13,6 +13,9 @@ public enum TextureType {
 	TEXTURE_CHARACTER_TOPMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/topman.png", "characters/topman", 6, 1),
 	TEXTURE_CHARACTER_GEMINIMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/geminiman.png", "characters/geminiman", 6, 1),
 	TEXTURE_CHARACTER_MAGNETMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/magnetman.png", "characters/magnetman", 6, 1),
+	TEXTURE_CHARACTER_METTOOL(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/mettool.png", "characters/mettool", 5, 1),
+
+	TEXTURE_EFFECT_HIT(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/hit_effect.png", "characters/hit_effect", 3, 1),
 
 	TEXTURE_MISSILE_MEGAMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/missiles/megaman_missile.png", "missiles/megaman_missile", 1, 1),
 	TEXTURE_MISSILE_SPARKMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/missiles/sparkman_missile.png", "missiles/sparkman_missile", 4, 1),

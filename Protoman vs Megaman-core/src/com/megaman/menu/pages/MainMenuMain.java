@@ -7,8 +7,8 @@ import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
 import com.megaman.core.GameMenuPage;
-import com.megaman.enums.GameMenuPageType;
-import com.megaman.enums.GameStateType;
+import com.megaman.core.enums.GameMenuPageType;
+import com.megaman.core.enums.GameStateType;
 import com.megaman.gamestates.logic.GSMainMenuLogic;
 
 public class MainMenuMain extends GameMenuPage {

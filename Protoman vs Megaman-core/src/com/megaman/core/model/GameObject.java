@@ -11,6 +11,11 @@ public abstract class GameObject {
 	protected float				height;
 	private float				transparency;
 	protected Rectangle			bounds;
+	private boolean				flipX;
+	private boolean				flipY;
+
+	private float				transparencyGainPerSecond;
+	private float				targetTransparency;
 	protected final GSGameLogic	gameLogic;
 
 	public GameObject(GSGameLogic gameLogic) {
@@ -18,7 +23,17 @@ public abstract class GameObject {
 		this.gameLogic = gameLogic;
 	}
 
-	public abstract void update(float deltaTime);
+	public void update(float deltaTime) {
+		float currentTransparency = getTransparency();
+		if (currentTransparency != targetTransparency) {
+			currentTransparency += (transparencyGainPerSecond * deltaTime);
+			if ((transparencyGainPerSecond < 0 && currentTransparency < targetTransparency) || (transparencyGainPerSecond > 0 && currentTransparency > targetTransparency)) {
+				currentTransparency = targetTransparency;
+			}
+
+			setTransparency(currentTransparency);
+		}
+	}
 
 	public float getX() {
 		return position.x;
@@ -91,7 +106,26 @@ public abstract class GameObject {
 		this.transparency = transparency;
 	}
 
-	public GSGameLogic getGameLogic() {
-		return gameLogic;
+	public void flip(boolean flipX, boolean flipY) {
+		this.flipX = flipX;
+		this.flipY = flipY;
+	}
+
+	public boolean isFlipX() {
+		return flipX;
+	}
+
+	public boolean isFlipY() {
+		return flipY;
+	}
+
+	public void fadeTo(float targetTransparency, float time) {
+		float currentTransparency = getTransparency();
+		float difference = targetTransparency - currentTransparency;
+
+		if (difference != 0) {
+			this.targetTransparency = targetTransparency;
+			transparencyGainPerSecond = difference / time;
+		}
 	}
 }

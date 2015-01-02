@@ -16,36 +16,35 @@ import com.megaman.core.enums.MusicType;
 import com.megaman.core.utils.SoundManager;
 import com.megaman.menu.MegamanMenu;
 
-public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
-	private MegamanMenu	mainMenu;
+public class GSGameOverLogic extends GameLogic implements OnCompletionListener {
+	private MegamanMenu	menu;
 	private boolean		quitGame;
 
-	public GSMainMenuLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
+	public GSGameOverLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
 		super(game, camera, spriteBatch);
 	}
 
 	@Override
 	public void initialize() {
-		SoundManager.INSTANCE.playMusic(MusicType.MENU, true);
+		SoundManager.INSTANCE.playMusic(MusicType.PROTOMAN, true);
 
-		quitGame = false;
-		mainMenu = new MegamanMenu(this, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, true, GameMenuPageType.MAIN_MENU_MAIN);
+		menu = new MegamanMenu(this, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, true, GameMenuPageType.GAME_OVER);
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		mainMenu.update(deltaTime);
+		menu.update(deltaTime);
 	}
 
 	@Override
 	public void render() {
-		mainMenu.render(spriteBatch, camera);
+		menu.render(spriteBatch, camera);
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
 		if (!quitGame) {
-			mainMenu.keyDown(keycode);
+			menu.keyDown(keycode);
 		}
 
 		return true;
@@ -87,7 +86,7 @@ public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 
 	@Override
 	public void dispose() {
-		mainMenu.dispose();
+		menu.dispose();
 	}
 
 	public void changeGameState(GameStateType newState, boolean resetExisting) {
@@ -98,9 +97,5 @@ public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
 			SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
 			quitGame = true;
 		}
-	}
-
-	public boolean isGameStateGameRunning() {
-		return game.isGameStateAvailable(GameStateType.GAME);
 	}
 }

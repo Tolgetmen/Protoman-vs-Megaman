@@ -12,27 +12,30 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.megaman.ai.states.MettoolState;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GDXGame;
 import com.megaman.core.GameLogic;
+import com.megaman.core.enums.GameStateType;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.graphics.AnimatedSprite;
 import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.core.model.GameObject;
 import com.megaman.core.utils.GameUtils;
 import com.megaman.core.utils.ResourceManager;
 import com.megaman.core.utils.SoundManager;
-import com.megaman.enums.AudioType;
 import com.megaman.enums.BossType;
-import com.megaman.enums.GameStateType;
 import com.megaman.enums.MissileType;
-import com.megaman.enums.TextureType;
 import com.megaman.model.Boss;
 import com.megaman.model.Megaman;
+import com.megaman.model.Mettool;
 import com.megaman.model.Missile;
 import com.megaman.model.Protoman;
+import com.megaman.model.SpecialFX;
 
 public class GSGameLogic extends GameLogic {
 	private Array<GameObject>				gameObjects;
@@ -46,25 +49,32 @@ public class GSGameLogic extends GameLogic {
 	private Pool<Missile>					poolMissiles;
 	private Array<Boss>						activeBosses;
 	private Pool<Boss>						poolBosses;
+	private Array<Mettool>					mettools;
+	private Array<SpecialFX>				activeEffects;
+	private Pool<SpecialFX>					poolEffects;
 
 	private Megaman							megaman;
 	private Protoman						protoman;
 
-	private AudioType						currentMusic;
+	private int								life;
+	private int								blockedNormal;
+	private int								blockedBoss;
+
+	private MusicType						currentMusic;
 	private float							lastMusicPosition;
 
 	public GSGameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
 		super(game, camera, spriteBatch);
 	}
 
-	private void playMusic(AudioType type) {
+	private void playMusic(MusicType type) {
 		currentMusic = type;
 		SoundManager.INSTANCE.playMusic(currentMusic, true);
 	}
 
 	@Override
 	public void initialize() {
-		playMusic(AudioType.MUSIC_PROTOMAN);
+		playMusic(MusicType.PROTOMAN);
 
 		gameObjects = new Array<GameObject>();
 		animatedCharacters = new HashMap<GameObject, AnimatedSprite>();
@@ -83,26 +93,71 @@ public class GSGameLogic extends GameLogic {
 				return new Boss(GSGameLogic.this);
 			}
 		};
+		activeEffects = new Array<SpecialFX>();
+		poolEffects = new Pool<SpecialFX>() {
+			@Override
+			protected SpecialFX newObject() {
+				return new SpecialFX(GSGameLogic.this);
+			}
+		};
 
 		final AnimatedSprite sprMegaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_MEGAMAN);
 		final AnimatedSprite sprProtoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_PROTOMAN);
+		final AnimatedSprite sprMettool = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_METTOOL);
 
 		megaman = new Megaman(this, 3, 1, 10);
-		megaman.setLoopAnimations(0, 1);
+		megaman.setAnimation(0);
 		megaman.setPosition(0, GameConstants.GAME_HEIGHT / 2 - 16);
 		megaman.setSize(sprMegaman.getWidth(), sprMegaman.getHeight());
 		gameObjects.add(megaman);
 		animatedCharacters.put(megaman, sprMegaman);
 
 		protoman = new Protoman(this, 2, 1, 10);
-		protoman.setPosition(GameConstants.GAME_WIDTH - 80, GameConstants.GAME_HEIGHT / 2 - 16);
+		protoman.setPosition(GameConstants.GAME_WIDTH - 90, GameConstants.GAME_HEIGHT / 2 - 16);
 		protoman.setSize(sprProtoman.getWidth(), sprProtoman.getHeight());
 		gameObjects.add(protoman);
 		animatedCharacters.put(protoman, sprProtoman);
+
+		life = GameConstants.MAX_LIFE;
+		blockedNormal = 0;
+		blockedBoss = 0;
+
+		mettools = new Array<Mettool>();
+		for (int i = 0; i < life; ++i) {
+			Mettool mettool = new Mettool(this, TextureType.TEXTURE_CHARACTER_METTOOL.getNumColumns(), TextureType.TEXTURE_CHARACTER_METTOOL.getNumRows(), 3);
+			mettool.setAnimation(0);
+			if (i < 10) {
+				mettool.setPosition(GameConstants.GAME_WIDTH - 32, 160 + 32 * i);
+			} else {
+				mettool.setPosition(GameConstants.GAME_WIDTH - 64, 160 + 32 * (i - 10));
+			}
+			mettool.setSize(40, 40);
+			mettool.flip(true, false);
+			mettools.add(mettool);
+			animatedCharacters.put(mettool, sprMettool);
+		}
 	}
 
 	@Override
 	public void update(float deltaTime) {
+		// check for end condition
+		if (megaman.getRemainingShots() <= 0 && activeMissiles.size == 0 && life > 0) {
+			// survived ! -> show highscore
+			Map<String, Integer> highscore = new HashMap<String, Integer>();
+			highscore.put("blocked", blockedNormal + blockedBoss);
+			highscore.put("blocked_normal", blockedNormal);
+			highscore.put("blocked_boss", blockedBoss);
+			highscore.put("leaked", GameConstants.MAX_LIFE - life);
+			highscore.put("life", life);
+			highscore.put("points", (life * 1000) + (blockedBoss * 300) + (blockedNormal * 100));
+			game.setGameState(GameStateType.HIGHSCORE, true, true, highscore);
+			return;
+		} else if (life <= 0) {
+			// game over
+			game.setGameState(GameStateType.GAME_OVER, true, true);
+			return;
+		}
+
 		Iterator<GameObject> iterGameObj = gameObjects.iterator();
 		while (iterGameObj.hasNext()) {
 			GameObject gameObj = iterGameObj.next();
@@ -121,31 +176,68 @@ public class GSGameLogic extends GameLogic {
 			}
 		}
 
+		Iterator<SpecialFX> iterEffects = activeEffects.iterator();
+		while (iterEffects.hasNext()) {
+			SpecialFX effect = iterEffects.next();
+
+			effect.update(deltaTime);
+			if (!effect.isAlive()) {
+				poolEffects.free(effect);
+				animatedCharacters.remove(effect);
+				iterEffects.remove();
+			}
+		}
+
 		Iterator<Missile> iterMissiles = activeMissiles.iterator();
 		while (iterMissiles.hasNext()) {
 			Missile missile = iterMissiles.next();
 			missile.update(deltaTime);
 
-			if (missile.isAlive() && Intersector.overlaps(protoman.getBoundingRectangle(), missile.getBoundingRectangle())) {
+			if (missile.isAlive() && GameUtils.intersects(protoman, missile)) {
 				missile.kill();
-
-				switch (missile.getType()) {
-					case MEGAMAN: {
-						SoundManager.INSTANCE.playSound(AudioType.SOUND_BLOCK);
-						break;
+				SoundManager.INSTANCE.playSound(SoundType.BLOCK);
+				if (MissileType.MEGAMAN.equals(missile.getType())) {
+					++blockedNormal;
+				} else {
+					++blockedBoss;
+				}
+			} else if (missile.isAlive() && missile.getX() > GameConstants.GAME_WIDTH) {
+				missile.kill();
+				if (MissileType.MEGAMAN.equals(missile.getType())) {
+					--life;
+					if (mettools.size > life) {
+						mettools.get(life).changeState(MettoolState.FLEE);
+						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
 					}
-					default: {
-						playMusic(missile.getType().getMusic());
-						break;
+				} else {
+					--life;
+					if (mettools.size > life) {
+						mettools.get(life).changeState(MettoolState.FLEE);
+						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
+					}
+					--life;
+					if (mettools.size > life) {
+						mettools.get(life).changeState(MettoolState.FLEE);
+						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
 					}
 				}
-
 			}
 
 			if (!missile.isAlive()) {
 				poolMissiles.free(missile);
 				animatedMissiles.remove(missile);
 				iterMissiles.remove();
+			}
+		}
+
+		Iterator<Mettool> iterMettool = mettools.iterator();
+		while (iterMettool.hasNext()) {
+			Mettool mettool = iterMettool.next();
+			mettool.update(deltaTime);
+			if (!GameUtils.isWithinCameraView(camera, mettool)) {
+				// mettool left game area -> remove it
+				animatedCharacters.remove(mettool);
+				iterMettool.remove();
 			}
 		}
 	}
@@ -156,6 +248,7 @@ public class GSGameLogic extends GameLogic {
 			AnimatedSprite sprite = entry.getValue();
 
 			if (GameUtils.isWithinCameraView(camera, gameObj)) {
+				sprite.flip(gameObj.isFlipX(), gameObj.isFlipY());
 				if (gameObj instanceof AnimatedGameObject) {
 					AnimatedGameObject aniGameObj = (AnimatedGameObject) gameObj;
 					sprite.setFrameIndex(aniGameObj.getCurrentColumn(), aniGameObj.getCurrentRow());
@@ -183,6 +276,14 @@ public class GSGameLogic extends GameLogic {
 		renderSprites(animatedCharacters);
 		renderSprites(animatedMissiles);
 		spriteBatch.end();
+	}
+
+	public void createSpecialFX(float startX, float startY) {
+		SpecialFX effect = poolEffects.obtain();
+		effect.initialize(startX, startY, 42, 42, 3, 1, 3);
+		activeEffects.add(effect);
+		animatedCharacters.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_EFFECT_HIT));
+		SoundManager.INSTANCE.playSound(SoundType.HIT);
 	}
 
 	public void spawnMissile(MissileType type, float startX, float startY) {

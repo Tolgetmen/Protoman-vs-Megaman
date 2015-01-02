@@ -5,22 +5,28 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.MathUtils;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.utils.SoundManager;
-import com.megaman.enums.AudioType;
 import com.megaman.enums.BossType;
-import com.megaman.enums.MissileType;
 import com.megaman.model.Megaman;
 
 public enum MegamanState implements State<Megaman> {
 	IDLE() {
 		@Override
 		public void update(Megaman megaman) {
-			if (megaman.getIdleTime() > 1.0f) {
-				if (MathUtils.random(9) < 8) {
+			// remove fadeout time from check
+			if (megaman.getRemainingShots() > 0 && megaman.getIdleTime() >= (megaman.getShotFrequency() - 0.5f)) {
+				//				if (MathUtils.random(9) < 8) {
+				if (megaman.getRemainingShots() > 72) {
 					megaman.changeState(ATTACK);
 				} else {
-					// 20% chance to call a boss
 					megaman.changeState(CALL_BOSS);
 				}
+				//				} else {
+				//					// 20% chance to call a boss
+				//					megaman.changeState(CALL_BOSS);
+				//				}
+			} else {
+				// set megaman to sleep
+				megaman.setAnimation(0);
 			}
 		}
 	},
@@ -28,18 +34,16 @@ public enum MegamanState implements State<Megaman> {
 	ATTACK() {
 		@Override
 		public void enter(Megaman megaman) {
-			megaman.getGameLogic().spawnMissile(MissileType.MEGAMAN, megaman.getX() + 21, megaman.getY() + 13);
-			SoundManager.INSTANCE.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
-			megaman.setAnimation(2);
-			megaman.setFadeOut(true);
+			megaman.shoot();
 		}
 
 		@Override
 		public void update(Megaman megaman) {
+			// if fade out completed
 			if (megaman.getIdleTime() > 0.5f) {
 				megaman.setY(MathUtils.random(0, GameConstants.GAME_HEIGHT - 33));
 				megaman.setAnimation(1);
-				megaman.setFadeOut(false);
+				megaman.fadeTo(0, 0.75f);
 				megaman.changeState(IDLE);
 			}
 		}
@@ -48,12 +52,19 @@ public enum MegamanState implements State<Megaman> {
 	CALL_BOSS() {
 		@Override
 		public void enter(Megaman megaman) {
-			megaman.getGameLogic().spawnMissile(MissileType.MEGAMAN, megaman.getX() + 21, megaman.getY() + 13);
-			SoundManager.INSTANCE.playSound(AudioType.SOUND_SHOOT_MEGAMAN);
-			megaman.setAnimation(2);
-			megaman.setFadeOut(true);
+			megaman.shoot();
+			if (megaman.getShotCounter() == 0) {
+				megaman.setBossIndex(megaman.getBossIndex() + 1);
+				if (megaman.getBossIndex() < BossType.values().length) {
+					SoundManager.INSTANCE.playMusic(BossType.values()[megaman.getBossIndex()].getMusic(), true);
+				}
+			}
 
-			megaman.getGameLogic().spawnBoss(BossType.values()[MathUtils.random(BossType.values().length - 1)], megaman.getX(), MathUtils.random(0, GameConstants.GAME_HEIGHT - 42));
+			if (megaman.getShotCounter() % 3 == 0 && megaman.getBossIndex() < BossType.values().length) {
+				megaman.callBoss(BossType.values()[megaman.getBossIndex()]);
+			}
+
+			megaman.incShotCounter();
 		}
 
 		@Override
@@ -61,7 +72,7 @@ public enum MegamanState implements State<Megaman> {
 			if (megaman.getIdleTime() > 0.5f) {
 				megaman.setY(MathUtils.random(0, GameConstants.GAME_HEIGHT - 33));
 				megaman.setAnimation(1);
-				megaman.setFadeOut(false);
+				megaman.fadeTo(0, 0.75f);
 				megaman.changeState(IDLE);
 			}
 		}

@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.constants.GameConstants;
+import com.megaman.core.enums.GameStateType;
 import com.megaman.core.utils.ResourceManager;
-import com.megaman.enums.GameStateType;
 
 public class GDXGame extends Game {
 	private Stack<GameState>	currentState;
@@ -48,7 +48,7 @@ public class GDXGame extends Game {
 		Gdx.input.setCursorCatched(show);
 	}
 
-	public void setGameState(GameStateType newState, boolean disposeCurrent, boolean resetExisting) {
+	public void setGameState(GameStateType newState, boolean disposeCurrent, boolean resetExisting, Object data) {
 		if (currentState.size() > 0 && disposeCurrent) {
 			// clean up the resources of the current state
 			currentState.pop().dispose();
@@ -62,7 +62,7 @@ public class GDXGame extends Game {
 			Iterator<GameState> iterator = currentState.iterator();
 			while (iterator.hasNext()) {
 				GameState gs = iterator.next();
-				if (gs.getType() == newState) {
+				if (gs.type == newState) {
 					iterator.remove();
 					gameState = gs;
 					if (resetExisting) {
@@ -92,6 +92,7 @@ public class GDXGame extends Game {
 
 			if (gameState != null) {
 				currentState.push(gameState);
+				gameState.logic.data = data;
 				setScreen(gameState);
 				setGameInput(gameState.logic);
 			}
@@ -99,6 +100,10 @@ public class GDXGame extends Game {
 			// there is no other state to be set -> close the game
 			Gdx.app.exit();
 		}
+	}
+
+	public void setGameState(GameStateType newState, boolean disposeCurrent, boolean resetExisting) {
+		setGameState(newState, disposeCurrent, resetExisting, null);
 	}
 
 	public void setGameInput(GameInputAdapter gameInputAdapter) {
@@ -135,7 +140,7 @@ public class GDXGame extends Game {
 
 	public boolean isGameStateAvailable(GameStateType game) {
 		for (GameState gs : currentState) {
-			if (gs.getType().equals(game)) {
+			if (gs.type.equals(game)) {
 				return true;
 			}
 		}

@@ -1,27 +1,28 @@
 package com.megaman.enums;
 
+import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
+
 public enum MissileType {
-	MEGAMAN(TextureType.TEXTURE_MISSILE_MEGAMAN, AudioType.SOUND_SHOOT_MEGAMAN, null, 150, 0, false),
-	SPARKMAN(TextureType.TEXTURE_MISSILE_SPARKMAN, AudioType.SOUND_SHOOT_SPARKMAN, AudioType.MUSIC_SPARKMAN, 330, 8, false),
-	SHADOWMAN(TextureType.TEXTURE_MISSILE_SHADOWMAN, AudioType.SOUND_SHOOT_SHADOWMAN, AudioType.MUSIC_SHADOWMAN, 330, 12, true),
-	SNAKEMAN(TextureType.TEXTURE_MISSILE_SNAKEMAN, AudioType.SOUND_SHOOT_SNAKEMAN, AudioType.MUSIC_SNAKEMAN, 330, 12, true),
-	NEEDLEMAN(TextureType.TEXTURE_MISSILE_NEEDLEMAN, AudioType.SOUND_SHOOT_NEEDLEMAN, AudioType.MUSIC_NEEDLEMAN, 330, 0, false),
-	HARDMAN(TextureType.TEXTURE_MISSILE_HARDMAN, AudioType.SOUND_SHOOT_HARDMAN, AudioType.MUSIC_HARDMAN, 330, 0, false),
-	TOPMAN(TextureType.TEXTURE_MISSILE_TOPMAN, AudioType.SOUND_SHOOT_TOPMAN, AudioType.MUSIC_TOPMAN, 330, 12, true),
-	GEMINIMAN(TextureType.TEXTURE_MISSILE_GEMINIMAN, AudioType.SOUND_SHOOT_GEMINIMAN, AudioType.MUSIC_GEMINIMAN, 330, 8, false),
-	MAGNETMAN(TextureType.TEXTURE_MISSILE_MAGNETMAN, AudioType.SOUND_SHOOT_MAGNETMAN, AudioType.MUSIC_MAGNETMAN, 330, 0, false);
+	MEGAMAN(TextureType.TEXTURE_MISSILE_MEGAMAN, SoundType.SHOOT_MEGAMAN, 150, 0, false),
+	SPARKMAN(TextureType.TEXTURE_MISSILE_SPARKMAN, SoundType.SHOOT_SPARKMAN, 180, 8, false),
+	SNAKEMAN(TextureType.TEXTURE_MISSILE_SNAKEMAN, SoundType.SHOOT_SNAKEMAN, 210, 12, true),
+	NEEDLEMAN(TextureType.TEXTURE_MISSILE_NEEDLEMAN, SoundType.SHOOT_NEEDLEMAN, 240, 0, false),
+	HARDMAN(TextureType.TEXTURE_MISSILE_HARDMAN, SoundType.SHOOT_HARDMAN, 270, 0, false),
+	TOPMAN(TextureType.TEXTURE_MISSILE_TOPMAN, SoundType.SHOOT_TOPMAN, 300, 12, true),
+	GEMINIMAN(TextureType.TEXTURE_MISSILE_GEMINIMAN, SoundType.SHOOT_GEMINIMAN, 330, 8, false),
+	MAGNETMAN(TextureType.TEXTURE_MISSILE_MAGNETMAN, SoundType.SHOOT_MAGNETMAN, 360, 0, false),
+	SHADOWMAN(TextureType.TEXTURE_MISSILE_SHADOWMAN, SoundType.SHOOT_SHADOWMAN, 390, 12, true);
 
 	private final TextureType	graphic;
-	private final AudioType		sound;
-	private final AudioType		music;
+	private final SoundType		sound;
 	private final int			speed;
 	private final int			animationsPerSecond;
 	private final boolean		loopAnimation;
 
-	private MissileType(TextureType graphic, AudioType sound, AudioType music, int speed, int animationsPerSecond, boolean loopAnimation) {
+	private MissileType(TextureType graphic, SoundType sound, int speed, int animationsPerSecond, boolean loopAnimation) {
 		this.graphic = graphic;
 		this.sound = sound;
-		this.music = music;
 		this.speed = speed;
 		this.animationsPerSecond = animationsPerSecond;
 		this.loopAnimation = loopAnimation;
@@ -31,12 +32,8 @@ public enum MissileType {
 		return graphic;
 	}
 
-	public AudioType getSound() {
+	public SoundType getSound() {
 		return sound;
-	}
-
-	public AudioType getMusic() {
-		return music;
 	}
 
 	public int getSpeed() {

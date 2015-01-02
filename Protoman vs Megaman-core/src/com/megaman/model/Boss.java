@@ -6,7 +6,6 @@ import com.megaman.enums.BossType;
 import com.megaman.gamestates.logic.GSGameLogic;
 
 public class Boss extends AnimatedGameObject implements Poolable {
-	private boolean		fadeOut;
 	private boolean		shoot;
 	private BossType	bossType;
 	private boolean		isAlive;
@@ -28,20 +27,11 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		setLoopAnimations(0, type.getGraphic().getNumColumns() * type.getGraphic().getNumRows() - 1);
 		loopAnimation(false);
 		startAnimation();
+		fadeTo(0, 0.75f);
 	}
 
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-
-		if (!fadeOut) {
-			// fade in over 0.75 seconds
-			float transparency = Math.max(getTransparency() - (1.0f / 0.75f) * deltaTime, 0.0f);
-			setTransparency(transparency);
-		} else if (fadeOut) {
-			// fade out over 0.5 seconds
-			float transparency = Math.min(getTransparency() + (1.0f / 0.5f) * deltaTime, 1.0f);
-			setTransparency(transparency);
-		}
 
 		if (getTransparency() == 0.0f) {
 			// ready for attack
@@ -51,7 +41,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		if (shoot && getCurrentAnimation() == 5) {
 			shoot = false;
 			stopAnimation();
-			fadeOut = true;
+			fadeTo(1, 0.5f);
 			gameLogic.spawnMissile(bossType.getMissileType(), position.x + 16, position.y + 12);
 		}
 
@@ -62,7 +52,6 @@ public class Boss extends AnimatedGameObject implements Poolable {
 
 	@Override
 	public void reset() {
-		fadeOut = false;
 		shoot = true;
 		bossType = null;
 		isAlive = false;

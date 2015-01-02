@@ -3,10 +3,11 @@ package com.megaman.gamestates;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameState;
+import com.megaman.core.enums.GameStateType;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.utils.ResourceManager;
-import com.megaman.enums.AudioType;
-import com.megaman.enums.GameStateType;
-import com.megaman.enums.TextureType;
 
 public class GSGame extends GameState {
 	public GSGame(GameStateType type, GameLogic logic) {
@@ -29,6 +30,10 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_SNAKEMAN);
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_SPARKMAN);
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_TOPMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_METTOOL);
+
+		// effect sprites
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_EFFECT_HIT);
 
 		// load missile sprites
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_GEMINIMAN);
@@ -42,27 +47,29 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_TOPMAN);
 
 		// load music
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_GEMINIMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_HARDMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_MAGNETMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_NEEDLEMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SHADOWMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SNAKEMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_SPARKMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_TOPMAN);
-		ResourceManager.INSTANCE.loadMusic(AudioType.MUSIC_PROTOMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.GEMINIMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.HARDMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.MAGNETMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.NEEDLEMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.SHADOWMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.SNAKEMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.SPARKMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.TOPMAN);
+		ResourceManager.INSTANCE.loadMusic(MusicType.PROTOMAN);
 
 		// load sounds
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_BLOCK);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_GEMINIMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_HARDMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_MAGNETMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_MEGAMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_NEEDLEMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_SHADOWMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_SNAKEMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_SPARKMAN);
-		ResourceManager.INSTANCE.loadSound(AudioType.SOUND_SHOOT_TOPMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.BLOCK);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_GEMINIMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_HARDMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_MAGNETMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_MEGAMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_NEEDLEMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SHADOWMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SNAKEMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SPARKMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
+		ResourceManager.INSTANCE.loadSound(SoundType.HIT);
 	}
 
 	@Override
@@ -71,26 +78,27 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.disposeTextureAtlasAndSprites(GameConstants.ATLAS_PATH_GAME);
 
 		// free music
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_GEMINIMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_HARDMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_MAGNETMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_NEEDLEMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SHADOWMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SNAKEMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_SPARKMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_TOPMAN);
-		ResourceManager.INSTANCE.disposeMusic(AudioType.MUSIC_PROTOMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.GEMINIMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.HARDMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.MAGNETMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.NEEDLEMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.SHADOWMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.SNAKEMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.SPARKMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.TOPMAN);
+		ResourceManager.INSTANCE.disposeMusic(MusicType.PROTOMAN);
 
 		// free sounds
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_BLOCK);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_GEMINIMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_HARDMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_MAGNETMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_MEGAMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_NEEDLEMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_SHADOWMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_SNAKEMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_SPARKMAN);
-		ResourceManager.INSTANCE.disposeSound(AudioType.SOUND_SHOOT_TOPMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.BLOCK);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_GEMINIMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_HARDMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_MAGNETMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_MEGAMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_NEEDLEMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_SHADOWMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_SNAKEMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_SPARKMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_TOPMAN);
+		ResourceManager.INSTANCE.disposeSound(SoundType.HIT);
 	}
 }

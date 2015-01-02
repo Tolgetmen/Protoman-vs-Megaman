@@ -7,7 +7,7 @@ import com.megaman.constants.GameConstants;
 import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
 import com.megaman.core.GameMenuPage;
-import com.megaman.enums.GameMenuPageType;
+import com.megaman.core.enums.GameMenuPageType;
 
 public class MainMenuSettings extends GameMenuPage {
 	private final int	OPTION_VIDEO	= 0;
