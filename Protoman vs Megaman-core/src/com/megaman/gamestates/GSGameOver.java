@@ -1,6 +1,6 @@
 package com.megaman.gamestates;
 
-import com.megaman.core.GameLogic;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.GameState;
 import com.megaman.core.enums.GameStateType;
 import com.megaman.core.enums.MusicType;
@@ -10,7 +10,7 @@ import com.megaman.core.enums.TextureType;
 import com.megaman.core.utils.ResourceManager;
 
 public class GSGameOver extends GameState {
-	public GSGameOver(GameStateType type, GameLogic logic) {
+	public GSGameOver(GameStateType type, GameStateLogic logic) {
 		super(type, logic);
 	}
 

@@ -10,14 +10,13 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.megaman.ai.states.MettoolState;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GDXGame;
-import com.megaman.core.GameLogic;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.enums.GameStateType;
 import com.megaman.core.enums.MusicType;
 import com.megaman.core.enums.SoundType;
@@ -37,7 +36,7 @@ import com.megaman.model.Missile;
 import com.megaman.model.Protoman;
 import com.megaman.model.SpecialFX;
 
-public class GSGameLogic extends GameLogic {
+public class GSGameLogic extends GameStateLogic {
 	private Array<GameObject>				gameObjects;
 	// create two maps for linking character/sprite and missile/sprite
 	// since characters share one texture and missiles share one texture
@@ -63,8 +62,8 @@ public class GSGameLogic extends GameLogic {
 	private MusicType						currentMusic;
 	private float							lastMusicPosition;
 
-	public GSGameLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
-		super(game, camera, spriteBatch);
+	public GSGameLogic(GDXGame game, Camera camera) {
+		super(game, camera);
 	}
 
 	private void playMusic(MusicType type) {
@@ -154,7 +153,7 @@ public class GSGameLogic extends GameLogic {
 			return;
 		} else if (life <= 0) {
 			// game over
-			game.setGameState(GameStateType.GAME_OVER, true, true);
+			game.setGameState(GameStateType.GAME_OVER, true, true, null);
 			return;
 		}
 
@@ -242,7 +241,7 @@ public class GSGameLogic extends GameLogic {
 		}
 	}
 
-	private void renderSprites(Map<GameObject, AnimatedSprite> sprites) {
+	private void renderSprites(SpriteBatch spriteBatch, Map<GameObject, AnimatedSprite> sprites) {
 		for (Map.Entry<GameObject, AnimatedSprite> entry : sprites.entrySet()) {
 			GameObject gameObj = entry.getKey();
 			AnimatedSprite sprite = entry.getValue();
@@ -263,18 +262,10 @@ public class GSGameLogic extends GameLogic {
 	}
 
 	@Override
-	public void render() {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		camera.update();
-
-		//		Gdx.app.log("Num animated objects", "" + animatedGameObjects.size());
-
-		spriteBatch.setProjectionMatrix(camera.combined);
+	public void render(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
-		renderSprites(animatedCharacters);
-		renderSprites(animatedMissiles);
+		renderSprites(spriteBatch, animatedCharacters);
+		renderSprites(spriteBatch, animatedMissiles);
 		spriteBatch.end();
 	}
 
@@ -325,7 +316,7 @@ public class GSGameLogic extends GameLogic {
 			}
 			case Keys.ESCAPE: {
 				// switch to state menu
-				game.setGameState(GameStateType.MAIN_MENU, false, true);
+				game.setGameState(GameStateType.MAIN_MENU, false, true, null);
 				break;
 			}
 		}
@@ -380,10 +371,6 @@ public class GSGameLogic extends GameLogic {
 		}
 
 		return true;
-	}
-
-	@Override
-	public void resize(int width, int height) {
 	}
 
 	@Override

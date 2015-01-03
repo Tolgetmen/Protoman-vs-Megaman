@@ -6,8 +6,22 @@ import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * GameInputAdapter is the core class for input handling. It extends the libgdx InputAdapter to be able
+ * to listen to keyboard, mouse and touch events. It also implements the ControllerListener interface
+ * to be able to listen to Controller events.
+ * 
+ * Use the libgdx Keys class to compare they keycode parameter of the InputAdapter with the actual
+ * keys on the keyboard.
+ * 
+ * Use the libgdx Buttons class to compare the button parameter of the InputAdapter with the actual
+ * mouse buttons.
+ * 
+ * For controllers you need to specifiy your own buttonCode matching since every controller will
+ * send different values for the buttonCode parameter.
+ *
+ */
 public abstract class GameInputAdapter extends InputAdapter implements ControllerListener {
-
 	@Override
 	public void connected(Controller controller) {
 	}

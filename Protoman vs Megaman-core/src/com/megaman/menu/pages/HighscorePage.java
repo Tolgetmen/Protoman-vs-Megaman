@@ -1,41 +1,49 @@
 package com.megaman.menu.pages;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.megaman.core.GameLogic;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Music.OnCompletionListener;
+import com.megaman.core.GDXGame;
 import com.megaman.core.GameMenu;
 import com.megaman.core.GameMenuPage;
+import com.megaman.core.GameStateLogic;
+import com.megaman.core.enums.GameMenuPageType;
 import com.megaman.core.enums.GameStateType;
-import com.megaman.gamestates.logic.GSHighscoreLogic;
+import com.megaman.core.enums.MusicType;
+import com.megaman.core.utils.SoundManager;
+import com.megaman.menu.HighscoreMenu;
 
-public class HighscorePage extends GameMenuPage {
+public class HighscorePage extends GameMenuPage implements OnCompletionListener {
 	private final int	OPTION_RETRY	= 0;
 	private final int	OPTION_QUIT		= 1;
 
-	public HighscorePage(GameMenu gameMenu, GameLogic logic, Skin skin, boolean fill, Drawable background) {
-		super(gameMenu, logic, skin, fill, background);
+	public HighscorePage(GameMenuPageType type, GameMenu gameMenu, GDXGame game, GameStateLogic logic) {
+		super(type, gameMenu, game, logic);
 	}
 
 	@Override
 	public void initialize() {
-		addOption("retry", skin.get("default", LabelStyle.class), 450, 0, 20, 0);
-		addOption("exit game", skin.get("default", LabelStyle.class), 0, 0, 0, 0);
+		addOption("retry", true, 450, 0, 20, 0);
+		addOption("exit game", true, 0, 0, 0, 0);
 	}
 
 	@Override
 	public void processSelection(int optionIndex) {
-		GSHighscoreLogic menuLogic = (GSHighscoreLogic) logic;
-
 		switch (optionIndex) {
 			case OPTION_RETRY: {
-				menuLogic.changeGameState(GameStateType.GAME, true);
+				game.setGameState(GameStateType.GAME, true, true, null);
 				break;
 			}
 			case OPTION_QUIT: {
-				menuLogic.changeGameState(null, true);
+				SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
+				((HighscoreMenu) gameMenu).quitGame();
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void onCompletion(Music music) {
+		// wait until protoman music was played to close the game
+		game.setGameState(null, true, true, null);
 	}
 }

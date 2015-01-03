@@ -1,12 +1,10 @@
 package com.megaman.menu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.core.GameLogic;
 import com.megaman.core.GameMenu;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.enums.GameMenuPageType;
 import com.megaman.core.enums.SoundType;
 import com.megaman.core.enums.TextureType;
@@ -25,8 +23,9 @@ public class MegamanMenu extends GameMenu {
 	private float				missileFPS;
 
 	private boolean				disableControls;
+	private boolean				quitGame;
 
-	public MegamanMenu(GameLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
+	public MegamanMenu(GameStateLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
 		super(logic, menuWidth, menuHeight, stretch, startPage);
 
 		megaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_MENU_MEGAMAN);
@@ -59,7 +58,7 @@ public class MegamanMenu extends GameMenu {
 	public boolean keyDown(int keyCode) {
 		if (!super.keyDown(keyCode)) {
 
-			if (disableControls) {
+			if (disableControls || quitGame) {
 				// a selection is already in progress -> ignore any other key input
 				return true;
 			}
@@ -121,19 +120,16 @@ public class MegamanMenu extends GameMenu {
 	}
 
 	public void render(SpriteBatch spriteBatch, Camera camera) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		camera.update();
-
 		super.render();
 
-		spriteBatch.setColor(1, 1, 1, 1);
-		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 		spriteBatch.draw(megaman, getCurrentOption().getX() - megaman.getWidth() - 40, getCurrentOption().getY(), megaman.getOriginX(), megaman.getOriginY(), megaman.getWidth(), megaman.getHeight(), megaman.getScaleX(), megaman.getScaleY(), megaman.getRotation());
 		spriteBatch.draw(protoman, getCurrentOption().getX() + getCurrentOption().getWidth() + 40, getCurrentOption().getY() - 10, protoman.getOriginX(), protoman.getOriginY(), protoman.getWidth(), protoman.getHeight(), protoman.getScaleX(), protoman.getScaleY(), protoman.getRotation());
 		spriteBatch.draw(missile, missileX, getCurrentOption().getY() + 4, missile.getOriginX(), missile.getOriginY(), missile.getWidth(), missile.getHeight(), missile.getScaleX(), missile.getScaleY(), missile.getRotation());
 		spriteBatch.end();
+	}
+
+	public void quitGame() {
+		quitGame = true;
 	}
 }

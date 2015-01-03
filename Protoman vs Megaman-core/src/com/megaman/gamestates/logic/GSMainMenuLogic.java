@@ -1,106 +1,21 @@
 package com.megaman.gamestates.logic;
 
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Music.OnCompletionListener;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.constants.GameConstants;
 import com.megaman.core.GDXGame;
-import com.megaman.core.GameLogic;
 import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.GameStateType;
 import com.megaman.core.enums.MusicType;
 import com.megaman.core.utils.SoundManager;
 import com.megaman.menu.MegamanMenu;
 
-public class GSMainMenuLogic extends GameLogic implements OnCompletionListener {
-	private MegamanMenu	mainMenu;
-	private boolean		quitGame;
-
-	public GSMainMenuLogic(GDXGame game, Camera camera, SpriteBatch spriteBatch) {
-		super(game, camera, spriteBatch);
+public class GSMainMenuLogic extends MenuLogic {
+	public GSMainMenuLogic(GDXGame game, Camera camera) {
+		super(game, camera);
 	}
 
 	@Override
 	public void initialize() {
 		SoundManager.INSTANCE.playMusic(MusicType.MENU, true);
-
-		quitGame = false;
-		mainMenu = new MegamanMenu(this, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, true, GameMenuPageType.MAIN_MENU_MAIN);
-	}
-
-	@Override
-	public void update(float deltaTime) {
-		mainMenu.update(deltaTime);
-	}
-
-	@Override
-	public void render() {
-		mainMenu.render(spriteBatch, camera);
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if (!quitGame) {
-			mainMenu.keyDown(keycode);
-		}
-
-		return true;
-	}
-
-	@Override
-	public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-		switch (value) {
-			case north:
-			case northEast:
-			case northWest: {
-				keyDown(Keys.UP);
-				break;
-			}
-			case south:
-			case southEast:
-			case southWest: {
-				keyDown(Keys.DOWN);
-				break;
-			}
-			default: {
-				break;
-			}
-		}
-
-		return true;
-	}
-
-	@Override
-	public void onCompletion(Music music) {
-		// used for "Quit game" option
-		// wait until protoman music was played to close the game
-		game.setGameState(null, true, true);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void dispose() {
-		mainMenu.dispose();
-	}
-
-	public void changeGameState(GameStateType newState, boolean resetExisting) {
-		if (newState != null) {
-			game.setGameState(newState, true, resetExisting);
-		} else {
-			// quit game
-			SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
-			quitGame = true;
-		}
-	}
-
-	public boolean isGameStateGameRunning() {
-		return game.isGameStateAvailable(GameStateType.GAME);
+		menu = new MegamanMenu(this, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, true, GameMenuPageType.MAIN_MENU_MAIN);
 	}
 }

@@ -1,6 +1,6 @@
 package com.megaman.core.enums;
 
-import com.megaman.core.GameLogic;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.GameState;
 import com.megaman.gamestates.GSGame;
 import com.megaman.gamestates.GSGameOver;
@@ -18,10 +18,10 @@ public enum GameStateType {
 	HIGHSCORE(GSHighscore.class, GSHighscoreLogic.class, false);
 
 	private final Class<? extends GameState>	gameStateClass;
-	private final Class<? extends GameLogic>	gameLogicClass;
+	private final Class<? extends GameStateLogic>	gameLogicClass;
 	private final boolean						isInitialState;
 
-	private GameStateType(Class<? extends GameState> gameStateClass, Class<? extends GameLogic> gameInputClass, boolean isInitialState) {
+	private GameStateType(Class<? extends GameState> gameStateClass, Class<? extends GameStateLogic> gameInputClass, boolean isInitialState) {
 		this.gameStateClass = gameStateClass;
 		this.gameLogicClass = gameInputClass;
 		this.isInitialState = isInitialState;
@@ -31,7 +31,7 @@ public enum GameStateType {
 		return gameStateClass;
 	}
 
-	public Class<? extends GameLogic> getGameLogicClass() {
+	public Class<? extends GameStateLogic> getGameLogicClass() {
 		return gameLogicClass;
 	}
 

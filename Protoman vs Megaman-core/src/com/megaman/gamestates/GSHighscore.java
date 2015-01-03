@@ -1,6 +1,6 @@
 package com.megaman.gamestates;
 
-import com.megaman.core.GameLogic;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.GameState;
 import com.megaman.core.enums.GameStateType;
 import com.megaman.core.enums.MusicType;
@@ -10,7 +10,7 @@ import com.megaman.core.enums.TextureType;
 import com.megaman.core.utils.ResourceManager;
 
 public class GSHighscore extends GameState {
-	public GSHighscore(GameStateType type, GameLogic logic) {
+	public GSHighscore(GameStateType type, GameStateLogic logic) {
 		super(type, logic);
 	}
 
