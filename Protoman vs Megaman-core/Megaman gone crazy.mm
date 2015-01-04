@@ -55,8 +55,12 @@
 <node CREATED="1420328699974" ID="ID_1386167804" MODIFIED="1420369072904" TEXT="com.megaman.core.model">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1420328707163" ID="ID_1892478579" MODIFIED="1420328711597" TEXT="com.megaman.core.utils"/>
-<node CREATED="1420328716032" ID="ID_1166159853" MODIFIED="1420328719779" TEXT="come.megaman.core.enums"/>
+<node CREATED="1420328707163" ID="ID_1892478579" MODIFIED="1420375875937" TEXT="com.megaman.core.utils">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328716032" ID="ID_1166159853" MODIFIED="1420380242699" TEXT="come.megaman.core.enums">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1420328734430" HGAP="21" ID="ID_592631445" MODIFIED="1420328748205" TEXT="com.egaman.enums" VSHIFT="46"/>
 <node CREATED="1420328750101" ID="ID_1659635191" MODIFIED="1420328761410" TEXT="com.egaman.model"/>
 <node CREATED="1420328762915" ID="ID_1824259414" MODIFIED="1420328766501" TEXT="com.egaman.ai.states"/>
@@ -86,19 +90,7 @@
 </node>
 </node>
 </node>
-<node CREATED="1419889430598" ID="ID_389229075" MODIFIED="1419935314685" TEXT="code kommentieren!!!">
-<node CREATED="1420328588883" ID="ID_1391178741" MODIFIED="1420328596731" TEXT="com.megaman.core">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328604354" ID="ID_1184251841" MODIFIED="1420328612412" TEXT="com.megaman.core.enums"/>
-<node CREATED="1420328614544" ID="ID_1126326310" MODIFIED="1420362634475" TEXT="com.egaman.core.graphics">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328622146" ID="ID_513759877" MODIFIED="1420369077841" TEXT="com.megaman.core.model">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328628555" ID="ID_212061464" MODIFIED="1420328632023" TEXT="com.egaman.core.utils"/>
-</node>
+<node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
 <node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420328948403" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>
@@ -337,6 +329,24 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1419889246751" ID="ID_1144299163" MODIFIED="1420032250998" TEXT="tutorial im wiki anschauen f&#xfc;r erweiterungen von &quot;a simple game&quot;">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node CREATED="1419889430598" FOLDED="true" ID="ID_389229075" MODIFIED="1420380251330" TEXT="code kommentieren!!!">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420328588883" ID="ID_1391178741" MODIFIED="1420328596731" TEXT="com.megaman.core">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328604354" ID="ID_1184251841" MODIFIED="1420380245993" TEXT="com.megaman.core.enums">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328614544" ID="ID_1126326310" MODIFIED="1420362634475" TEXT="com.egaman.core.graphics">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328622146" ID="ID_513759877" MODIFIED="1420369077841" TEXT="com.megaman.core.model">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328628555" ID="ID_212061464" MODIFIED="1420375880346" TEXT="com.egaman.core.utils">
 <icon BUILTIN="button_ok"/>
 </node>
 </node>

@@ -9,6 +9,11 @@ import com.megaman.menu.pages.AudioMenuPage;
 import com.megaman.menu.pages.ControlsMenuPage;
 import com.megaman.menu.pages.VideoMenuPage;
 
+/**
+ * GameMenuPageType is the configuration enum to define GameMenuPages. 
+ * Each value contains the class representing the page logic, the skin to be used for the page
+ * and an optional background image for the table instance of the GameMenuPage
+ */
 public enum GameMenuPageType {
 	MAIN_MENU_MAIN(MainMenuPage.class, SkinType.SKIN_MAIN_MENU, "background"),
 	MAIN_MENU_SETTINGS(SettingsMenuPage.class, SkinType.SKIN_MAIN_MENU, "background"),
@@ -20,8 +25,17 @@ public enum GameMenuPageType {
 
 	HIGHSCORE(HighscorePage.class, SkinType.SKIN_MAIN_MENU, "background_high_score");
 
+	/**
+	 * class representing the page logic
+	 */
 	private final Class<? extends GameMenuPage>	pageClass;
+	/**
+	 * type of skin to be used for the options
+	 */
 	private final SkinType						skinType;
+	/**
+	 * optional background image of the texture atlas of the skin for the table instance of the GameMenuPage
+	 */
 	private final String						skinBackgroundImage;
 
 	private GameMenuPageType(Class<? extends GameMenuPage> pageClass, SkinType skinType, String skinBackgroundImage) {
@@ -30,14 +44,29 @@ public enum GameMenuPageType {
 		this.skinBackgroundImage = skinBackgroundImage;
 	}
 
+	/**
+	 * returns the class type containing the page logic
+	 * 
+	 * @return type of class containing the page logic
+	 */
 	public Class<? extends GameMenuPage> getPageClass() {
 		return pageClass;
 	}
 
+	/**
+	 * returns the type of skin to be used for the page's options
+	 * 
+	 * @return type of skin used for page's option
+	 */
 	public SkinType getSkinType() {
 		return skinType;
 	}
 
+	/**
+	 * returns identifier within the texture atlas of the skin that defines the background image
+	 * 
+	 * @return <b>null</b> if there is no background image specified. Otherwise it returns the identifier within the texture atlas
+	 */
 	public String getSkinBackgroundImage() {
 		return skinBackgroundImage;
 	}

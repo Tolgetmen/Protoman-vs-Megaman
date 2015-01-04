@@ -38,7 +38,7 @@ public class AudioMenuPage extends GameMenuPage {
 		addOption("sound", true, 0, 0, 0, 0);
 		addOption("" + SoundManager.INSTANCE.getSoundVolume(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("jukebox", true, 0, 0, 0, 0);
-		addOption(jukeBoxMusic[currentJukeboxTitle].getAudioName(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption(jukeBoxMusic[currentJukeboxTitle].getName(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("back", true, 0, 0, GameConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
@@ -88,7 +88,7 @@ public class AudioMenuPage extends GameMenuPage {
 				}
 
 				SoundManager.INSTANCE.playMusic(jukeBoxMusic[currentJukeboxTitle], true);
-				options.get(OPTION_JUKEBOX_TITLE).setText(jukeBoxMusic[currentJukeboxTitle].getAudioName());
+				options.get(OPTION_JUKEBOX_TITLE).setText(jukeBoxMusic[currentJukeboxTitle].getName());
 				break;
 			}
 		}

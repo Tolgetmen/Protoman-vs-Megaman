@@ -54,8 +54,8 @@ public class AnimatedSprite extends Sprite {
 	public AnimatedSprite(Texture texture, TextureType textureType) {
 		super(texture);
 
-		this.frameWidth = texture.getWidth() / textureType.getNumColumns();
-		this.frameHeight = texture.getHeight() / textureType.getNumRows();
+		this.frameWidth = texture.getWidth() / textureType.getAnimationsX();
+		this.frameHeight = texture.getHeight() / textureType.getAnimationsY();
 
 		texOffsetX = texOffsetY = 0;
 
@@ -65,8 +65,8 @@ public class AnimatedSprite extends Sprite {
 	public AnimatedSprite(AtlasRegion atlasRegion, TextureType textureType) {
 		super(atlasRegion.getTexture());
 
-		this.frameWidth = atlasRegion.originalWidth / textureType.getNumColumns();
-		this.frameHeight = atlasRegion.originalHeight / textureType.getNumRows();
+		this.frameWidth = atlasRegion.originalWidth / textureType.getAnimationsX();
+		this.frameHeight = atlasRegion.originalHeight / textureType.getAnimationsY();
 
 		this.texOffsetX = atlasRegion.getRegionX();
 		this.texOffsetY = atlasRegion.getRegionY();
@@ -90,7 +90,7 @@ public class AnimatedSprite extends Sprite {
 	/**
 	 * Moves the frame to the specified position.
 	 * X = 0 and Y = 0 is the top left corner while
-	 * X = (numColumns-1) and Y = (numRows-1) is the bottom right corner.  
+	 * X = (animations per row-1) and Y = (animations per column-1) is the bottom right corner.  
 	 * 
 	 * @param x x index of the new frame
 	 * @param y y index of the new frame

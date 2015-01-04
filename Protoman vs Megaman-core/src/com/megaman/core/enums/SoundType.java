@@ -1,5 +1,9 @@
 package com.megaman.core.enums;
 
+/**
+ * SoundType enum is the configuration enum for sound that is used for the game.
+ * Each value contains the path to the sound file.
+ */
 public enum SoundType {
 	SHOOT_MEGAMAN("audio/sounds/megaman_shoot.wav"),
 	SHOOT_SPARKMAN("audio/sounds/sparkman_shoot.wav"),
@@ -16,12 +20,20 @@ public enum SoundType {
 	MENU_SELECT("audio/sounds/menu_select.wav"),
 	MENU_SELECT_SHOOT("audio/sounds/menu_select_shoot.wav");
 
+	/**
+	 * file path to the sound file in the assets folder
+	 */
 	private final String	filePath;
 
 	private SoundType(String filePath) {
 		this.filePath = filePath;
 	}
 
+	/**
+	 * returns the file path of the sound file in the assets folder
+	 * 
+	 * @return file path of sound file
+	 */
 	public String getFilePath() {
 		return filePath;
 	}

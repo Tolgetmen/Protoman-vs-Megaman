@@ -80,7 +80,8 @@ public enum ResourceManager {
 			HashMap<TextureType, AtlasRegion> regionMap = new HashMap<TextureType, TextureAtlas.AtlasRegion>();
 			atlasRegionMap.put(textureAtlas, regionMap);
 
-			// create an animated sprite for each texture
+			// build the atlas region map by storing each atlas region by its
+			// corresponding TextureType to the map
 			for (AtlasRegion region : textureAtlas.getRegions()) {
 				TextureType key = TextureType.getGraphicsConstantByAtlasRegionName(region.name);
 				if (key != null) {

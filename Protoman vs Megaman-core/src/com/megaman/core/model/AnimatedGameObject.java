@@ -101,8 +101,8 @@ public abstract class AnimatedGameObject extends GameObject {
 		this.animationTime = 1.0f / animationsPerSecond;
 
 		if (textureType != null) {
-			this.animationsX = textureType.getNumColumns();
-			this.animationsY = textureType.getNumRows();
+			this.animationsX = textureType.getAnimationsX();
+			this.animationsY = textureType.getAnimationsY();
 		} else {
 			animationsX = animationsY = 1;
 		}
@@ -210,10 +210,10 @@ public abstract class AnimatedGameObject extends GameObject {
 	 * @param textureType new type of texture for animated game object
 	 */
 	public void setTextureType(TextureType textureType) {
-		this.animationsY = textureType.getNumRows();
+		this.animationsY = textureType.getAnimationsY();
 		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 
-		this.animationsX = textureType.getNumColumns();
+		this.animationsX = textureType.getAnimationsX();
 		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 	}
 

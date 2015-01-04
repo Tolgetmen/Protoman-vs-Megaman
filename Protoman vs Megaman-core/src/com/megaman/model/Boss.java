@@ -25,7 +25,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 
 		setAnimationPerSecond(type.getAnimationsPerSecond());
 		setTextureType(type.getGraphic());
-		setLoopAnimations(0, type.getGraphic().getNumColumns() * type.getGraphic().getNumRows() - 1);
+		setLoopAnimations(0, type.getGraphic().getAnimationsX() * type.getGraphic().getAnimationsY() - 1);
 		loopAnimation(false);
 		startAnimation();
 		fadeTo(0, 0.75f);

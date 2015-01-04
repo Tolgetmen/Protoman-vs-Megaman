@@ -2,6 +2,12 @@ package com.megaman.core.enums;
 
 import com.megaman.constants.GameConstants;
 
+/**
+ * TextureType enum is the configuration enum for textures that are used for the game.
+ * Each value contains the path to the texture atlas that contains the texture, the original file
+ * path within the assets folder, the atlas region name (=name within the texture atlas that identifies the texture),
+ * the number of columns and the number of rows (if it is a texture without animation the value for column and row is 1).
+ */
 public enum TextureType {
 	TEXTURE_CHARACTER_MEGAMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/megaman.png", "characters/megaman", 3, 1),
 	TEXTURE_CHARACTER_PROTOMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/protoman.png", "characters/protoman", 2, 1),
@@ -31,44 +37,100 @@ public enum TextureType {
 	TEXTURE_MENU_PROTOMAN(GameConstants.ATLAS_PATH_MENU, "graphics/menu/protoman.png", "protoman", 2, 1),
 	TEXTURE_MENU_MISSLE(GameConstants.ATLAS_PATH_MENU, "graphics/menu/select_missile.png", "select_missile", 9, 1);
 
+	/**
+	 * path to the texture atlas containing the texture
+	 */
 	private final String	textureAtlasPath;
+	/**
+	 * original path of the file within the assets folder
+	 */
 	private final String	originalFilePath;
+	/**
+	 * the atlas region name within the texture atlas that identifies the texture
+	 */
 	private final String	atlasRegionName;
-	private final int		numColumns;
-	private final int		numRows;
+	/**
+	 * number of animations per row
+	 */
+	private final int		animationsX;
+	/**
+	 * number of animations per column
+	 */
+	private final int		animationsY;
 
-	private TextureType(String textureAtlasPath, String originalFilePath, String atlasRegionName, int numColumns, int numRows) {
+	private TextureType(String textureAtlasPath, String originalFilePath, String atlasRegionName, int animationsX, int animationsY) {
 		this.textureAtlasPath = textureAtlasPath;
 		this.originalFilePath = originalFilePath;
 		this.atlasRegionName = atlasRegionName;
-		this.numColumns = numColumns;
-		this.numRows = numRows;
+		this.animationsX = animationsX;
+		this.animationsY = animationsY;
 	}
 
+	/**
+	 * returns the path to the texture atlas containing the texture
+	 * 
+	 * @return path to texture atlas
+	 */
 	public String getTextureAtlasPath() {
 		return textureAtlasPath;
 	}
 
+	/**
+	 * returns the original texture file path within the assets folder
+	 * 
+	 * @return original texture file path
+	 */
 	public String getOriginalFilePath() {
 		return originalFilePath;
 	}
 
+	/**
+	 *  returns the identifier of the texture within the texture atlas
+	 *  
+	 * @return AtlasRegion name for the texture within the texture atlas
+	 */
 	public String getAtlasRegionName() {
 		return atlasRegionName;
 	}
 
-	public int getNumColumns() {
-		return numColumns;
+	/**
+	 * returns the amount of animations the texture has per row.
+	 * If getAnimationsX() and getAnimationsY() both return 1 then
+	 * the texture does not contain animations
+	 * 
+	 * @return number of animations per row (must be greater 0)
+	 */
+	public int getAnimationsX() {
+		return animationsX;
 	}
 
-	public int getNumRows() {
-		return numRows;
+	/**
+	 * returns the amount of animations the texture has per column.
+	 * If getAnimationsX() and getAnimationsY() both return 1 then
+	 * the texture does not contain animations
+	 * 
+	 * @return number of animations per column (must be greater 0)
+	 */
+	public int getAnimationsY() {
+		return animationsY;
 	}
 
+	/**
+	 * returns the TextureType of a given AtlasRegion name. This method is called by the 
+	 * ResourceManager's loadTextureAtlas() map to get the TextureType of a region.
+	 * 
+	 * However not every region in the texture atlas has to have a TextureType (f.e. the background
+	 * images of menu pages do not need be defined within this enum).
+	 *  
+	 * @param atlasRegionName AtlasRegion name to be searched within the TextureType values
+	 * 
+	 * @return <b>null</b> if there is no value defined for the given AtlasRegion name. Otherwise it returns the corresponding TextureType
+	 */
 	public static TextureType getGraphicsConstantByAtlasRegionName(String atlasRegionName) {
 		for (TextureType value : TextureType.values()) {
-			if (atlasRegionName.equals(value.getAtlasRegionName()))
+			if (atlasRegionName.equals(value.getAtlasRegionName())) {
 				return value;
+			}
 		}
 
 		return null;

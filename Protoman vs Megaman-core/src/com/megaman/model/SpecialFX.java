@@ -22,7 +22,7 @@ public class SpecialFX extends AnimatedGameObject implements Poolable {
 
 		setAnimationPerSecond(animationsPerSecond);
 		setTextureType(type);
-		maxAnimation = type.getNumColumns() * type.getNumRows() - 1;
+		maxAnimation = type.getAnimationsX() * type.getAnimationsY() - 1;
 		setLoopAnimations(0, maxAnimation);
 		loopAnimation(false);
 		startAnimation();
