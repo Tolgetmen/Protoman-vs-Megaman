@@ -2,151 +2,381 @@ package com.megaman.core.model;
 
 import com.megaman.gamestates.logic.GSGameLogic;
 
+/**
+ * 
+ * AnimatedGameObject is one of the core classes for game objects. It is used to define a link between a
+ * game object and an AnimatedSprite.
+ *  
+ * Similar to the AnimatedSprite class it contains functionality to move around a frame for any texture. The
+ * information of the AnimatedGameObject's frame can then be used to set the correct frame index for the
+ * AnimatedSprite.
+ * 
+ * Additionally it contains functionality to fadeout/-in game objects over a specified time.
+ * 
+ * AnimatedGameObject should always be linked with an AnimatedSprite. Otherwise use the GameObject class instead.
+ * 
+ * check GameUtils.renderGameObject method to see how the AnimatedGameObject and AnimatedSprite are linked before rendering
+ * 
+ */
 public abstract class AnimatedGameObject extends GameObject {
-	// how many animations should be rendered per second
-	private float	animationsPerSecond		= 0;
-	private int		numColumns				= 1;
-	private int		numRows					= 1;
-	// some attributes to calculate the correct current animation
-	// currentAnimationTime is the time that has passed since the last
-	// animation update. If this value is >= animationsPerSecond then
-	// the next animation will be displayed
-	private float	currentAnimationTime	= 0;
-	private int		animationStartRow		= 0;
-	private int		animationStartColumn	= 0;
-	private int		animationEndRow			= 0;
-	private int		animationEndColumn		= 0;
-	private int		currentRow				= 0;
-	private int		currentColumn			= 0;
-	private boolean	isAnimationStopped		= false;
-	private boolean	loop					= true;
+	/**
+	 * the time how long an animated game object displays a single animation(=frame)
+	 */
+	private float	animationTime;
+	/**
+	 * number of animations in a row
+	 */
+	private int		animationsX;
+	/**
+	 * number of animations in a column
+	 */
+	private int		animationsY;
+	/**
+	 * the time how long the animated game object is in a specific animation
+	 */
+	private float	currentAnimationTime;
+	/**
+	 * animation start index x
+	 */
+	private int		animationStartX;
+	/**
+	 * animation start index y
+	 */
+	private int		animationStartY;
+	/**
+	 * animation end index x
+	 */
+	private int		animationEndX;
+	/**
+	 * animation end index y
+	 */
+	private int		animationEndY;
+	/**
+	 * current animation index x
+	 */
+	private int		currentX;
+	/**
+	 * current animation index y
+	 */
+	private int		currentY;
+	/**
+	 * should the animation be stopped?
+	 * if stop is true then the animated game object will no longer update its frame
+	 */
+	private boolean	stop;
+	/**
+	 * how many times should an animation be displayed?
+	 * if loop is false then the animation is only displayed once and will then stop
+	 * at the last frame index
+	 */
+	private boolean	loop;
+	/**
+	 * should the AnimatedSprite be flipped horicontally
+	 */
+	private boolean	flipX;
+	/**
+	 * should the AnimatedSprite be flipped vertically
+	 */
+	private boolean	flipY;
+	/**
+	 * current transparency of the animated game object
+	 */
+	private float	transparency;
+	/**
+	 * whenever the fadeTo() method is called a value is calculated how much
+	 * the transparency should be changed each frame to reach the correct
+	 * targetTransparency within a certain time
+	 */
+	private float	transparencyGainPerSecond;
+	/**
+	 * target transparency of the fadeTo() method call
+	 */
+	private float	targetTransparency;
 
-	public AnimatedGameObject(GSGameLogic gameLogic, int numtAnimationsPerColumn, int numAnimationsPerRow, int animationsPerSecond) {
+	public AnimatedGameObject(GSGameLogic gameLogic, int numColumns, int numRows, int animationsPerSecond) {
 		super(gameLogic);
-		// calculate the time that needs to be passed until updating to the next frame
-		this.animationsPerSecond = 1.0f / animationsPerSecond;
 
-		this.numColumns = numtAnimationsPerColumn;
-		this.numRows = numAnimationsPerRow;
-		this.animationStartRow = this.animationStartColumn = 0;
-		this.animationEndRow = this.animationEndColumn = (numColumns * numRows) - 1;
+		// calculate the time that needs to be passed until updating to the next frame
+		this.animationTime = 1.0f / animationsPerSecond;
+
+		this.animationsX = numColumns;
+		this.animationsY = numRows;
+
+		// start from the first frame index (=top left corner)
+		this.animationStartY = this.animationStartX = 0;
+		// stop at the last frame index (=bottom right corner)
+		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
+
+		transparency = targetTransparency = transparencyGainPerSecond = 0;
+		loop = true;
+		stop = false;
 	}
 
+	/**
+	 * Updates the animation and transparency of an animated game object. 
+	 * This will change the current frame index to the next whenever the currentAnimationTime
+	 * is greater than the animationTime;
+	 * 
+	 *  @param deltaTime time passed since last frame
+	 */
 	@Override
 	public void update(float deltaTime) {
-		super.update(deltaTime);
-		if ((numRows > 1 || numColumns > 1) && animationsPerSecond > 0 && !isAnimationStopped) {
+		// check if transparency needs to be updated
+		float currentTransparency = getTransparency();
+		if (currentTransparency != targetTransparency) {
+			// if yes -> update it
+			currentTransparency += (transparencyGainPerSecond * deltaTime);
+
+			if ((transparencyGainPerSecond < 0 && currentTransparency < targetTransparency) || (transparencyGainPerSecond > 0 && currentTransparency > targetTransparency)) {
+				// if target transparency is reached then set it exactly to the target transparency value
+				currentTransparency = targetTransparency;
+			}
+
+			// update the transparency
+			setTransparency(currentTransparency);
+		}
+
+		// check if there is an animation possible
+		if ((animationsY > 1 || animationsX > 1) && animationTime > 0 && !stop) {
+			// if yes -> update the current animation time
 			currentAnimationTime += deltaTime;
-			if (currentAnimationTime < 0)
+
+			if (currentAnimationTime < 0) {
+				// this should not happen because deltaTime should always
+				// be greater zero. But to be safe we check for such a case
 				currentAnimationTime = 0;
-			if (currentAnimationTime >= animationsPerSecond) {
-				// if time passed >= animationsPer second then render the next animation of the sprite
-				if (currentColumn >= animationEndColumn && currentRow >= animationEndRow) {
-					// if we are at the end of the animation then reset it to the start of
-					// the animation loop if "loop" is true
+			}
+
+			if (currentAnimationTime >= animationTime) {
+				// if time passed >= time to display one animation then move to the next animation
+				if (currentX >= animationEndX && currentY >= animationEndY) {
 					if (loop) {
-						currentColumn = animationStartColumn;
-						currentRow = animationStartRow;
-					} else
-						isAnimationStopped = true;
+						// if we are at the end of the animation then reset it to the start of
+						// the animation loop if "loop" is true
+						currentX = animationStartX;
+						currentY = animationStartY;
+					} else {
+						// otherwise stop the animation because we have reached the end
+						stop = true;
+					}
 				} else {
 					// otherwise move one animation frame further
-					++currentColumn;
-					if (currentColumn >= numColumns) {
+					++currentX;
+					if (currentX >= animationsX) {
 						// if we are at the end of the current animation row then
 						// move to the next row and start with the first animation there
-						currentColumn = 0;
-						++currentRow;
-						if (currentRow >= numRows) {
-							if (loop)
-								currentRow = 0;
-							else {
-								currentColumn = numColumns - 1;
-								currentRow--;
-								isAnimationStopped = true;
+						currentX = 0;
+						++currentY;
+						if (currentY >= animationsY) {
+							if (loop) {
+								// if we are at the end of the animation then reset it to the start of
+								// the animation loop if "loop" is true
+								currentX = animationStartX;
+								currentY = animationStartY;
+							} else {
+								// otherwise stop the animation because we have reached the end
+								currentX = animationsX - 1;
+								currentY--;
+								stop = true;
 							}
 						}
 					}
 				}
 
+				// reset the current animation time for the new frame
 				currentAnimationTime = 0;
 			}
 		}
 	}
 
-	public void stopAnimation() {
-		isAnimationStopped = true;
-	}
-
-	public void startAnimation() {
-		isAnimationStopped = false;
-	}
-
+	/**
+	 * sets new amount of animations to be displayed per second
+	 * 
+	 * @param animationsPerSecond number of animations displayed per second
+	 */
 	public void setAnimationPerSecond(int animationsPerSecond) {
-		this.animationsPerSecond = 1.0f / animationsPerSecond;
+		this.animationTime = 1.0f / animationsPerSecond;
 	}
 
-	public void setAnimationsPerRow(int animationsPerRow) {
-		this.numRows = animationsPerRow;
-		this.animationEndRow = this.animationEndColumn = (numColumns * numRows) - 1;
+	/**
+	 * sets new amount of animations per row
+	 * 
+	 * @param numRows number of animations per row
+	 */
+	public void setAnimationsPerRow(int numRows) {
+		this.animationsY = numRows;
+		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 	}
 
-	public void setAnimationsPerColumn(int animationsPerColumn) {
-		this.numColumns = animationsPerColumn;
-		this.animationEndRow = this.animationEndColumn = (numColumns * numRows) - 1;
+	/**
+	 * sets new amount of animations per column
+	 * 
+	 * @param numColumns number of animations per column
+	 */
+	public void setAnimationsPerColumn(int numColumns) {
+		this.animationsX = numColumns;
+		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 	}
 
+	/**
+	 * sets frame to the given animation. The first animation has index 0
+	 * while the last animation has index ((animations per row * animations per column) - 1).
+	 * 
+	 * @param animation index of animation to be set
+	 */
 	public void setAnimation(int animation) {
-		animationStartRow = animation / numColumns;
-		animationStartColumn = animation % numColumns;
+		animationStartY = animation / animationsX;
+		animationStartX = animation % animationsX;
 
-		animationEndRow = animationStartRow;
-		animationEndColumn = animationStartColumn;
+		animationEndY = animationStartY;
+		animationEndX = animationStartX;
 
-		currentRow = animationStartRow;
-		currentColumn = animationStartColumn;
+		currentY = animationStartY;
+		currentX = animationStartX;
 	}
 
-	public void setAnimationIndex(int indexX, int indexY) {
-		currentRow = indexY;
-		currentColumn = indexX;
-	}
-
+	/**
+	 * sets start and end index of animations that should be displayed. If your sprite
+	 * f.e. has 5 animations and you only want to display animation 1 to 3 then you
+	 * can use this method. StartAnimation parameter would be 0 and endAnimation 2. 
+	 * 
+	 * A call to this method automatically unpauses the animation.
+	 * 
+	 * @param startAnimation animation index to start
+	 * @param endAnimation animation index to end
+	 */
 	public void setLoopAnimations(int startAnimation, int endAnimation) {
-		isAnimationStopped = false;
+		stop = false;
 
-		int newAnimationStartRow = startAnimation / numColumns;
-		int newAnimationStartColumn = startAnimation % numColumns;
+		int newAnimationStartRow = startAnimation / animationsX;
+		int newAnimationStartColumn = startAnimation % animationsX;
 
-		int newAnimationEndRow = endAnimation / numColumns;
-		int newAnimationEndColumn = endAnimation % numColumns;
+		int newAnimationEndRow = endAnimation / animationsX;
+		int newAnimationEndColumn = endAnimation % animationsX;
 
-		if (newAnimationStartRow == animationStartRow && newAnimationStartColumn == animationStartColumn && newAnimationEndRow == animationEndRow && newAnimationEndColumn == animationEndColumn)
-			return;
+		animationStartY = newAnimationStartRow;
+		animationStartX = newAnimationStartColumn;
 
-		animationStartRow = newAnimationStartRow;
-		animationStartColumn = newAnimationStartColumn;
+		animationEndY = newAnimationEndRow;
+		animationEndX = newAnimationEndColumn;
 
-		animationEndRow = newAnimationEndRow;
-		animationEndColumn = newAnimationEndColumn;
-
-		currentRow = animationStartRow;
-		currentColumn = animationStartColumn;
+		currentY = animationStartY;
+		currentX = animationStartX;
 	}
 
+	/**
+	 * starts the animation from the current frame
+	 */
+	public void startAnimation() {
+		stop = false;
+	}
+
+	/**
+	 * stops the animation at the current frame
+	 */
+	public void stopAnimation() {
+		stop = true;
+	}
+
+	/**
+	 * defines if an animation should loop or not. If it does not loop
+	 * then the animation will stop at the last animation index
+	 * 
+	 * @param loop <b>true</b> to start an animation loop. <b>false</b> to stop the animation at the end at the last animation index.
+	 */
 	public void loopAnimation(boolean loop) {
 		this.loop = loop;
 	}
 
-	public int getCurrentRow() {
-		return currentRow;
+	/**
+	 * returns current animation frame index x of the animated game object
+	 * 
+	 * @return frame index x
+	 */
+	public int getFrameIndexX() {
+		return currentX;
 	}
 
-	public int getCurrentColumn() {
-		return currentColumn;
+	/**
+	 * returns current animation frame index y of the animated game object
+	 * 
+	 * @return frame index y
+	 */
+	public int getFrameIndexY() {
+		return currentY;
 	}
 
+	/**
+	 * returns current animation index of the animated game object
+	 * 
+	 * @return animation index
+	 */
 	public int getCurrentAnimation() {
-		return (numColumns * currentRow) + currentColumn;
+		return (animationsX * currentY) + currentX;
+	}
+
+	/**
+	 * returns current transparency of the animated game object
+	 * 
+	 * @return transparency of animated game object
+	 */
+	public float getTransparency() {
+		return transparency;
+	}
+
+	/**
+	 * sets transparency of the animated game object. A value of <b>1</b>
+	 * means that the animated game object will be invisible. A value of <b>0</b>
+	 * means fully opaque.
+	 * 
+	 * @param transparency new transparency value. Must be between <b>0</b> and <b>1</b>
+	 */
+	public void setTransparency(float transparency) {
+		this.transparency = transparency;
+	}
+
+	/**
+	 * changes animated game object's transparency to the given targetTransparency within a certain time.
+	 * 
+	 * @param targetTransparency target transparency of animated game object
+	 * @param time time in seconds until animated game object reaches target transparency
+	 */
+	public void fadeTo(float targetTransparency, float time) {
+		float currentTransparency = getTransparency();
+		float difference = targetTransparency - currentTransparency;
+
+		if (difference != 0) {
+			this.targetTransparency = targetTransparency;
+			transparencyGainPerSecond = difference / time;
+		}
+	}
+
+	/**
+	 * flip animation by its x-axis and/or y-axis
+	 * 
+	 * @param flipX <b>true</b> to flip animation by its x-axis.<b>false</b> otherwise
+	 * @param flipY <b>true</b> to flip animation by its y-axis.<b>false</b> otherwise
+	 */
+	public void flip(boolean flipX, boolean flipY) {
+		this.flipX = flipX;
+		this.flipY = flipY;
+	}
+
+	/**
+	 * returns if animated game object is flipped by its x-axis
+	 * 
+	 * @return <b>true</b> if animated game object is flipped by its x-axis. <b>false</b> otherwise.
+	 */
+	public boolean isFlipX() {
+		return flipX;
+	}
+
+	/**
+	 * returns if animated game object is flipped by its y-axis
+	 * 
+	 * @return <b>true</b> if animated game object is flipped by its y-axis. <b>false</b> otherwise.
+	 */
+	public boolean isFlipY() {
+		return flipY;
 	}
 }

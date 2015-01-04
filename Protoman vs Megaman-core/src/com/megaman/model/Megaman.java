@@ -79,7 +79,7 @@ public class Megaman extends AnimatedGameObject {
 
 	public void shoot() {
 		--remainingShots;
-		gameLogic.spawnMissile(MissileType.MEGAMAN, position.x + 21, position.y + 13);
+		((GSGameLogic) logic).spawnMissile(MissileType.MEGAMAN, getX() + 21, getY() + 13);
 		SoundManager.INSTANCE.playSound(SoundType.SHOOT_MEGAMAN);
 		setAnimation(2);
 		fadeTo(1, 0.5f);
@@ -90,6 +90,6 @@ public class Megaman extends AnimatedGameObject {
 	}
 
 	public void callBoss(BossType bossType) {
-		gameLogic.spawnBoss(bossType, position.x, MathUtils.random(0, GameConstants.GAME_HEIGHT - 42));
+		((GSGameLogic) logic).spawnBoss(bossType, getX(), MathUtils.random(0, GameConstants.GAME_HEIGHT - 42));
 	}
 }

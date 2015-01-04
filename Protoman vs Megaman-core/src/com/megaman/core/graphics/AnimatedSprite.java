@@ -4,60 +4,111 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
+/**
+ * AnimatedSprite is a wrapper class for the libgdx Sprite class to encapsulate the setRegion() method of the Sprite and
+ * to support texture usage out of a libgdx TextureAtlas.
+ * 
+ * AnimatedSprite calculates the correct frame size of the texture by passing the texture amount of animations per
+ * column and per row. It also finds out the correct position of the texture within a texture atlas texture.
+ * 
+ * The class supports functionality to move the frame around within the texture.
+ * 
+ */
 public class AnimatedSprite extends Sprite {
-	// if a sprite is created out of a texture atlas texture we also need to adjust the offset
-	// of the atlastexture to get the correct original texture region out of it
-	private float	texOffsetX	= 0.0f;
-	private float	texOffsetY	= 0.0f;
-	// number of animations per row/column to calculate
-	// the correct animation frame height/width
-	private int		frameX		= 0;
-	private int		frameY		= 0;
-	private int		frameWidth	= 0;
-	private int		frameHeight	= 0;
-	// we need to store the flippex values seperately since
-	// the "setRegion()" call seems to reset those values
-	private boolean	isFlippedX	= false;
-	private boolean	isFlippedY	= false;
+	/**
+	 * Texture offset x to the top left corner of the texture within the TextureAtlas texture
+	 */
+	private float	texOffsetX;
+	/**
+	 * Texture offset y to the top left corner of the texture within the TextureAtlas texture
+	 */
+	private float	texOffsetY;
+	/**
+	 * x position of the top left corner of the frame
+	 */
+	private int		frameX;
+	/**
+	 * y position of the top left corner of the frame
+	 */
+	private int		frameY;
+	/**
+	 * width of the top left corner of the frame
+	 */
+	private int		frameWidth;
+	/**
+	 * height of the frame
+	 */
+	private int		frameHeight;
+	/**
+	 * flipx value of the libgdx Sprite. store it separately because it seems like
+	 * it gets automatically reset after a call to setRegion()
+	 */
+	private boolean	isFlippedX;
+	/**
+	 * flipx value of the libgdx Sprite. store it separately because it seems like
+	 * it gets automatically reset after a call to setRegion()
+	 */
+	private boolean	isFlippedY;
 
 	public AnimatedSprite(Texture texture, int numColumns, int numRows) {
 		super(texture);
 
-		// calculate the correct framewidth/-height
 		this.frameWidth = texture.getWidth() / numColumns;
 		this.frameHeight = texture.getHeight() / numRows;
 
-		setSize(frameWidth, frameHeight);
-		setOrigin(frameWidth * 0.5f, frameHeight * 0.5f);
-		setFrameIndex(0, 0);
+		texOffsetX = texOffsetY = 0;
+
+		initialize();
 	}
 
 	public AnimatedSprite(AtlasRegion atlasRegion, int numColumns, int numRows) {
-		this(atlasRegion.getTexture(), numColumns, numRows);
+		super(atlasRegion.getTexture());
 
-		// special adjustments for atlas regions since the original textures are positioned anywhere in the atlas texture
-		// we need to define the correct offset and the also get the original texture's width/height instead of the
-		// atlas texture's width/height
 		this.frameWidth = atlasRegion.originalWidth / numColumns;
 		this.frameHeight = atlasRegion.originalHeight / numRows;
 
 		this.texOffsetX = atlasRegion.getRegionX();
 		this.texOffsetY = atlasRegion.getRegionY();
 
+		initialize();
+	}
+
+	/**
+	 * Initializes a new AnimatedSprite by setting the correct size and origin point
+	 * of the libgdx Sprite instance. 
+	 * Also sets the initial frame index to the top left corner of the texture.
+	 */
+	private void initialize() {
+		isFlippedX = isFlippedY = false;
+
 		setSize(frameWidth, frameHeight);
 		setOrigin(frameWidth * 0.5f, frameHeight * 0.5f);
 		setFrameIndex(0, 0);
 	}
 
-	public void setFrameIndex(int frameIndexX, int frameIndexY) {
-		// set the correct top left corner of the frame
-		frameX = (int) (texOffsetX + frameIndexX * frameWidth);
-		frameY = (int) (texOffsetY + frameIndexY * frameHeight);
-
+	/**
+	 * Moves the frame to the specified position.
+	 * X = 0 and Y = 0 is the top left corner while
+	 * X = (numColumns-1) and Y = (numRows-1) is the bottom right corner.  
+	 * 
+	 * @param x x index of the new frame
+	 * @param y y index of the new frame
+	 */
+	public void setFrameIndex(int x, int y) {
+		// calculate the correct frame position
+		frameX = (int) (texOffsetX + x * frameWidth);
+		frameY = (int) (texOffsetY + y * frameHeight);
+		// make a call to the libgdx Sprite setRegion()
+		// and flip() method. SetRegion() resets the flip values
+		// therefore we store it separately
 		this.setRegion(frameX, frameY, frameWidth, frameHeight);
 		this.flip(isFlippedX, isFlippedY);
 	}
 
+	/**
+	 * Similar like {@link com.badlogic.gdx.graphics.g2d.Sprite#setFlip(boolean, boolean)} but it
+	 * additionally sets the internal flip values of the AnimatedSprite class
+	 */
 	@Override
 	public void setFlip(boolean flipX, boolean flipY) {
 		super.setFlip(flipX, flipY);
@@ -65,6 +116,10 @@ public class AnimatedSprite extends Sprite {
 		isFlippedY = flipY;
 	}
 
+	/**
+	 * Similar like {@link com.badlogic.gdx.graphics.g2d.Sprite#flip(boolean, boolean)} but it
+	 * additionally sets the internal flip values of the AnimatedSprite class
+	 */
 	@Override
 	public void flip(boolean flipX, boolean flipY) {
 		super.flip(flipX, flipY);

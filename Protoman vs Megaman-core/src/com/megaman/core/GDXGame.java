@@ -20,24 +20,25 @@ import com.megaman.core.utils.ResourceManager;
  * 
  * We use the Screen functionality to switch between game states
  * 
- * GDXGame has the following attributes:
- * 
- * 		gameStates: 			stack of gamestates. the stack always contains at least one gamestate but 
- * 								can also contain multiple gamestates at once. Only the gamestate at the top
- * 								is updated and rendered. If the stack is empty then the game closes.
- * 
- * 		spriteBatch: 			a single reference to a SpriteBatch. it is shared between gamestates to render stuff.
- * 
- * 		camera: 				a single reference to the Camera object of the game. It is also shared between gamestates.
- * 
- * 		currentInputAdapter: 	the current input adapter of the game that is currently listening to 
- * 							 	key/mouse/touch/controller events. 
- *
  */
 public class GDXGame extends Game {
+	/**
+	 * stack of gamestates. the stack always contains at least one gamestate but 
+	 * can also contain multiple gamestates at once. Only the gamestate at the top
+	 * is updated and rendered. If the stack is empty then the game closes.
+	 */
 	private Stack<GameState>	gameStates;
+	/**
+	 * a single reference to a SpriteBatch. it is shared between gamestates to render stuff.
+	 */
 	private SpriteBatch			spriteBatch;
+	/**
+	 * a single reference to the Camera object of the game. It is also shared between gamestates.
+	 */
 	private OrthographicCamera	camera;
+	/**
+	 * the current input adapter of the game that is currently listening to key/mouse/touch/controller events. 
+	 */
 	private GameInputAdapter	currentInputAdapter;
 
 	/**

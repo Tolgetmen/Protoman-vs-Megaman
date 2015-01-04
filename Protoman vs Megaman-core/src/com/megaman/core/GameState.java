@@ -13,17 +13,18 @@ import com.megaman.core.enums.GameStateType;
  * It extends the libgdx Screen class so that the GDXGame class can use it for the setScreen() method. The class also forwards the important
  * Screen methods (=show,hide,render,resize,pause,resume and dispose) to its GameStateLogic instance.
  * 
- * A GameState is configured (=which gamestate uses which logic) within the GameStateType enum.
- * 
- * GameState has the following attributes:
- * 		logic:		the GameStateLogic instance of the gamestate to which Screen method calls are forwarded
- * 
- * 		type:		the type of the gamestate. This attribute is used by the GDXGame class to check if
- * 					a gamestate instance is already part of the gamestates stack.
+ * A GameState is configured (=which gamestate uses which logic) within the GameStateType enum.				
  *
  */
 public abstract class GameState implements Screen {
+	/**
+	 * the GameStateLogic instance of the gamestate to which Screen method calls are forwarded
+	 */
 	protected final GameStateLogic	logic;
+	/**
+	 * the type of the gamestate. This attribute is used by the GDXGame class to check if
+	 * a gamestate instance is already part of the gamestates stack.
+	 */
 	protected final GameStateType	type;
 
 	public GameState(GameStateType type, GameStateLogic logic) {

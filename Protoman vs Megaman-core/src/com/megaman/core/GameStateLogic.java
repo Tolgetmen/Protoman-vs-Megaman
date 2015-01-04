@@ -11,29 +11,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * 
  * It extends the GameInputAdapter class to listen to keyboard,mouse,touch and controller events.
  * 
- * A GameStateLogic is configured (=which logic is used for which gamestate) within the GameStateType enum.
- * 
- * GameStateLogic has the following attributes:
- * 		game:				reference to the GDXGame instance in order to call the setGameState() method
- * 
- * 		camera:				reference to the GDXGame instance's camera to be able to f.e. move the
- * 							camera around or change its viewport/projection
- * 
- * 		initialized:		flag to define if the logic was already initialized before. This is used
- * 							when a gamestate changes from the pause to the resume state in order to not
- * 							reinitialize the logic and therefore resume from its last position. Check
- * 							the GDXGame setGameState() method for more information.
- * 
- * 		data:				optional data that can be retrieved from the previous gamestate. This is used
- * 							to send information from the previous gamestate to the active gamestate (f.e.
- * 							passing highscore data from the game gamestate to the highscore gamestate that
- * 							gets active after the game gamestate).
+ * A GameStateLogic is configured (=which logic is used for which gamestate) within the GameStateType enum.					
  *
  */
 public abstract class GameStateLogic extends GameInputAdapter {
+	/**
+	 * reference to the GDXGame instance in order to call the setGameState() method
+	 */
 	protected final GDXGame	game;
+	/**
+	 * reference to the GDXGame instance's camera to be able to f.e. move the camera around or change its viewport/projection
+	 */
 	protected final Camera	camera;
+	/**
+	 * flag to define if the logic was already initialized before. This is used
+	 * when a gamestate changes from the pause to the resume state in order to not
+	 * reinitialize the logic and therefore resume from its last position. Check
+	 * the GDXGame setGameState() method for more information.
+	 */
 	protected boolean		initialized;
+	/**
+	 * optional data that can be retrieved from the previous gamestate. This is used
+	 * to send information from the previous gamestate to the active gamestate (f.e.
+	 * passing highscore data from the game gamestate to the highscore gamestate that
+	 * gets active after the game gamestate).
+	 */
 	protected Object		data;
 
 	public GameStateLogic(GDXGame game, Camera camera) {

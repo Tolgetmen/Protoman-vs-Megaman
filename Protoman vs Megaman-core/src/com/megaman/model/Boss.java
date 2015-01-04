@@ -42,7 +42,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 			shoot = false;
 			stopAnimation();
 			fadeTo(1, 0.5f);
-			gameLogic.spawnMissile(bossType.getMissileType(), position.x + 16, position.y + 12);
+			((GSGameLogic) logic).spawnMissile(bossType.getMissileType(), getX() + 16, getY() + 12);
 		}
 
 		if (!shoot && getTransparency() >= 1.0f) {
@@ -58,6 +58,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		setPosition(0, 0);
 		setSize(0, 0);
 		setAnimation(0);
+		setTransparency(1);
 	}
 
 	public boolean isAlive() {

@@ -25,7 +25,7 @@ public class Mettool extends AnimatedGameObject {
 		idleTime += deltaTime;
 
 		if (isFleeing) {
-			position.add(120 * deltaTime, 0);
+			setPosition(getX() + 120 * deltaTime, getY());
 		}
 	}
 

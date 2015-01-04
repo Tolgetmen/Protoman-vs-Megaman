@@ -10,6 +10,7 @@ import com.megaman.constants.GameConstants;
 import com.megaman.core.enums.GameMenuPageType;
 
 /**
+ * 
  * GameMenu is the one of core classes for Label based keyboard menus. It consists of at least one menu page and each menu page
  * contains the menu options for that page. 
  * It uses the libgdx Stage class to have a scene graph in the background that contains actors(=the Labels). The stage
@@ -18,24 +19,25 @@ import com.megaman.core.enums.GameMenuPageType;
  * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
  * A Skin is configured within the SkinType enum.
  * 
- * GameMenu has the following attributes:
- * 		stage:					libgdx Stage that is used to store and render the different actors(=labels)
- * 
- * 		menuPages:				stack of GameMenuPages. Always contains at least of menu page (=startPage parameter of constructor).
- * 								The page that is currently on top will be rendered. Other pages are hidden.
- * 
- * 		currentOptionIndex:		current selected option of the active menu page
- * 
- * 		logic:					reference to the GameStateLogic that is creating the menu. The reference can be used
- * 								to call functionality from the logic out of the menu.				
- *
  */
 public abstract class GameMenu {
+	/**
+	 * libgdx Stage that is used to store and render the different actors(=labels)
+	 */
 	private Stage					stage;
-
+	/**
+	 * stack of GameMenuPages. Always contains at least one menu page (=startPage parameter of constructor).
+	 * The page that is currently on top will be rendered. Other pages are hidden.
+	 */
 	private Stack<GameMenuPage>		menuPages;
+	/**
+	 * current selected option of the active menu page
+	 */
 	private int						currentOptionIndex;
-
+	/**
+	 * reference to the GameStateLogic that is creating the menu. The reference can be used
+	 * to call functionality from the logic out of the menu.
+	 */
 	protected final GameStateLogic	logic;
 
 	public GameMenu(GameStateLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {

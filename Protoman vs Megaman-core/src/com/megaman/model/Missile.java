@@ -48,7 +48,7 @@ public class Missile extends AnimatedGameObject implements Poolable {
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 
-		position.add(speedX * deltaTime, speedY * deltaTime);
+		setPosition(getX() + speedX * deltaTime, getY() + speedY * deltaTime);
 	}
 
 	public void kill() {

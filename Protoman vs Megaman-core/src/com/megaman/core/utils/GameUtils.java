@@ -9,14 +9,28 @@ import org.ini4j.Profile.Section;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.megaman.core.graphics.AnimatedSprite;
+import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.core.model.GameObject;
 
 public final class GameUtils {
 	private static Rectangle	cameraBounds;
 	private static Ini			cfgFile;
 	private static Section		gameCfgSection;
+
+	public static void renderGameObject(SpriteBatch spriteBatch, Camera camera, AnimatedGameObject gameObj, AnimatedSprite sprite) {
+		if (isWithinCameraView(camera, gameObj)) {
+			sprite.flip(gameObj.isFlipX(), gameObj.isFlipY());
+			sprite.setFrameIndex(gameObj.getFrameIndexX(), gameObj.getFrameIndexY());
+			sprite.setPosition(gameObj.getX(), gameObj.getY());
+			sprite.setSize(gameObj.getWidth(), gameObj.getHeight());
+			spriteBatch.setColor(sprite.getColor().r, sprite.getColor().g, sprite.getColor().b, 1.0f - gameObj.getTransparency());
+			spriteBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+		}
+	}
 
 	public static boolean isWithinCameraView(Camera camera, GameObject gameObj) {
 		if (cameraBounds == null) {

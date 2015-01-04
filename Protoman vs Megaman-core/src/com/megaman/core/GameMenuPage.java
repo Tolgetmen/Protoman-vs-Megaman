@@ -16,32 +16,39 @@ import com.megaman.core.utils.ResourceManager;
  * of a JSON file that describes the properties how options should look like and of a texture atlas containing graphics of the skin.
  * 
  * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
- * A Skin is configured within the SkinType enum.
  * 
- * GameMenuPage has the following attributes:
- * 		gameMenu:		reference to the GameMenu of this page in order to call the changeMenuPage() method of the GameMenu.
- * 
- * 		table:			the actor for the stage of the GameMenu. It is also a group for the different options of the page.
- * 		
- * 		options:		options of the menu page
- * 		
- * 		optionEnabled:	stores the information if an option can be selected or not. If an option is disabled then the increase-/decreaseSelection()
- * 						method of the GameMenu will ignore the option. Also the getInitialOptionIndex() method ignores disabled options.
- * 
- * 		skin:			libgdx Skin reference in order get the properties how an option should look like
- * 
- * 		logic:			reference to the GameStateLogic to be able to call logic specific methods
- * 
- * 		game:			reference to the GDXGame instance in order to be able to call f.e. the setGameState() method		
+ * A Skin is configured within the SkinType enum.				
  *
  */
 public abstract class GameMenuPage {
+	/**
+	 * reference to the GameMenu of this page in order to call the changeMenuPage() method of the GameMenu.
+	 */
 	protected final GameMenu		gameMenu;
+	/**
+	 * the actor for the stage of the GameMenu. It is also a group for the different options of the page.
+	 */
 	protected Table					table;
+	/**
+	 * options of the menu page
+	 */
 	protected Array<Label>			options;
+	/**
+	 * stores the information if an option can be selected or not. If an option is disabled then the increase-/decreaseSelection()
+	 * method of the GameMenu will ignore the option. Also the getInitialOptionIndex() method ignores disabled options.
+	 */
 	protected Array<Boolean>		optionEnabled;
+	/**
+	 * libgdx Skin reference in order get the properties how an option should look like
+	 */
 	protected final Skin			skin;
+	/**
+	 * reference to the GameStateLogic to be able to call logic specific methods
+	 */
 	protected final GameStateLogic	logic;
+	/**
+	 * reference to the GDXGame instance in order to be able to call f.e. the setGameState() method	
+	 */
 	protected final GDXGame			game;
 
 	public GameMenuPage(GameMenuPageType type, GameMenu gameMenu, GDXGame game, GameStateLogic logic) {
@@ -86,7 +93,12 @@ public abstract class GameMenuPage {
 		}
 
 		// create a new label with the specified text and style
-		Label lbl = new Label(label, style);
+		Label lbl = null;
+		if (style == null) {
+			lbl = new Label(label, skin.get("default", LabelStyle.class));
+		} else {
+			lbl = new Label(label, style);
+		}
 		// add the new label to the options and optionEnabled arrays
 		options.add(lbl);
 		optionEnabled.add(enabled);

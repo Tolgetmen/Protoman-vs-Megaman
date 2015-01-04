@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -37,30 +36,30 @@ import com.megaman.model.Protoman;
 import com.megaman.model.SpecialFX;
 
 public class GSGameLogic extends GameStateLogic {
-	private Array<GameObject>				gameObjects;
+	private Array<GameObject>						gameObjects;
 	// create two maps for linking character/sprite and missile/sprite
 	// since characters share one texture and missiles share one texture
 	//
 	// this should avoid texture binding calls and therefore increase render performance
-	private Map<GameObject, AnimatedSprite>	animatedCharacters;
-	private Map<GameObject, AnimatedSprite>	animatedMissiles;
-	private Array<Missile>					activeMissiles;
-	private Pool<Missile>					poolMissiles;
-	private Array<Boss>						activeBosses;
-	private Pool<Boss>						poolBosses;
-	private Array<Mettool>					mettools;
-	private Array<SpecialFX>				activeEffects;
-	private Pool<SpecialFX>					poolEffects;
+	private Map<AnimatedGameObject, AnimatedSprite>	animatedCharacters;
+	private Map<AnimatedGameObject, AnimatedSprite>	animatedMissiles;
+	private Array<Missile>							activeMissiles;
+	private Pool<Missile>							poolMissiles;
+	private Array<Boss>								activeBosses;
+	private Pool<Boss>								poolBosses;
+	private Array<Mettool>							mettools;
+	private Array<SpecialFX>						activeEffects;
+	private Pool<SpecialFX>							poolEffects;
 
-	private Megaman							megaman;
-	private Protoman						protoman;
+	private Megaman									megaman;
+	private Protoman								protoman;
 
-	private int								life;
-	private int								blockedNormal;
-	private int								blockedBoss;
+	private int										life;
+	private int										blockedNormal;
+	private int										blockedBoss;
 
-	private MusicType						currentMusic;
-	private float							lastMusicPosition;
+	private MusicType								currentMusic;
+	private float									lastMusicPosition;
 
 	public GSGameLogic(GDXGame game, Camera camera) {
 		super(game, camera);
@@ -76,8 +75,8 @@ public class GSGameLogic extends GameStateLogic {
 		playMusic(MusicType.PROTOMAN);
 
 		gameObjects = new Array<GameObject>();
-		animatedCharacters = new HashMap<GameObject, AnimatedSprite>();
-		animatedMissiles = new HashMap<GameObject, AnimatedSprite>();
+		animatedCharacters = new HashMap<AnimatedGameObject, AnimatedSprite>();
+		animatedMissiles = new HashMap<AnimatedGameObject, AnimatedSprite>();
 		activeMissiles = new Array<Missile>();
 		poolMissiles = new Pool<Missile>() {
 			@Override
@@ -241,31 +240,15 @@ public class GSGameLogic extends GameStateLogic {
 		}
 	}
 
-	private void renderSprites(SpriteBatch spriteBatch, Map<GameObject, AnimatedSprite> sprites) {
-		for (Map.Entry<GameObject, AnimatedSprite> entry : sprites.entrySet()) {
-			GameObject gameObj = entry.getKey();
-			AnimatedSprite sprite = entry.getValue();
-
-			if (GameUtils.isWithinCameraView(camera, gameObj)) {
-				sprite.flip(gameObj.isFlipX(), gameObj.isFlipY());
-				if (gameObj instanceof AnimatedGameObject) {
-					AnimatedGameObject aniGameObj = (AnimatedGameObject) gameObj;
-					sprite.setFrameIndex(aniGameObj.getCurrentColumn(), aniGameObj.getCurrentRow());
-				}
-				sprite.setPosition(gameObj.getX(), gameObj.getY());
-				sprite.setSize(gameObj.getWidth(), gameObj.getHeight());
-				final Color color = sprite.getColor();
-				spriteBatch.setColor(color.r, color.g, color.b, 1.0f - gameObj.getTransparency());
-				spriteBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
-			}
-		}
-	}
-
 	@Override
 	public void render(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
-		renderSprites(spriteBatch, animatedCharacters);
-		renderSprites(spriteBatch, animatedMissiles);
+		for (Map.Entry<AnimatedGameObject, AnimatedSprite> entry : animatedCharacters.entrySet()) {
+			GameUtils.renderGameObject(spriteBatch, camera, entry.getKey(), entry.getValue());
+		}
+		for (Map.Entry<AnimatedGameObject, AnimatedSprite> entry : animatedMissiles.entrySet()) {
+			GameUtils.renderGameObject(spriteBatch, camera, entry.getKey(), entry.getValue());
+		}
 		spriteBatch.end();
 	}
 
