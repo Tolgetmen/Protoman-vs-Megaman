@@ -18,17 +18,17 @@ import com.megaman.core.GDXGame;
 
 public class DesktopLauncher {
 	private static void readConfigFromFile(LwjglApplicationConfiguration config, String iniFilePath, String configSection) throws InvalidFileFormatException, IOException {
-		Ini iniFile = new Ini(new File("../Protoman vs Megaman-core/assets/game.cfg"));
-		Section section = iniFile.get("Gameconfig");
+		Ini iniFile = new Ini(new File(GameConstants.CFG_FILE_PATH));
+		Section section = iniFile.get(GameConstants.CFG_FILE_CFG_SECTION);
 
 		if (section != null) {
 			// and store its values in the gameConfigValues
 			for (Entry<String, String> entry : section.entrySet()) {
-				if ("windowWidth".equals(entry.getKey())) {
+				if (GameConstants.CFG_KEY_WIDTH.equals(entry.getKey())) {
 					config.width = Integer.parseInt(entry.getValue());
-				} else if ("windowHeight".equals(entry.getKey())) {
+				} else if (GameConstants.CFG_KEY_HEIGHT.equals(entry.getKey())) {
 					config.height = Integer.parseInt(entry.getValue());
-				} else if ("fullscreen".equals(entry.getKey())) {
+				} else if (GameConstants.CFG_KEY_FULLSCREEN.equals(entry.getKey())) {
 					config.fullscreen = Boolean.parseBoolean(entry.getValue());
 				}
 			}

@@ -88,9 +88,9 @@ public class VideoMenuPage extends GameMenuPage {
 	}
 
 	private void updateVideoConfig(int width, int height, boolean fullscreen) {
-		GameUtils.setCfgFileValue("fullscreen", "" + fullscreen);
-		GameUtils.setCfgFileValue("windowWidth", "" + width);
-		GameUtils.setCfgFileValue("windowHeight", "" + height);
+		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_FULLSCREEN, "" + fullscreen);
+		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_WIDTH, "" + width);
+		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_HEIGHT, "" + height);
 
 		Gdx.graphics.setDisplayMode(currentMode, availableResolutions43.get(currentMode), fullscreen);
 
