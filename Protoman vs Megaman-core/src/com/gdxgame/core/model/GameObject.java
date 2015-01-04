@@ -1,8 +1,8 @@
-package com.megaman.core.model;
+package com.gdxgame.core.model;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.megaman.core.GameStateLogic;
+import com.gdxgame.core.GameStateLogic;
 
 /**
  * 

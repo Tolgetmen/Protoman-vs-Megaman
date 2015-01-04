@@ -1,4 +1,4 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

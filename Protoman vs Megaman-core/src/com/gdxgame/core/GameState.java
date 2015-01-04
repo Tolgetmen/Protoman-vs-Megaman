@@ -1,8 +1,8 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.core.enums.GameStateType;
+import com.gdxgame.core.enums.GameStateType;
 
 /**
  * GameState is one of the core classes besides GameStateLogic. Each game consists of multiple gamestates (f.e. show main menu, game, show highscore, game over, ...).

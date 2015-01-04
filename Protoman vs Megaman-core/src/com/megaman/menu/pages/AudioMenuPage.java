@@ -2,15 +2,15 @@ package com.megaman.menu.pages;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameMenuPage;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.utils.SoundManager;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameMenuPage;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.utils.SoundManager;
+import com.megaman.constants.MegamanConstants;
 
 public class AudioMenuPage extends GameMenuPage {
 	private final int	OPTION_MUSIC			= 0;
@@ -33,13 +33,13 @@ public class AudioMenuPage extends GameMenuPage {
 		currentJukeboxTitle = 0;
 		jukeBoxMusic = new MusicType[] { MusicType.MENU, MusicType.GEMINIMAN, MusicType.HARDMAN, MusicType.MAGNETMAN, MusicType.NEEDLEMAN, MusicType.PROTOMAN, MusicType.SHADOWMAN, MusicType.SNAKEMAN, MusicType.SPARKMAN, MusicType.TOPMAN, MusicType.WILY_STAGE };
 
-		addOption("music", true, GameConstants.MENU_OFFSET_TOP, 0, 0, 0);
-		addOption("" + SoundManager.INSTANCE.getMusicVolume(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("music", true, MegamanConstants.MENU_OFFSET_TOP, 0, 0, 0);
+		addOption("" + SoundManager.INSTANCE.getMusicVolume(), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("sound", true, 0, 0, 0, 0);
-		addOption("" + SoundManager.INSTANCE.getSoundVolume(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("" + SoundManager.INSTANCE.getSoundVolume(), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("jukebox", true, 0, 0, 0, 0);
-		addOption(jukeBoxMusic[currentJukeboxTitle].getName(), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
-		addOption("back", true, 0, 0, GameConstants.MENU_OFFSET_BOTTOM, 0);
+		addOption(jukeBoxMusic[currentJukeboxTitle].getName(), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("back", true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
 	@Override

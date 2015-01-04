@@ -1,10 +1,10 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.model.AnimatedGameObject;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.model.AnimatedGameObject;
 
 public class Protoman extends AnimatedGameObject {
 	private float	speedX;

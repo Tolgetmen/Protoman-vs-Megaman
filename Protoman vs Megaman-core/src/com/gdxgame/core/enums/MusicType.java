@@ -1,4 +1,4 @@
-package com.megaman.core.enums;
+package com.gdxgame.core.enums;
 
 /**
  * MusicType enum is the configuration enum for music that is used for the game.

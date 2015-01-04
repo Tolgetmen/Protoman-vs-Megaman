@@ -1,9 +1,9 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.model.AnimatedGameObject;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.model.AnimatedGameObject;
 
 public class SpecialFX extends AnimatedGameObject implements Poolable {
 	private boolean	isAlive;

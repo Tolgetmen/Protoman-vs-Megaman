@@ -5,10 +5,10 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.SkinType;
-import com.megaman.core.utils.ResourceManager;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.SkinType;
+import com.gdxgame.core.utils.ResourceManager;
 
 public class HighscoreMenu extends MegamanMenu {
 	private BitmapFont				font;

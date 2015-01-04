@@ -8,13 +8,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameMenuPage;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.utils.GameUtils;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameMenuPage;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.utils.GameUtils;
+import com.megaman.constants.MegamanConstants;
 
 public class VideoMenuPage extends GameMenuPage {
 	private final int				OPTION_FULLSCREEN		= 0;
@@ -47,10 +48,10 @@ public class VideoMenuPage extends GameMenuPage {
 			}
 		}
 
-		addOption("fullscreen", true, GameConstants.MENU_OFFSET_TOP, 0, 0, 0);
-		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("fullscreen", true, MegamanConstants.MENU_OFFSET_TOP, 0, 0, 0);
+		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("window size", !GameUtils.getCfgFileValue("fullscreen", Boolean.class), 0, 0, 0, 0);
-		addOption("" + currentMode + " x " + availableResolutions43.get(currentMode), false, skin.get("normal", LabelStyle.class), 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("" + currentMode + " x " + availableResolutions43.get(currentMode), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption("back", true, 0, 0, 0, 0);
 	}
 

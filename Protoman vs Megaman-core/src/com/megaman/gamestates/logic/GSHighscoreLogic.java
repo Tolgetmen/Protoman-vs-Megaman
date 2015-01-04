@@ -1,11 +1,11 @@
 package com.megaman.gamestates.logic;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.utils.SoundManager;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.utils.SoundManager;
 import com.megaman.menu.HighscoreMenu;
 
 public class GSHighscoreLogic extends MenuLogic {

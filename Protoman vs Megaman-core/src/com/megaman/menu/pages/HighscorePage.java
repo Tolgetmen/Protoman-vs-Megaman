@@ -2,14 +2,14 @@ package com.megaman.menu.pages;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameMenuPage;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.GameStateType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.utils.SoundManager;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameMenuPage;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.utils.SoundManager;
 import com.megaman.menu.HighscoreMenu;
 
 public class HighscorePage extends GameMenuPage implements OnCompletionListener {

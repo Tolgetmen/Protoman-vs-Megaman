@@ -12,20 +12,21 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.graphics.AnimatedSprite;
+import com.gdxgame.core.model.AnimatedGameObject;
+import com.gdxgame.core.model.GameObject;
+import com.gdxgame.core.utils.GameUtils;
+import com.gdxgame.core.utils.ResourceManager;
+import com.gdxgame.core.utils.SoundManager;
 import com.megaman.ai.states.MettoolState;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameStateType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.graphics.AnimatedSprite;
-import com.megaman.core.model.AnimatedGameObject;
-import com.megaman.core.model.GameObject;
-import com.megaman.core.utils.GameUtils;
-import com.megaman.core.utils.ResourceManager;
-import com.megaman.core.utils.SoundManager;
+import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;
 import com.megaman.enums.MissileType;
 import com.megaman.model.Boss;
@@ -116,7 +117,7 @@ public class GSGameLogic extends GameStateLogic {
 		gameObjects.add(protoman);
 		animatedCharacters.put(protoman, sprProtoman);
 
-		life = GameConstants.MAX_LIFE;
+		life = MegamanConstants.MAX_LIFE;
 		blockedNormal = 0;
 		blockedBoss = 0;
 
@@ -145,7 +146,7 @@ public class GSGameLogic extends GameStateLogic {
 			highscore.put("blocked", blockedNormal + blockedBoss);
 			highscore.put("blocked_normal", blockedNormal);
 			highscore.put("blocked_boss", blockedBoss);
-			highscore.put("leaked", GameConstants.MAX_LIFE - life);
+			highscore.put("leaked", MegamanConstants.MAX_LIFE - life);
 			highscore.put("life", life);
 			highscore.put("points", (life * 1000) + (blockedBoss * 300) + (blockedNormal * 100));
 			game.setGameState(GameStateType.HIGHSCORE, true, true, highscore);
@@ -272,12 +273,10 @@ public class GSGameLogic extends GameStateLogic {
 	}
 
 	public void spawnBoss(BossType type, float spawnX, float spawnY) {
-		final AnimatedSprite sprite = ResourceManager.INSTANCE.getAnimatedSprite(type.getGraphic());
-
 		Boss boss = poolBosses.obtain();
-		boss.initialize(type, spawnX, spawnY, sprite.getWidth(), sprite.getHeight());
+		boss.initialize(type, spawnX, spawnY);
 		activeBosses.add(boss);
-		animatedCharacters.put(boss, sprite);
+		animatedCharacters.put(boss, ResourceManager.INSTANCE.getAnimatedSprite(type.getGraphic()));
 	}
 
 	public void setProtomanSpeed(float speed, float angleInDegrees) {
@@ -289,12 +288,12 @@ public class GSGameLogic extends GameStateLogic {
 		switch (keycode) {
 			case Keys.UP: {
 				// move protoman up
-				setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 90);
+				setProtomanSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
 				break;
 			}
 			case Keys.DOWN: {
 				// move protoman down
-				setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 270);
+				setProtomanSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
 				break;
 			}
 			case Keys.ESCAPE: {
@@ -314,10 +313,10 @@ public class GSGameLogic extends GameStateLogic {
 			case Keys.UP: {
 				if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 					// down key still pressed -> move protoman down
-					setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 270);
+					setProtomanSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
 				} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 					// up key still pressed -> move protoman up
-					setProtomanSpeed(GameConstants.PROTOMAN_SPEED, 90);
+					setProtomanSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
 				} else {
 					// both keys released -> stop protoman
 					setProtomanSpeed(0, 0);

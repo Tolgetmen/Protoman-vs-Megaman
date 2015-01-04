@@ -3,14 +3,14 @@ package com.megaman.menu;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.graphics.AnimatedSprite;
-import com.megaman.core.utils.ResourceManager;
-import com.megaman.core.utils.SoundManager;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.graphics.AnimatedSprite;
+import com.gdxgame.core.utils.ResourceManager;
+import com.gdxgame.core.utils.SoundManager;
 
 public class MegamanMenu extends GameMenu {
 	protected AnimatedSprite	megaman;

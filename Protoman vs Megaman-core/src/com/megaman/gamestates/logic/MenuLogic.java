@@ -2,8 +2,8 @@ package com.megaman.gamestates.logic;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameStateLogic;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameStateLogic;
 import com.megaman.menu.MegamanMenu;
 
 public abstract class MenuLogic extends GameStateLogic {

@@ -1,12 +1,12 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.utils.ResourceManager;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.utils.ResourceManager;
 
 /**
  * GameMenuPage is one of the core classes for Label based keyboard menus. It contains different options that can be selected by the user. 

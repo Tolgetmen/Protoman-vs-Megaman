@@ -1,4 +1,4 @@
-package com.megaman.core.utils;
+package com.gdxgame.core.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,12 +9,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.enums.SkinType;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.graphics.AnimatedSprite;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.enums.SkinType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.graphics.AnimatedSprite;
 
 /**
  * The ResourceManager singleton is the core singleton to load and dispose resources. It supports loading and disposing of the following objects:

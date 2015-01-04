@@ -1,12 +1,12 @@
-package com.megaman.core.utils;
+package com.gdxgame.core.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.enums.SoundType;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.enums.SoundType;
 
 /**
  * The SoundManager singleton is the core singleton to play and stop libgdx Sound and Music. It also supports

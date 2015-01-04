@@ -1,13 +1,13 @@
 package com.megaman.gamestates;
 
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.GameState;
-import com.megaman.core.enums.GameStateType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.utils.ResourceManager;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GameState;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.utils.ResourceManager;
 
 public class GSGame extends GameState {
 	public GSGame(GameStateType type, GameStateLogic logic) {

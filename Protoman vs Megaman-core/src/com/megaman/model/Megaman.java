@@ -3,13 +3,14 @@ package com.megaman.model;
 import com.badlogic.gdx.ai.fsm.StackStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.math.MathUtils;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.model.AnimatedGameObject;
+import com.gdxgame.core.utils.SoundManager;
 import com.megaman.ai.states.MegamanState;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.model.AnimatedGameObject;
-import com.megaman.core.utils.SoundManager;
+import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;
 import com.megaman.enums.MissileType;
 import com.megaman.gamestates.logic.GSGameLogic;
@@ -24,22 +25,17 @@ public class Megaman extends AnimatedGameObject {
 
 	public Megaman(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
 		super(logic, textureType, animationsPerSecond);
-		
+
 		shotCounter = 0;
 		bossIndex = -1;
-		shotFrequency = 2.25f;
-		remainingShots = 77;
+		shotFrequency = MegamanConstants.MEGAMAN_SHOOT_START_FREQUENCY;
+		remainingShots = MegamanConstants.MEGAMAN_MAX_MISSILES;
 		idleTime = 0.0f;
 		stateMachine = new StackStateMachine<Megaman>(this, MegamanState.IDLE, null);
 	}
 
 	public int getShotCounter() {
 		return shotCounter;
-	}
-
-	public void incShotCounter() {
-		++shotCounter;
-		shotCounter %= 9;
 	}
 
 	@Override
@@ -80,14 +76,15 @@ public class Megaman extends AnimatedGameObject {
 	}
 
 	public void shoot() {
+		++shotCounter;
 		--remainingShots;
 		((GSGameLogic) logic).spawnMissile(MissileType.MEGAMAN, getX() + 21, getY() + 13);
 		SoundManager.INSTANCE.playSound(SoundType.SHOOT_MEGAMAN);
 		setAnimation(2);
-		fadeTo(1, 0.5f);
+		fadeTo(1, MegamanConstants.MEGAMAN_FADE_OUT_TIME);
 
-		if (remainingShots % 5 == 0) {
-			shotFrequency -= 0.07f;
+		if (shotCounter % MegamanConstants.MEGAMAN_FREQUENCY_CHANGE == 0) {
+			shotFrequency -= MegamanConstants.MEGAMAN_SHOOT_FREQUENCY_DECREMENT;
 		}
 	}
 

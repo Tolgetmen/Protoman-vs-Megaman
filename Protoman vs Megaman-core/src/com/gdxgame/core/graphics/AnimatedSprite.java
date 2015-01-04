@@ -1,9 +1,9 @@
-package com.megaman.core.graphics;
+package com.gdxgame.core.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.megaman.core.enums.TextureType;
+import com.gdxgame.core.enums.TextureType;
 
 /**
  * AnimatedSprite is a wrapper class for the libgdx Sprite class to encapsulate the setRegion() method of the Sprite and

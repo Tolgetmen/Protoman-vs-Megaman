@@ -13,8 +13,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.GDXGame;
 
 public class DesktopLauncher {
 	private static void readConfigFromFile(LwjglApplicationConfiguration config, String iniFilePath, String configSection) throws InvalidFileFormatException, IOException {

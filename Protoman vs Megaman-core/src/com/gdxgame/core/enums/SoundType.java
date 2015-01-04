@@ -1,4 +1,4 @@
-package com.megaman.core.enums;
+package com.gdxgame.core.enums;
 
 /**
  * SoundType enum is the configuration enum for sound that is used for the game.

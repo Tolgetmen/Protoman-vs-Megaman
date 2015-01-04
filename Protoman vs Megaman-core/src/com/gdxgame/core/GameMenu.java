@@ -1,4 +1,4 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import java.util.Stack;
 
@@ -6,8 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.enums.GameMenuPageType;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.enums.GameMenuPageType;
 
 /**
  * 

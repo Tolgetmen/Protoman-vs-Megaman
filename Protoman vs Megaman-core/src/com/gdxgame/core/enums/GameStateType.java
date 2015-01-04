@@ -1,7 +1,7 @@
-package com.megaman.core.enums;
+package com.gdxgame.core.enums;
 
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.GameState;
+import com.gdxgame.core.GameState;
+import com.gdxgame.core.GameStateLogic;
 import com.megaman.gamestates.GSGame;
 import com.megaman.gamestates.GSGameOver;
 import com.megaman.gamestates.GSHighscore;

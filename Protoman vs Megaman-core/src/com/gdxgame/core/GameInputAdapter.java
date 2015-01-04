@@ -1,4 +1,4 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.controllers.Controller;

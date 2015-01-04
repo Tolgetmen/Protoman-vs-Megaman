@@ -3,15 +3,15 @@ package com.megaman.menu.pages;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameMenuPage;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
-import com.megaman.core.enums.GameStateType;
-import com.megaman.core.enums.MusicType;
-import com.megaman.core.utils.SoundManager;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameMenuPage;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.utils.SoundManager;
+import com.megaman.constants.MegamanConstants;
 import com.megaman.menu.MegamanMenu;
 
 public class MainMenuPage extends GameMenuPage implements OnCompletionListener {
@@ -28,10 +28,10 @@ public class MainMenuPage extends GameMenuPage implements OnCompletionListener {
 	public void initialize() {
 		boolean isGameRunning = game.isGameStateAvailable(GameStateType.GAME);
 
-		addOption("resume game", isGameRunning, isGameRunning ? skin.get("default", LabelStyle.class) : skin.get("title_disabled", LabelStyle.class), GameConstants.MENU_OFFSET_TOP, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("new game", true, 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("settings", true, 0, 0, GameConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("exit game", true, 0, 0, GameConstants.MENU_OFFSET_BOTTOM, 0);
+		addOption("resume game", isGameRunning, isGameRunning ? skin.get("default", LabelStyle.class) : skin.get("title_disabled", LabelStyle.class), MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption("new game", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption("settings", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption("exit game", true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
 	@Override

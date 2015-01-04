@@ -1,4 +1,4 @@
-package com.megaman.core.utils;
+package com.gdxgame.core.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +12,10 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.graphics.AnimatedSprite;
-import com.megaman.core.model.AnimatedGameObject;
-import com.megaman.core.model.GameObject;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.graphics.AnimatedSprite;
+import com.gdxgame.core.model.AnimatedGameObject;
+import com.gdxgame.core.model.GameObject;
 
 /**
  * GameUtils is a general game utility class. It contains utility methods for game objects and also methods

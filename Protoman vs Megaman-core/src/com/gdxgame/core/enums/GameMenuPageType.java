@@ -1,6 +1,6 @@
-package com.megaman.core.enums;
+package com.gdxgame.core.enums;
 
-import com.megaman.core.GameMenuPage;
+import com.gdxgame.core.GameMenuPage;
 import com.megaman.menu.pages.GameOverPage;
 import com.megaman.menu.pages.HighscorePage;
 import com.megaman.menu.pages.MainMenuPage;

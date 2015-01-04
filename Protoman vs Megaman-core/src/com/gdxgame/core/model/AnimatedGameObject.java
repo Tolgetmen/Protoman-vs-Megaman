@@ -1,7 +1,7 @@
-package com.megaman.core.model;
+package com.gdxgame.core.model;
 
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.TextureType;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.TextureType;
 
 /**
  * 
@@ -210,10 +210,11 @@ public abstract class AnimatedGameObject extends GameObject {
 	 * @param textureType new type of texture for animated game object
 	 */
 	public void setTextureType(TextureType textureType) {
-		this.animationsY = textureType.getAnimationsY();
-		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
-
 		this.animationsX = textureType.getAnimationsX();
+		this.animationsY = textureType.getAnimationsY();
+		// start from the first frame index (=top left corner)
+		this.animationStartY = this.animationStartX = 0;
+		// stop at the last frame index (=bottom right corner)
 		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 	}
 
@@ -245,8 +246,6 @@ public abstract class AnimatedGameObject extends GameObject {
 	 * @param endAnimation animation index to end
 	 */
 	public void setLoopAnimations(int startAnimation, int endAnimation) {
-		stop = false;
-
 		int newAnimationStartRow = startAnimation / animationsX;
 		int newAnimationStartColumn = startAnimation % animationsX;
 
@@ -261,6 +260,8 @@ public abstract class AnimatedGameObject extends GameObject {
 
 		currentY = animationStartY;
 		currentX = animationStartX;
+
+		stop = false;
 	}
 
 	/**

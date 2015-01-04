@@ -1,4 +1,4 @@
-package com.megaman.core;
+package com.gdxgame.core;
 
 import java.util.Iterator;
 import java.util.Stack;
@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.megaman.constants.GameConstants;
-import com.megaman.core.enums.GameStateType;
-import com.megaman.core.utils.ResourceManager;
+import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.utils.ResourceManager;
 
 /**
  * GDXGame is the entrypoint for each game made with libgdx. It extends the libgdx Game class

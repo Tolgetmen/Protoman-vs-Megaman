@@ -1,9 +1,10 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.TextureType;
-import com.megaman.core.model.AnimatedGameObject;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.TextureType;
+import com.gdxgame.core.model.AnimatedGameObject;
+import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;
 import com.megaman.gamestates.logic.GSGameLogic;
 
@@ -17,36 +18,33 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		reset();
 	}
 
-	public void initialize(BossType type, float x, float y, float width, float height) {
-		setPosition(x, y);
-		setSize(width, height);
-		isAlive = true;
+	public void initialize(BossType type, float x, float y) {
 		bossType = type;
-
+		isAlive = true;
+		setPosition(x, y);
+		setSize(type.getWidth(), type.getHeight());
 		setAnimationPerSecond(type.getAnimationsPerSecond());
 		setTextureType(type.getGraphic());
-		setLoopAnimations(0, type.getGraphic().getAnimationsX() * type.getGraphic().getAnimationsY() - 1);
 		loopAnimation(false);
-		startAnimation();
-		fadeTo(0, 0.75f);
+		setAnimation(0);
+		fadeTo(0, MegamanConstants.BOSS_FADE_IN_TIME);
 	}
 
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 
-		if (getTransparency() == 0.0f) {
-			// ready for attack
+		if (getTransparency() > 0.8f && getCurrentAnimation() == 0) {
+			// completely visible -> ready for attack
 			setLoopAnimations(1, 5);
 		}
 
 		if (shoot && getCurrentAnimation() == 5) {
+			// boss is showing attack animation and can still shoot
 			shoot = false;
-			stopAnimation();
-			fadeTo(1, 0.5f);
+			fadeTo(1, MegamanConstants.BOSS_FADE_OUT_TIME);
 			((GSGameLogic) logic).spawnMissile(bossType.getMissileType(), getX() + 16, getY() + 12);
-		}
-
-		if (!shoot && getTransparency() >= 1.0f) {
+		} else if (!shoot && getTransparency() >= 1.0f) {
+			// boss already attacked and is invisible
 			isAlive = false;
 		}
 	}
@@ -58,7 +56,6 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		isAlive = false;
 		setPosition(0, 0);
 		setSize(0, 0);
-		setAnimation(0);
 		setTransparency(1);
 	}
 

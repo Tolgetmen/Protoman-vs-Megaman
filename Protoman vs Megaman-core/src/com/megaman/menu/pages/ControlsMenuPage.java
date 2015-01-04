@@ -1,10 +1,10 @@
 package com.megaman.menu.pages;
 
-import com.megaman.core.GDXGame;
-import com.megaman.core.GameMenu;
-import com.megaman.core.GameMenuPage;
-import com.megaman.core.GameStateLogic;
-import com.megaman.core.enums.GameMenuPageType;
+import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.GameMenu;
+import com.gdxgame.core.GameMenuPage;
+import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.enums.GameMenuPageType;
 
 public class ControlsMenuPage extends GameMenuPage {
 	private final int	OPTION_BACK	= 0;

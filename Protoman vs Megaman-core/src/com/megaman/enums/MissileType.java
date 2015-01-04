@@ -1,7 +1,7 @@
 package com.megaman.enums;
 
-import com.megaman.core.enums.SoundType;
-import com.megaman.core.enums.TextureType;
+import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
 
 public enum MissileType {
 	MEGAMAN(TextureType.TEXTURE_MISSILE_MEGAMAN, SoundType.SHOOT_MEGAMAN, 150, 0, false),
