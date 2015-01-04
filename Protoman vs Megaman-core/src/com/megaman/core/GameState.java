@@ -64,6 +64,8 @@ public abstract class GameState implements Screen {
 
 	/**
 	 * This method is called per frame and will forward this call to the logic's update method.
+	 * 
+	 * @param deltaTime time passed between the previous frame and the current frame
 	 */
 	public void update(float deltaTime) {
 		logic.update(deltaTime);
@@ -71,6 +73,8 @@ public abstract class GameState implements Screen {
 
 	/**
 	 * This method is called per frame and will forward this call to the logic's render method.
+	 * 
+	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
 	 */
 	public void render(SpriteBatch spriteBatch) {
 		logic.render(spriteBatch);

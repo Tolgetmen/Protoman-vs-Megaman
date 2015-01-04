@@ -8,7 +8,7 @@
 <node CREATED="1419841671210" ID="ID_581437102" MODIFIED="1419841680858" TEXT="links megaman, der periodisch nach rechts schie&#xdf;t"/>
 <node CREATED="1419841682790" ID="ID_1518133891" MODIFIED="1419841692064" TEXT="rechts protoman, der versucht die kugeln von megaman abzuwehren"/>
 <node CREATED="1419841693908" ID="ID_137221037" MODIFIED="1419841705345" TEXT="rechts hinter protoman sind metools, die er versucht zu besch&#xfc;tzen"/>
-<node CREATED="1419841709775" ID="ID_1271789723" MODIFIED="1419841729763" TEXT="am oberen rand sind zwei scheinwerfer, die das spielfeld bestrahlten">
+<node CREATED="1419841709775" ID="ID_1271789723" MODIFIED="1420328980237" TEXT="am oberen rand sind zwei scheinwerfer, die das spielfeld bestrahlten (als Erweiterung geplant, wenn Physicengine integriert)">
 <node CREATED="1419841731314" ID="ID_1694806503" MODIFIED="1419841745264" TEXT="bei h&#xf6;he 0 und weite 1/4 bildschirmbreite"/>
 <node CREATED="1419841731314" ID="ID_1589635990" MODIFIED="1419841750642" TEXT="bei h&#xf6;he 0 und weite 3/4 bildschirmbreite"/>
 </node>
@@ -82,7 +82,6 @@
 </node>
 </node>
 </node>
-<node CREATED="1419842447808" ID="ID_1610726709" MODIFIED="1419842455139" TEXT="Light in Szene hinzuf&#xfc;gen"/>
 <node CREATED="1419889430598" ID="ID_389229075" MODIFIED="1419935314685" TEXT="code kommentieren!!!">
 <node CREATED="1420328588883" ID="ID_1391178741" MODIFIED="1420328596731" TEXT="com.megaman.core">
 <icon BUILTIN="button_ok"/>
@@ -92,7 +91,7 @@
 <node CREATED="1420328622146" ID="ID_513759877" MODIFIED="1420328627074" TEXT="com.megaman.core.model"/>
 <node CREATED="1420328628555" ID="ID_212061464" MODIFIED="1420328632023" TEXT="com.egaman.core.utils"/>
 </node>
-<node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1419935625427" STYLE="fork" TEXT="Erweiterungen">
+<node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420328948403" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>
 <node CREATED="1419842471751" ID="ID_1589155767" MODIFIED="1419842574874" TEXT="In der Mitte oben des Spielfeldes fallen &quot;M&#xfc;llbl&#xf6;cke&quot; aus MM3 periodisch herunter"/>
@@ -102,6 +101,7 @@
 <node CREATED="1419842638689" ID="ID_1090523593" MODIFIED="1419842646714" TEXT="er geht dann zur ausgangsposition langsam retour"/>
 </node>
 <node CREATED="1419935606590" ID="ID_1364228087" MODIFIED="1419935624621" TEXT="protoman muss erst beschleunigen beim rauf/runterfliegen bevor er endgeschwindigkeit erreicht"/>
+<node CREATED="1419842447808" ID="ID_1610726709" MODIFIED="1419842455139" TEXT="Light in Szene hinzuf&#xfc;gen"/>
 </node>
 </node>
 <node BACKGROUND_COLOR="#00ccff" CREATED="1420328514925" FOLDED="true" HGAP="15" ID="ID_892494079" MODIFIED="1420328569336" POSITION="left" STYLE="fork" TEXT="Erledigte Aufgaben" VSHIFT="44">

@@ -97,8 +97,16 @@ public abstract class GameMenuPage {
 	}
 
 	/**
-	 * Similar like {@link #addOption(String, LabelStyle, int, int, int, int, boolean)}. 
+	 * Similar like {@link #addOption(String, boolean, com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle, int, int, int, int)}. 
 	 * The difference is that it automatically uses the "default" LabelStyle of the skin.
+	 * 
+	 * @param label 		text of the option
+	 * @param enabled		<b>true</b> to enable the option. <b>false</b> to disable the option and to
+	 * 						exclude it from the increase-/decreaseSelection() and getInitialOptioinIndex() calls
+	 * @param padTop		top padding of the option
+	 * @param padRight		right padding of the option
+	 * @param padBottom		bottom padding of the option
+	 * @param padLeft		left padding of the option
 	 */
 	public void addOption(String label, boolean enabled, int padTop, int padRight, int padBottom, int padLeft) {
 		addOption(label, enabled, skin.get("default", LabelStyle.class), padTop, padRight, padBottom, padLeft);
