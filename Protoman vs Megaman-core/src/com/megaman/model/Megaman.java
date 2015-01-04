@@ -5,7 +5,9 @@ import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.math.MathUtils;
 import com.megaman.ai.states.MegamanState;
 import com.megaman.constants.GameConstants;
+import com.megaman.core.GameStateLogic;
 import com.megaman.core.enums.SoundType;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.core.utils.SoundManager;
 import com.megaman.enums.BossType;
@@ -20,9 +22,9 @@ public class Megaman extends AnimatedGameObject {
 	private int						bossIndex;
 	private int						shotCounter;
 
-	public Megaman(GSGameLogic gameLogic, int numtAnimationsPerColumn, int numAnimationsPerRow, int animationsPerSecond) {
-		super(gameLogic, numtAnimationsPerColumn, numAnimationsPerRow, animationsPerSecond);
-
+	public Megaman(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
+		super(logic, textureType, animationsPerSecond);
+		
 		shotCounter = 0;
 		bossIndex = -1;
 		shotFrequency = 2.25f;

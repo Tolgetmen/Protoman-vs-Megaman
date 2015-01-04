@@ -1,27 +1,28 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.megaman.core.GameStateLogic;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.model.AnimatedGameObject;
-import com.megaman.gamestates.logic.GSGameLogic;
 
 public class SpecialFX extends AnimatedGameObject implements Poolable {
 	private boolean	isAlive;
 	private int		maxAnimation;
 
-	public SpecialFX(GSGameLogic gameLogic) {
-		super(gameLogic, 1, 1, 0);
+	public SpecialFX(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
+		super(logic, textureType, animationsPerSecond);
+
 		reset();
 	}
 
-	public void initialize(float x, float y, float width, float height, int numColumns, int numRows, int animationsPerSecond) {
+	public void initialize(float x, float y, float width, float height, TextureType type, int animationsPerSecond) {
 		setPosition(x, y);
 		setSize(width, height);
 		isAlive = true;
 
 		setAnimationPerSecond(animationsPerSecond);
-		setAnimationsPerColumn(numColumns);
-		setAnimationsPerRow(numRows);
-		maxAnimation = numColumns * numRows - 1;
+		setTextureType(type);
+		maxAnimation = type.getNumColumns() * type.getNumRows() - 1;
 		setLoopAnimations(0, maxAnimation);
 		loopAnimation(false);
 		startAnimation();

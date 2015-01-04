@@ -3,6 +3,7 @@ package com.megaman.core.graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.megaman.core.enums.TextureType;
 
 /**
  * AnimatedSprite is a wrapper class for the libgdx Sprite class to encapsulate the setRegion() method of the Sprite and
@@ -50,22 +51,22 @@ public class AnimatedSprite extends Sprite {
 	 */
 	private boolean	isFlippedY;
 
-	public AnimatedSprite(Texture texture, int numColumns, int numRows) {
+	public AnimatedSprite(Texture texture, TextureType textureType) {
 		super(texture);
 
-		this.frameWidth = texture.getWidth() / numColumns;
-		this.frameHeight = texture.getHeight() / numRows;
+		this.frameWidth = texture.getWidth() / textureType.getNumColumns();
+		this.frameHeight = texture.getHeight() / textureType.getNumRows();
 
 		texOffsetX = texOffsetY = 0;
 
 		initialize();
 	}
 
-	public AnimatedSprite(AtlasRegion atlasRegion, int numColumns, int numRows) {
+	public AnimatedSprite(AtlasRegion atlasRegion, TextureType textureType) {
 		super(atlasRegion.getTexture());
 
-		this.frameWidth = atlasRegion.originalWidth / numColumns;
-		this.frameHeight = atlasRegion.originalHeight / numRows;
+		this.frameWidth = atlasRegion.originalWidth / textureType.getNumColumns();
+		this.frameHeight = atlasRegion.originalHeight / textureType.getNumRows();
 
 		this.texOffsetX = atlasRegion.getRegionX();
 		this.texOffsetY = atlasRegion.getRegionY();

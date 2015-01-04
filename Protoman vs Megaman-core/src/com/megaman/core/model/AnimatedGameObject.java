@@ -1,6 +1,7 @@
 package com.megaman.core.model;
 
-import com.megaman.gamestates.logic.GSGameLogic;
+import com.megaman.core.GameStateLogic;
+import com.megaman.core.enums.TextureType;
 
 /**
  * 
@@ -93,14 +94,18 @@ public abstract class AnimatedGameObject extends GameObject {
 	 */
 	private float	targetTransparency;
 
-	public AnimatedGameObject(GSGameLogic gameLogic, int numColumns, int numRows, int animationsPerSecond) {
-		super(gameLogic);
+	public AnimatedGameObject(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
+		super(logic);
 
 		// calculate the time that needs to be passed until updating to the next frame
 		this.animationTime = 1.0f / animationsPerSecond;
 
-		this.animationsX = numColumns;
-		this.animationsY = numRows;
+		if (textureType != null) {
+			this.animationsX = textureType.getNumColumns();
+			this.animationsY = textureType.getNumRows();
+		} else {
+			animationsX = animationsY = 1;
+		}
 
 		// start from the first frame index (=top left corner)
 		this.animationStartY = this.animationStartX = 0;
@@ -199,22 +204,16 @@ public abstract class AnimatedGameObject extends GameObject {
 	}
 
 	/**
-	 * sets new amount of animations per row
+	 * sets new texture type for the animated game object. this will update the number of animations
+	 * per row and number of animations per column of the animated game object.
 	 * 
-	 * @param numRows number of animations per row
+	 * @param textureType new type of texture for animated game object
 	 */
-	public void setAnimationsPerRow(int numRows) {
-		this.animationsY = numRows;
+	public void setTextureType(TextureType textureType) {
+		this.animationsY = textureType.getNumRows();
 		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
-	}
 
-	/**
-	 * sets new amount of animations per column
-	 * 
-	 * @param numColumns number of animations per column
-	 */
-	public void setAnimationsPerColumn(int numColumns) {
-		this.animationsX = numColumns;
+		this.animationsX = textureType.getNumColumns();
 		this.animationEndY = this.animationEndX = (animationsX * animationsY) - 1;
 	}
 

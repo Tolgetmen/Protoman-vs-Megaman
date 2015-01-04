@@ -1,6 +1,8 @@
 package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.megaman.core.GameStateLogic;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.model.AnimatedGameObject;
 import com.megaman.enums.BossType;
 import com.megaman.gamestates.logic.GSGameLogic;
@@ -10,8 +12,8 @@ public class Boss extends AnimatedGameObject implements Poolable {
 	private BossType	bossType;
 	private boolean		isAlive;
 
-	public Boss(GSGameLogic gameLogic) {
-		super(gameLogic, 1, 1, 0);
+	public Boss(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
+		super(logic, textureType, animationsPerSecond);
 		reset();
 	}
 
@@ -22,8 +24,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 		bossType = type;
 
 		setAnimationPerSecond(type.getAnimationsPerSecond());
-		setAnimationsPerColumn(type.getGraphic().getNumColumns());
-		setAnimationsPerRow(type.getGraphic().getNumRows());
+		setTextureType(type.getGraphic());
 		setLoopAnimations(0, type.getGraphic().getNumColumns() * type.getGraphic().getNumRows() - 1);
 		loopAnimation(false);
 		startAnimation();

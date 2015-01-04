@@ -82,7 +82,7 @@ public enum ResourceManager {
 			if (atlasRegionMap != null && atlasRegionMap.containsKey(textureAtlas)) {
 				Map<TextureType, AtlasRegion> regionMap = atlasRegionMap.get(textureAtlas);
 				if (regionMap != null && regionMap.containsKey(texture)) {
-					AnimatedSprite animatedSprite = new AnimatedSprite(regionMap.get(texture), texture.getNumColumns(), texture.getNumRows());
+					AnimatedSprite animatedSprite = new AnimatedSprite(regionMap.get(texture), texture);
 					spriteMap.put(texture, animatedSprite);
 				}
 			} else {

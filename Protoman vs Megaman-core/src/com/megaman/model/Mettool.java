@@ -3,16 +3,17 @@ package com.megaman.model;
 import com.badlogic.gdx.ai.fsm.StackStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.megaman.ai.states.MettoolState;
+import com.megaman.core.GameStateLogic;
+import com.megaman.core.enums.TextureType;
 import com.megaman.core.model.AnimatedGameObject;
-import com.megaman.gamestates.logic.GSGameLogic;
 
 public class Mettool extends AnimatedGameObject {
 	private StateMachine<Mettool>	stateMachine;
 	private float					idleTime;
 	private boolean					isFleeing;
 
-	public Mettool(GSGameLogic gameLogic, int numtAnimationsPerColumn, int numAnimationsPerRow, int animationsPerSecond) {
-		super(gameLogic, numtAnimationsPerColumn, numAnimationsPerRow, animationsPerSecond);
+	public Mettool(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
+		super(logic, textureType, animationsPerSecond);
 
 		stateMachine = new StackStateMachine<Mettool>(this, MettoolState.IDLE, null);
 	}

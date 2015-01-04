@@ -81,21 +81,21 @@ public class GSGameLogic extends GameStateLogic {
 		poolMissiles = new Pool<Missile>() {
 			@Override
 			protected Missile newObject() {
-				return new Missile(GSGameLogic.this);
+				return new Missile(GSGameLogic.this, null, 0);
 			}
 		};
 		activeBosses = new Array<Boss>();
 		poolBosses = new Pool<Boss>() {
 			@Override
 			protected Boss newObject() {
-				return new Boss(GSGameLogic.this);
+				return new Boss(GSGameLogic.this, null, 0);
 			}
 		};
 		activeEffects = new Array<SpecialFX>();
 		poolEffects = new Pool<SpecialFX>() {
 			@Override
 			protected SpecialFX newObject() {
-				return new SpecialFX(GSGameLogic.this);
+				return new SpecialFX(GSGameLogic.this, null, 0);
 			}
 		};
 
@@ -103,14 +103,14 @@ public class GSGameLogic extends GameStateLogic {
 		final AnimatedSprite sprProtoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_PROTOMAN);
 		final AnimatedSprite sprMettool = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_METTOOL);
 
-		megaman = new Megaman(this, 3, 1, 10);
+		megaman = new Megaman(this, TextureType.TEXTURE_CHARACTER_MEGAMAN, 10);
 		megaman.setAnimation(0);
 		megaman.setPosition(0, GameConstants.GAME_HEIGHT / 2 - 16);
 		megaman.setSize(sprMegaman.getWidth(), sprMegaman.getHeight());
 		gameObjects.add(megaman);
 		animatedCharacters.put(megaman, sprMegaman);
 
-		protoman = new Protoman(this, 2, 1, 10);
+		protoman = new Protoman(this, TextureType.TEXTURE_CHARACTER_PROTOMAN, 10);
 		protoman.setPosition(GameConstants.GAME_WIDTH - 90, GameConstants.GAME_HEIGHT / 2 - 16);
 		protoman.setSize(sprProtoman.getWidth(), sprProtoman.getHeight());
 		gameObjects.add(protoman);
@@ -122,7 +122,7 @@ public class GSGameLogic extends GameStateLogic {
 
 		mettools = new Array<Mettool>();
 		for (int i = 0; i < life; ++i) {
-			Mettool mettool = new Mettool(this, TextureType.TEXTURE_CHARACTER_METTOOL.getNumColumns(), TextureType.TEXTURE_CHARACTER_METTOOL.getNumRows(), 3);
+			Mettool mettool = new Mettool(this, TextureType.TEXTURE_CHARACTER_METTOOL, 3);
 			mettool.setAnimation(0);
 			if (i < 10) {
 				mettool.setPosition(GameConstants.GAME_WIDTH - 32, 160 + 32 * i);
@@ -254,7 +254,7 @@ public class GSGameLogic extends GameStateLogic {
 
 	public void createSpecialFX(float startX, float startY) {
 		SpecialFX effect = poolEffects.obtain();
-		effect.initialize(startX, startY, 42, 42, 3, 1, 3);
+		effect.initialize(startX, startY, 42, 42, TextureType.TEXTURE_EFFECT_HIT, 3);
 		activeEffects.add(effect);
 		animatedCharacters.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_EFFECT_HIT));
 		SoundManager.INSTANCE.playSound(SoundType.HIT);
