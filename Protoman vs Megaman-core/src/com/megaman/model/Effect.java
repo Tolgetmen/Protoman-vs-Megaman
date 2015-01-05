@@ -5,12 +5,12 @@ import com.gdxgame.core.GameStateLogic;
 import com.gdxgame.core.model.AnimatedGameObject;
 import com.megaman.enums.EffectType;
 
-public class SpecialFX extends AnimatedGameObject implements Poolable {
+public class Effect extends AnimatedGameObject implements Poolable {
 	private boolean	isAlive;
 	private float	durationMax;
 	private float	currentDuration;
 
-	public SpecialFX(GameStateLogic logic) {
+	public Effect(GameStateLogic logic) {
 		super(logic, null, 0);
 
 		reset();

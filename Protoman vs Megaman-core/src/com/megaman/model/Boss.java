@@ -51,7 +51,7 @@ public class Boss extends AnimatedGameObject implements Poolable {
 	}
 
 	public void shoot() {
-		((GSGameLogic) logic).spawnMissile(bossType.getMissileType(), getX() + 16, getY() + 12);
+		((GSGameLogic) logic).createMissile(bossType.getMissileType(), getX() + 16, getY() + 12);
 	}
 
 	public void kill() {

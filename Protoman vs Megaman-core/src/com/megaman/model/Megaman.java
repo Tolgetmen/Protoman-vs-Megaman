@@ -42,7 +42,7 @@ public class Megaman extends AnimatedGameObject {
 
 	public void shoot() {
 		++shotCounter;
-		((GSGameLogic) logic).spawnMissile(MissileType.MEGAMAN, getX() + 21, getY() + 13);
+		((GSGameLogic) logic).createMissile(MissileType.MEGAMAN, getX() + 21, getY() + 13);
 
 		if (shotCounter % MegamanConstants.MEGAMAN_FREQUENCY_CHANGE == 0) {
 			shotFrequency -= MegamanConstants.MEGAMAN_SHOOT_FREQUENCY_DECREMENT;
@@ -50,7 +50,7 @@ public class Megaman extends AnimatedGameObject {
 	}
 
 	public void callBoss(BossType bossType) {
-		((GSGameLogic) logic).spawnBoss(bossType, getX(), MathUtils.random(0, GameConstants.GAME_HEIGHT - 42));
+		((GSGameLogic) logic).createBoss(bossType, getX(), MathUtils.random(0, GameConstants.GAME_HEIGHT - 42));
 	}
 
 	public int getShotCounter() {
