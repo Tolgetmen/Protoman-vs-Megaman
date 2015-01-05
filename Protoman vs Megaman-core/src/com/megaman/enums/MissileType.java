@@ -4,40 +4,48 @@ import com.gdxgame.core.enums.SoundType;
 import com.gdxgame.core.enums.TextureType;
 
 public enum MissileType {
-	MEGAMAN(TextureType.TEXTURE_MISSILE_MEGAMAN, SoundType.SHOOT_MEGAMAN, 150, 0, false),
-	SPARKMAN(TextureType.TEXTURE_MISSILE_SPARKMAN, SoundType.SHOOT_SPARKMAN, 180, 8, false),
-	SNAKEMAN(TextureType.TEXTURE_MISSILE_SNAKEMAN, SoundType.SHOOT_SNAKEMAN, 210, 12, true),
-	NEEDLEMAN(TextureType.TEXTURE_MISSILE_NEEDLEMAN, SoundType.SHOOT_NEEDLEMAN, 240, 0, false),
-	HARDMAN(TextureType.TEXTURE_MISSILE_HARDMAN, SoundType.SHOOT_HARDMAN, 270, 0, false),
-	TOPMAN(TextureType.TEXTURE_MISSILE_TOPMAN, SoundType.SHOOT_TOPMAN, 300, 12, true),
-	GEMINIMAN(TextureType.TEXTURE_MISSILE_GEMINIMAN, SoundType.SHOOT_GEMINIMAN, 330, 8, false),
-	MAGNETMAN(TextureType.TEXTURE_MISSILE_MAGNETMAN, SoundType.SHOOT_MAGNETMAN, 360, 0, false),
-	SHADOWMAN(TextureType.TEXTURE_MISSILE_SHADOWMAN, SoundType.SHOOT_SHADOWMAN, 390, 12, true);
+	MEGAMAN(TextureType.MISSILE_MEGAMAN, SoundType.SHOOT_MEGAMAN, 8, 8, 0, false, 150),
+	SPARKMAN(TextureType.MISSILE_SPARKMAN, SoundType.SHOOT_SPARKMAN, 32, 32, 8, false, 180),
+	SNAKEMAN(TextureType.MISSILE_SNAKEMAN, SoundType.SHOOT_SNAKEMAN, 32, 32, 12, true, 210),
+	NEEDLEMAN(TextureType.MISSILE_NEEDLEMAN, SoundType.SHOOT_NEEDLEMAN, 32, 32, 0, false, 240),
+	HARDMAN(TextureType.MISSILE_HARDMAN, SoundType.SHOOT_HARDMAN, 32, 32, 0, false, 270),
+	TOPMAN(TextureType.MISSILE_TOPMAN, SoundType.SHOOT_TOPMAN, 32, 32, 12, true, 300),
+	GEMINIMAN(TextureType.MISSILE_GEMINIMAN, SoundType.SHOOT_GEMINIMAN, 32, 32, 8, false, 330),
+	MAGNETMAN(TextureType.MISSILE_MAGNETMAN, SoundType.SHOOT_MAGNETMAN, 32, 32, 0, false, 360),
+	SHADOWMAN(TextureType.MISSILE_SHADOWMAN, SoundType.SHOOT_SHADOWMAN, 32, 32, 12, true, 390);
 
-	private final TextureType	graphic;
-	private final SoundType		sound;
-	private final int			speed;
+	private final TextureType	textureType;
+	private final SoundType		soundType;
+	private final int			width;
+	private final int			height;
 	private final int			animationsPerSecond;
 	private final boolean		loopAnimation;
+	private final int			speed;
 
-	private MissileType(TextureType graphic, SoundType sound, int speed, int animationsPerSecond, boolean loopAnimation) {
-		this.graphic = graphic;
-		this.sound = sound;
-		this.speed = speed;
+	private MissileType(TextureType textureType, SoundType soundType, int width, int height, int animationsPerSecond, boolean loopAnimation, int speed) {
+		this.textureType = textureType;
+		this.soundType = soundType;
+		this.width = width;
+		this.height = height;
 		this.animationsPerSecond = animationsPerSecond;
 		this.loopAnimation = loopAnimation;
+		this.speed = speed;
 	}
 
-	public TextureType getGraphic() {
-		return graphic;
+	public TextureType getTextureType() {
+		return textureType;
 	}
 
-	public SoundType getSound() {
-		return sound;
+	public SoundType getSoundType() {
+		return soundType;
 	}
 
-	public int getSpeed() {
-		return speed;
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	public int getAnimationsPerSecond() {
@@ -46,5 +54,9 @@ public enum MissileType {
 
 	public boolean isLoopAnimation() {
 		return loopAnimation;
+	}
+
+	public int getSpeed() {
+		return speed;
 	}
 }

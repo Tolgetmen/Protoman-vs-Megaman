@@ -10,26 +10,51 @@ import com.megaman.enums.BossType;
 import com.megaman.model.Megaman;
 
 public enum MegamanState implements State<Megaman> {
-	IDLE() {
+	WAKE_UP() {
 		@Override
 		public void enter(Megaman megaman) {
-			megaman.setY(MathUtils.random(0, GameConstants.GAME_HEIGHT - 33));
-			megaman.setAnimation(1);
-			megaman.fadeTo(0, MegamanConstants.MEGAMAN_FADE_IN_TIME);
+			bossIndex = -1;
+			megaman.setTransparency(0);
+			megaman.loopAnimation(true);
+			megaman.setAnimationPerSecond(1);
+			megaman.setLoopAnimations(0, 1);
 		}
 
 		@Override
 		public void update(Megaman megaman) {
-			if (megaman.getRemainingShots() > 0 && megaman.getIdleTime() >= (megaman.getShotFrequency() - MegamanConstants.MEGAMAN_FADE_OUT_TIME)) {
-				// there are still remaining shots in the megaman buster
-				if (megaman.getShotCounter() < MegamanConstants.BOSS_START_DELAY) {
-					megaman.changeState(ATTACK);
+			if (megaman.getStateTime() > 3) {
+				megaman.changeState(FADE_OUT);
+			} else if (megaman.getStateTime() > 2) {
+				megaman.setAnimationPerSecond(4);
+			} else if (megaman.getStateTime() > 1) {
+				megaman.setAnimationPerSecond(2);
+			}
+		}
+	},
+
+	FADE_IN() {
+		@Override
+		public void enter(Megaman megaman) {
+			megaman.setTransparency(1);
+			megaman.setY(MathUtils.random(0, GameConstants.GAME_HEIGHT - 33));
+			megaman.setAnimation(1);
+			megaman.fadeTo(0, megaman.getShotFrequency() - MegamanConstants.MEGAMAN_FADE_OUT_TIME);
+		}
+
+		@Override
+		public void update(Megaman megaman) {
+			if (megaman.getTransparency() == 0) {
+				if (megaman.getShotCounter() < MegamanConstants.MEGAMAN_MAX_MISSILES) {
+					// there are still remaining shots in the megaman buster
+					if (megaman.getShotCounter() < MegamanConstants.BOSS_START_DELAY) {
+						megaman.changeState(ATTACK);
+					} else {
+						megaman.changeState(CALL_BOSS);
+					}
 				} else {
-					megaman.changeState(CALL_BOSS);
+					// set megaman to sleep
+					megaman.setAnimation(0);
 				}
-			} else {
-				// set megaman to sleep
-				megaman.setAnimation(0);
 			}
 		}
 	},
@@ -38,13 +63,11 @@ public enum MegamanState implements State<Megaman> {
 		@Override
 		public void enter(Megaman megaman) {
 			megaman.shoot();
+			megaman.changeState(FADE_OUT);
 		}
 
 		@Override
 		public void update(Megaman megaman) {
-			if (megaman.getIdleTime() >= MegamanConstants.MEGAMAN_FADE_OUT_TIME) {
-				megaman.changeState(IDLE);
-			}
 		}
 	},
 
@@ -52,31 +75,43 @@ public enum MegamanState implements State<Megaman> {
 		@Override
 		public void enter(Megaman megaman) {
 			megaman.shoot();
+
 			int shotCounter = (megaman.getShotCounter() - MegamanConstants.BOSS_START_DELAY - 1) % MegamanConstants.BOSS_DURATION;
 			if (shotCounter == 0) {
 				// start new boss round
-				megaman.setBossIndex(megaman.getBossIndex() + 1);
-				if (megaman.getBossIndex() < BossType.values().length) {
-					SoundManager.INSTANCE.playMusic(BossType.values()[megaman.getBossIndex()].getMusic(), true);
+				++bossIndex;
+				if (bossIndex < BossType.values().length) {
+					SoundManager.INSTANCE.playMusic(BossType.values()[bossIndex].getMusicType(), true);
 				}
 			}
 
-			if (shotCounter % MegamanConstants.BOSS_FREQUENCY == 0 && megaman.getBossIndex() < BossType.values().length) {
-				megaman.callBoss(BossType.values()[megaman.getBossIndex()]);
+			if (shotCounter % MegamanConstants.BOSS_FREQUENCY == 0 && bossIndex < BossType.values().length) {
+				megaman.callBoss(BossType.values()[bossIndex]);
 			}
+
+			megaman.changeState(FADE_OUT);
 		}
 
 		@Override
 		public void update(Megaman megaman) {
-			if (megaman.getIdleTime() > MegamanConstants.MEGAMAN_FADE_OUT_TIME) {
-				megaman.changeState(IDLE);
+		}
+	},
+
+	FADE_OUT() {
+		@Override
+		public void enter(Megaman megaman) {
+			megaman.setTransparency(0);
+			megaman.setAnimation(2);
+			megaman.fadeTo(1, MegamanConstants.MEGAMAN_FADE_OUT_TIME);
+		}
+
+		@Override
+		public void update(Megaman megaman) {
+			if (megaman.getTransparency() == 1) {
+				megaman.changeState(FADE_IN);
 			}
 		}
 	};
-
-	@Override
-	public void enter(Megaman megaman) {
-	}
 
 	@Override
 	public void exit(Megaman megaman) {
@@ -86,4 +121,6 @@ public enum MegamanState implements State<Megaman> {
 	public boolean onMessage(Megaman megaman, Telegram telegram) {
 		return false;
 	}
+
+	private static int	bossIndex;
 }

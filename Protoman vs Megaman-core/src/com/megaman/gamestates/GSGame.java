@@ -20,31 +20,31 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadTextureAtlas(GameConstants.ATLAS_PATH_GAME);
 
 		// load character sprites
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_GEMINIMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_HARDMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_MAGNETMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_MEGAMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_NEEDLEMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_PROTOMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_SHADOWMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_SNAKEMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_SPARKMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_TOPMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_CHARACTER_METTOOL);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_GEMINIMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_HARDMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_MAGNETMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_MEGAMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_NEEDLEMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_PROTOMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_SHADOWMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_SNAKEMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_SPARKMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_TOPMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_METTOOL);
 
 		// effect sprites
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_EFFECT_HIT);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.EFFECT_HIT);
 
 		// load missile sprites
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_GEMINIMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_HARDMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_MAGNETMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_MEGAMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_NEEDLEMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_SHADOWMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_SNAKEMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_SPARKMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MISSILE_TOPMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_GEMINIMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_HARDMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_MAGNETMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_MEGAMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_NEEDLEMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_SHADOWMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_SNAKEMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_SPARKMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_TOPMAN);
 
 		// load music
 		ResourceManager.INSTANCE.loadMusic(MusicType.GEMINIMAN);

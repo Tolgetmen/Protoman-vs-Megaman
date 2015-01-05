@@ -25,9 +25,11 @@ import com.gdxgame.core.model.GameObject;
 import com.gdxgame.core.utils.GameUtils;
 import com.gdxgame.core.utils.ResourceManager;
 import com.gdxgame.core.utils.SoundManager;
+import com.megaman.ai.states.MegamanState;
 import com.megaman.ai.states.MettoolState;
 import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;
+import com.megaman.enums.EffectType;
 import com.megaman.enums.MissileType;
 import com.megaman.model.Boss;
 import com.megaman.model.Megaman;
@@ -82,36 +84,36 @@ public class GSGameLogic extends GameStateLogic {
 		poolMissiles = new Pool<Missile>() {
 			@Override
 			protected Missile newObject() {
-				return new Missile(GSGameLogic.this, null, 0);
+				return new Missile(GSGameLogic.this);
 			}
 		};
 		activeBosses = new Array<Boss>();
 		poolBosses = new Pool<Boss>() {
 			@Override
 			protected Boss newObject() {
-				return new Boss(GSGameLogic.this, null, 0);
+				return new Boss(GSGameLogic.this);
 			}
 		};
 		activeEffects = new Array<SpecialFX>();
 		poolEffects = new Pool<SpecialFX>() {
 			@Override
 			protected SpecialFX newObject() {
-				return new SpecialFX(GSGameLogic.this, null, 0);
+				return new SpecialFX(GSGameLogic.this);
 			}
 		};
 
-		final AnimatedSprite sprMegaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_MEGAMAN);
-		final AnimatedSprite sprProtoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_PROTOMAN);
-		final AnimatedSprite sprMettool = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_CHARACTER_METTOOL);
+		final AnimatedSprite sprMegaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.CHARACTER_MEGAMAN);
+		final AnimatedSprite sprProtoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.CHARACTER_PROTOMAN);
+		final AnimatedSprite sprMettool = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.CHARACTER_METTOOL);
 
-		megaman = new Megaman(this, TextureType.TEXTURE_CHARACTER_MEGAMAN, 10);
-		megaman.setAnimation(0);
+		megaman = new Megaman(this, TextureType.CHARACTER_MEGAMAN, 10);
 		megaman.setPosition(0, GameConstants.GAME_HEIGHT / 2 - 16);
 		megaman.setSize(sprMegaman.getWidth(), sprMegaman.getHeight());
 		gameObjects.add(megaman);
 		animatedCharacters.put(megaman, sprMegaman);
+		megaman.changeState(MegamanState.WAKE_UP);
 
-		protoman = new Protoman(this, TextureType.TEXTURE_CHARACTER_PROTOMAN, 10);
+		protoman = new Protoman(this, TextureType.CHARACTER_PROTOMAN, 10);
 		protoman.setPosition(GameConstants.GAME_WIDTH - 90, GameConstants.GAME_HEIGHT / 2 - 16);
 		protoman.setSize(sprProtoman.getWidth(), sprProtoman.getHeight());
 		gameObjects.add(protoman);
@@ -123,15 +125,14 @@ public class GSGameLogic extends GameStateLogic {
 
 		mettools = new Array<Mettool>();
 		for (int i = 0; i < life; ++i) {
-			Mettool mettool = new Mettool(this, TextureType.TEXTURE_CHARACTER_METTOOL, 3);
-			mettool.setAnimation(0);
+			Mettool mettool = new Mettool(this, TextureType.CHARACTER_METTOOL, 3);
 			if (i < 10) {
 				mettool.setPosition(GameConstants.GAME_WIDTH - 32, 160 + 32 * i);
 			} else {
 				mettool.setPosition(GameConstants.GAME_WIDTH - 64, 160 + 32 * (i - 10));
 			}
 			mettool.setSize(40, 40);
-			mettool.flip(true, false);
+			mettool.changeState(MettoolState.IDLE);
 			mettools.add(mettool);
 			animatedCharacters.put(mettool, sprMettool);
 		}
@@ -140,7 +141,7 @@ public class GSGameLogic extends GameStateLogic {
 	@Override
 	public void update(float deltaTime) {
 		// check for end condition
-		if (megaman.getRemainingShots() <= 0 && activeMissiles.size == 0 && life > 0) {
+		if (megaman.getShotCounter() >= MegamanConstants.MEGAMAN_MAX_MISSILES && activeMissiles.size == 0 && life > 0) {
 			// survived ! -> show highscore
 			Map<String, Integer> highscore = new HashMap<String, Integer>();
 			highscore.put("blocked", blockedNormal + blockedBoss);
@@ -206,18 +207,18 @@ public class GSGameLogic extends GameStateLogic {
 					--life;
 					if (mettools.size > life) {
 						mettools.get(life).changeState(MettoolState.FLEE);
-						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
+						createSpecialFX(EffectType.HIT, mettools.get(life).getX(), mettools.get(life).getY(), 1);
 					}
 				} else {
 					--life;
 					if (mettools.size > life) {
 						mettools.get(life).changeState(MettoolState.FLEE);
-						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
+						createSpecialFX(EffectType.HIT, mettools.get(life).getX(), mettools.get(life).getY(), 1);
 					}
 					--life;
 					if (mettools.size > life) {
 						mettools.get(life).changeState(MettoolState.FLEE);
-						createSpecialFX(mettools.get(life).getX(), mettools.get(life).getY());
+						createSpecialFX(EffectType.HIT, mettools.get(life).getX(), mettools.get(life).getY(), 1);
 					}
 				}
 			}
@@ -253,30 +254,30 @@ public class GSGameLogic extends GameStateLogic {
 		spriteBatch.end();
 	}
 
-	public void createSpecialFX(float startX, float startY) {
+	public void createSpecialFX(EffectType type, float startX, float startY, float duration) {
 		SpecialFX effect = poolEffects.obtain();
-		effect.initialize(startX, startY, 42, 42, TextureType.TEXTURE_EFFECT_HIT, 3);
+		effect.initialize(type, startX, startY, duration);
 		activeEffects.add(effect);
-		animatedCharacters.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_EFFECT_HIT));
-		SoundManager.INSTANCE.playSound(SoundType.HIT);
+		animatedCharacters.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
+		SoundManager.INSTANCE.playSound(type.getSoundType());
 	}
 
 	public void spawnMissile(MissileType type, float startX, float startY) {
-		final AnimatedSprite sprMissile = ResourceManager.INSTANCE.getAnimatedSprite(type.getGraphic());
+		final AnimatedSprite sprMissile = ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType());
 
 		Missile missile = poolMissiles.obtain();
-		missile.initialize(type, startX, startY, sprMissile.getWidth(), sprMissile.getHeight(), 0);
+		missile.initialize(type, startX, startY, 0);
 		activeMissiles.add(missile);
 		animatedMissiles.put(missile, sprMissile);
 
-		SoundManager.INSTANCE.playSound(type.getSound());
+		SoundManager.INSTANCE.playSound(type.getSoundType());
 	}
 
 	public void spawnBoss(BossType type, float spawnX, float spawnY) {
 		Boss boss = poolBosses.obtain();
 		boss.initialize(type, spawnX, spawnY);
 		activeBosses.add(boss);
-		animatedCharacters.put(boss, ResourceManager.INSTANCE.getAnimatedSprite(type.getGraphic()));
+		animatedCharacters.put(boss, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
 	}
 
 	public void setProtomanSpeed(float speed, float angleInDegrees) {

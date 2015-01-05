@@ -16,11 +16,6 @@ public class Protoman extends AnimatedGameObject {
 		speedX = speedY = 0;
 	}
 
-	public void setSpeed(float speed, float angleInDegrees) {
-		speedX = speed * MathUtils.cos(angleInDegrees * MathUtils.degreesToRadians);
-		speedY = speed * MathUtils.sin(angleInDegrees * MathUtils.degreesToRadians);
-	}
-
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
@@ -37,5 +32,10 @@ public class Protoman extends AnimatedGameObject {
 		} else {
 			setAnimation(0);
 		}
+	}
+
+	public void setSpeed(float speed, float angleInDegrees) {
+		speedX = speed * MathUtils.cos(angleInDegrees * MathUtils.degreesToRadians);
+		speedY = speed * MathUtils.sin(angleInDegrees * MathUtils.degreesToRadians);
 	}
 }

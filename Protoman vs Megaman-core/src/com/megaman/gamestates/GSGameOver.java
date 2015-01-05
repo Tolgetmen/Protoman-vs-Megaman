@@ -20,9 +20,9 @@ public class GSGameOver extends GameState {
 		ResourceManager.INSTANCE.loadSkin(SkinType.SKIN_MAIN_MENU);
 
 		// load sprites
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MENU_MEGAMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MENU_PROTOMAN);
-		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.TEXTURE_MENU_MISSLE);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MENU_MEGAMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MENU_PROTOMAN);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MENU_MISSLE);
 
 		// load music
 		ResourceManager.INSTANCE.loadMusic(MusicType.MENU_QUIT);

@@ -61,17 +61,22 @@
 <node CREATED="1420328716032" ID="ID_1166159853" MODIFIED="1420380242699" TEXT="come.megaman.core.enums">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1420328734430" HGAP="21" ID="ID_592631445" MODIFIED="1420328748205" TEXT="com.egaman.enums" VSHIFT="46"/>
-<node CREATED="1420328750101" ID="ID_1659635191" MODIFIED="1420328761410" TEXT="com.egaman.model"/>
-<node CREATED="1420328762915" ID="ID_1824259414" MODIFIED="1420328766501" TEXT="com.egaman.ai.states"/>
+<node CREATED="1420328734430" HGAP="21" ID="ID_592631445" MODIFIED="1420380659305" TEXT="com.egaman.enums" VSHIFT="46">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328750101" ID="ID_1659635191" MODIFIED="1420462503842" TEXT="com.egaman.model">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328762915" ID="ID_1824259414" MODIFIED="1420462503841" TEXT="com.egaman.ai.states">
+<icon BUILTIN="button_ok"/>
+</node>
 <node CREATED="1420328783308" HGAP="21" ID="ID_1187131992" MODIFIED="1420328796308" TEXT="com.megaman.gamestates." VSHIFT="30"/>
 <node CREATED="1420328789462" ID="ID_89221600" MODIFIED="1420328793859" TEXT="com.egaman.gamestates.logic"/>
 <node CREATED="1420328799163" HGAP="18" ID="ID_1227875420" MODIFIED="1420328812098" TEXT="com.egaman.menu" VSHIFT="29"/>
 <node CREATED="1420328803684" ID="ID_1099668751" MODIFIED="1420328807575" TEXT="com.megaman.menu.pages"/>
 </node>
 <node CREATED="1420020955608" ID="ID_991042120" MODIFIED="1420151425262" TEXT="internationalisierung ">
-<node CREATED="1420020962076" ID="ID_1837786978" MODIFIED="1420020972811" TEXT="name attribute f&#xfc;r gameobjects benutzen"/>
-<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420130545688" TEXT="und men&#xfc;punkte"/>
+<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420462542073" TEXT="men&#xfc; und highscore + controls"/>
 </node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1419935568614" TEXT="Finalisierungen">
@@ -90,7 +95,23 @@
 </node>
 </node>
 </node>
+<node CREATED="1420462550280" ID="ID_1764830448" MODIFIED="1420462575686" TEXT="GamePad Mapping integrieren, dass gamepad tasten per default keyDown methode aufrufen mit gemapptem key"/>
 <node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
+<node CREATED="1420462640186" ID="ID_606046790" MODIFIED="1420462736668" TEXT="todesanimation for megaman/protoman einf&#xfc;hren">
+<node CREATED="1420462675836" ID="ID_1551772901" MODIFIED="1420462680125" TEXT="wenn protoman stirbt">
+<node CREATED="1420462680922" ID="ID_230668423" MODIFIED="1420462685903" TEXT="megaman h&#xf6;rt auf zu schie&#xdf;en"/>
+<node CREATED="1420462690736" ID="ID_754702406" MODIFIED="1420462704732" TEXT="alle missiles werden gestoppt und ausgefadet"/>
+<node CREATED="1420462706857" ID="ID_1238115127" MODIFIED="1420462713140" TEXT="nach todesanimation -&gt; game over screen"/>
+</node>
+<node CREATED="1420462714855" ID="ID_1107995835" MODIFIED="1420462718823" TEXT="wenn megaman stirbt">
+<node CREATED="1420462720822" ID="ID_1884966656" MODIFIED="1420462728338" TEXT="nach todesanimation -&gt; highscore screen"/>
+</node>
+</node>
+<node CREATED="1420462580696" ID="ID_968365178" MODIFIED="1420462622270" TEXT="intro einbauen">
+<node CREATED="1420462589680" ID="ID_133718904" MODIFIED="1420462596867" TEXT="erkl&#xe4;rt das spiel"/>
+<node CREATED="1420462597826" ID="ID_750499834" MODIFIED="1420462602780" TEXT="kann mit escape abgebrochen werden"/>
+<node CREATED="1420462604797" ID="ID_1516714743" MODIFIED="1420462620516" TEXT="intro ist einfach eine kleine cinematic sequence, die nicht l&#xe4;nger als 30 sekunden dauern sollte"/>
+</node>
 <node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420328948403" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>

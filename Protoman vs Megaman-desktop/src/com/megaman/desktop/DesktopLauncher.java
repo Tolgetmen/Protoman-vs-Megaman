@@ -46,6 +46,7 @@ public class DesktopLauncher {
 		config.vSyncEnabled = config.fullscreen;
 
 		Settings settings = new Settings();
+		settings.combineSubdirectories = true;
 		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/game", "../Protoman vs Megaman-core/assets/packedGraphics", "gameGraphics");
 		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/menu", "../Protoman vs Megaman-core/assets/packedGraphics", "menuGraphics");
 

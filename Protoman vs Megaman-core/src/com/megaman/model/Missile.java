@@ -3,7 +3,6 @@ package com.megaman.model;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.gdxgame.core.GameStateLogic;
-import com.gdxgame.core.enums.TextureType;
 import com.gdxgame.core.model.AnimatedGameObject;
 import com.megaman.enums.MissileType;
 
@@ -13,36 +12,24 @@ public class Missile extends AnimatedGameObject implements Poolable {
 	private boolean		isAlive;
 	private MissileType	missileType;
 
-	public Missile(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
-		super(logic, textureType, animationsPerSecond);
+	public Missile(GameStateLogic logic) {
+		super(logic, null, 0);
 
 		reset();
 	}
 
-	public void initialize(MissileType type, float x, float y, float width, float height, int angle) {
+	public void initialize(MissileType type, float x, float y, int angle) {
 		setPosition(x, y);
-		setSize(width, height);
+		setSize(type.getWidth(), type.getHeight());
 		speedX = type.getSpeed() * MathUtils.cos(angle * MathUtils.degreesToRadians);
 		speedY = type.getSpeed() * MathUtils.sin(angle * MathUtils.degreesToRadians);
 		isAlive = true;
-		this.missileType = type;
+		missileType = type;
 
+		setTextureType(type.getTextureType());
 		setAnimationPerSecond(type.getAnimationsPerSecond());
-		setTextureType(type.getGraphic());
-		setLoopAnimations(0, type.getGraphic().getAnimationsX() * type.getGraphic().getAnimationsY() - 1);
+		setLoopAnimations(0, type.getTextureType().getAnimationsX() * type.getTextureType().getAnimationsY() - 1);
 		loopAnimation(type.isLoopAnimation());
-		startAnimation();
-	}
-
-	@Override
-	public void reset() {
-		setPosition(0, 0);
-		setSize(0, 0);
-		setAnimation(0);
-		speedX = 0.0f;
-		speedY = 0.0f;
-		isAlive = false;
-		missileType = null;
 	}
 
 	@Override
@@ -50,6 +37,16 @@ public class Missile extends AnimatedGameObject implements Poolable {
 		super.update(deltaTime);
 
 		setPosition(getX() + speedX * deltaTime, getY() + speedY * deltaTime);
+	}
+
+	@Override
+	public void reset() {
+		setPosition(0, 0);
+		setSize(0, 0);
+		speedX = 0.0f;
+		speedY = 0.0f;
+		isAlive = false;
+		missileType = null;
 	}
 
 	public void kill() {

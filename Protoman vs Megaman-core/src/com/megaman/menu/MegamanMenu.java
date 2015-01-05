@@ -28,9 +28,9 @@ public class MegamanMenu extends GameMenu {
 	public MegamanMenu(GameStateLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
 		super(logic, menuWidth, menuHeight, stretch, startPage);
 
-		megaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_MENU_MEGAMAN);
-		protoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_MENU_PROTOMAN);
-		missile = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.TEXTURE_MENU_MISSLE);
+		megaman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.MENU_MEGAMAN);
+		protoman = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.MENU_PROTOMAN);
+		missile = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.MENU_MISSLE);
 
 		missileX = -100;
 		disableControls = false;

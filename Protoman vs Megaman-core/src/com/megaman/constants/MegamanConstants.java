@@ -27,7 +27,6 @@ public class MegamanConstants {
 	// the shot frequency will decrease
 	public static final int		MEGAMAN_FREQUENCY_CHANGE			= 5;
 	public static final int		MEGAMAN_MAX_MISSILES				= 77;
-	public static final float	MEGAMAN_FADE_IN_TIME				= 0.75f;
 	public static final float	MEGAMAN_FADE_OUT_TIME				= 0.5f;
 
 	public static final int		PROTOMAN_SPEED						= 550;

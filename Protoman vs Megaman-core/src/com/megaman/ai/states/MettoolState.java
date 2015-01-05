@@ -8,18 +8,34 @@ import com.megaman.model.Mettool;
 public enum MettoolState implements State<Mettool> {
 	IDLE() {
 		@Override
+		public void enter(Mettool mettool) {
+			mettool.flip(true, false);
+			mettool.setAnimation(0);
+		}
+
+		@Override
 		public void update(Mettool mettool) {
-			if (mettool.getIdleTime() > 3.0f) {
-				if (mettool.getCurrentAnimation() == 2) {
-					mettool.setAnimation(0);
-				}
-				if (MathUtils.random(99) < 25) {
-					//25% chance to display animation
-					mettool.loopAnimation(false);
-					mettool.setLoopAnimations(0, 2);
+			if (mettool.getStateTime() > 3.0f) {
+				if (MathUtils.random(99) < 15) {
+					mettool.changeState(STAND_UP);
 				} else {
-					mettool.setIdleTime(0);
+					mettool.changeState(IDLE);
 				}
+			}
+		}
+	},
+
+	STAND_UP() {
+		@Override
+		public void enter(Mettool mettool) {
+			mettool.loopAnimation(false);
+			mettool.setLoopAnimations(0, 2);
+		}
+
+		@Override
+		public void update(Mettool mettool) {
+			if (mettool.getCurrentAnimation() == 2 && mettool.getStateTime() > 1.5) {
+				mettool.changeState(IDLE);
 			}
 		}
 	},
@@ -28,29 +44,36 @@ public enum MettoolState implements State<Mettool> {
 		@Override
 		public void enter(Mettool mettool) {
 			mettool.loopAnimation(false);
-			mettool.setAnimation(0);
 			mettool.setLoopAnimations(0, 3);
 		}
 
 		@Override
 		public void update(Mettool mettool) {
 			if (mettool.getCurrentAnimation() >= 3) {
-				mettool.flee();
+				mettool.changeState(RUN_AWAY);
 			}
 		}
-	};
+	},
 
-	@Override
-	public void enter(Mettool mettool) {
-	}
+	RUN_AWAY() {
+		@Override
+		public void enter(Mettool mettool) {
+			mettool.flip(false, false);
+			mettool.loopAnimation(true);
+			mettool.setLoopAnimations(4, 5);
+		}
+
+		@Override
+		public void update(Mettool mettool) {
+		}
+	};
 
 	@Override
 	public void exit(Mettool mettool) {
 	}
 
 	@Override
-	public boolean onMessage(Mettool megaman, Telegram telegram) {
-		// TODO learn about telegram -> how can we use it?
+	public boolean onMessage(Mettool mettool, Telegram telegram) {
 		return false;
 	}
 }

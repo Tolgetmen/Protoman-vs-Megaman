@@ -2,37 +2,40 @@ package com.megaman.model;
 
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.gdxgame.core.GameStateLogic;
-import com.gdxgame.core.enums.TextureType;
 import com.gdxgame.core.model.AnimatedGameObject;
+import com.megaman.enums.EffectType;
 
 public class SpecialFX extends AnimatedGameObject implements Poolable {
 	private boolean	isAlive;
-	private int		maxAnimation;
+	private float	durationMax;
+	private float	currentDuration;
 
-	public SpecialFX(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
-		super(logic, textureType, animationsPerSecond);
+	public SpecialFX(GameStateLogic logic) {
+		super(logic, null, 0);
 
 		reset();
 	}
 
-	public void initialize(float x, float y, float width, float height, TextureType type, int animationsPerSecond) {
+	public void initialize(EffectType type, float x, float y, float duration) {
 		setPosition(x, y);
-		setSize(width, height);
+		setSize(type.getWidth(), type.getHeight());
 		isAlive = true;
 
-		setAnimationPerSecond(animationsPerSecond);
-		setTextureType(type);
-		maxAnimation = type.getAnimationsX() * type.getAnimationsY() - 1;
-		setLoopAnimations(0, maxAnimation);
-		loopAnimation(false);
+		setTextureType(type.getTextureType());
+		setAnimationPerSecond(type.getAnimationsPerSecond());
 		startAnimation();
+
+		durationMax = duration;
+		currentDuration = 0;
 	}
 
+	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
 
-		if (getCurrentAnimation() == maxAnimation) {
-			isAlive = false;
+		currentDuration += deltaTime;
+		if (currentDuration >= durationMax) {
+			kill();
 		}
 	}
 
@@ -41,7 +44,11 @@ public class SpecialFX extends AnimatedGameObject implements Poolable {
 		isAlive = false;
 		setPosition(0, 0);
 		setSize(0, 0);
-		setAnimation(0);
+		durationMax = currentDuration = 0;
+	}
+
+	public void kill() {
+		isAlive = false;
 	}
 
 	public boolean isAlive() {

@@ -9,8 +9,7 @@ import com.megaman.ai.states.MettoolState;
 
 public class Mettool extends AnimatedGameObject {
 	private StateMachine<Mettool>	stateMachine;
-	private float					idleTime;
-	private boolean					isFleeing;
+	private float					stateTime;
 
 	public Mettool(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
 		super(logic, textureType, animationsPerSecond);
@@ -23,36 +22,19 @@ public class Mettool extends AnimatedGameObject {
 		super.update(deltaTime);
 
 		stateMachine.update();
-		idleTime += deltaTime;
+		stateTime += deltaTime;
 
-		if (isFleeing) {
+		if (stateMachine.getCurrentState().equals(MettoolState.RUN_AWAY)) {
 			setPosition(getX() + 120 * deltaTime, getY());
 		}
 	}
 
 	public void changeState(MettoolState newState) {
-		if (stateMachine.getCurrentState().equals(newState)) {
-			return;
-		}
-		idleTime = 0.0f;
+		stateTime = 0.0f;
 		stateMachine.changeState(newState);
 	}
 
-	public float getIdleTime() {
-		return idleTime;
-	}
-
-	public void setIdleTime(float idleTime) {
-		this.idleTime = idleTime;
-	}
-
-	public void flee() {
-		if (isFleeing) {
-			return;
-		}
-		flip(false, false);
-		loopAnimation(true);
-		setLoopAnimations(4, 5);
-		isFleeing = true;
+	public float getStateTime() {
+		return stateTime;
 	}
 }

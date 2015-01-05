@@ -18,13 +18,6 @@ characters/hardman
   orig: 288, 48
   offset: 0, 0
   index: -1
-characters/hit_effect
-  rotate: false
-  xy: 872, 202
-  size: 96, 32
-  orig: 96, 32
-  offset: 0, 0
-  index: -1
 characters/magnetman
   rotate: false
   xy: 292, 186
@@ -34,7 +27,7 @@ characters/magnetman
   index: -1
 characters/megaman
   rotate: false
-  xy: 2, 2
+  xy: 582, 118
   size: 96, 32
   orig: 96, 32
   offset: 0, 0
@@ -55,7 +48,7 @@ characters/needleman
   index: -1
 characters/protoman
   rotate: false
-  xy: 292, 52
+  xy: 100, 2
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
@@ -88,71 +81,72 @@ characters/topman
   orig: 288, 48
   offset: 0, 0
   index: -1
-
-gameGraphics2.png
-size: 256,128
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
+effects/hit_effect
+  rotate: false
+  xy: 292, 52
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
 missiles/geminiman_missile
   rotate: false
-  xy: 2, 36
+  xy: 2, 2
   size: 96, 32
   orig: 96, 32
   offset: 0, 0
   index: -1
 missiles/hardman_missile
   rotate: false
-  xy: 68, 2
+  xy: 166, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 missiles/magnetman_missile
   rotate: false
-  xy: 166, 36
+  xy: 456, 52
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 missiles/megaman_missile
   rotate: false
-  xy: 230, 94
+  xy: 872, 192
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 missiles/needleman_missile
   rotate: false
-  xy: 102, 2
+  xy: 746, 118
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 missiles/shadowman_missile
   rotate: false
-  xy: 2, 2
+  xy: 390, 52
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 missiles/snakeman_missile
   rotate: false
-  xy: 100, 36
+  xy: 680, 118
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 missiles/sparkman_missile
   rotate: false
-  xy: 2, 70
+  xy: 872, 202
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 missiles/topman_missile
   rotate: false
-  xy: 132, 70
+  xy: 744, 152
   size: 96, 32
   orig: 96, 32
   offset: 0, 0
