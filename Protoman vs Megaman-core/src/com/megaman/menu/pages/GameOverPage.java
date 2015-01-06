@@ -9,6 +9,7 @@ import com.gdxgame.core.GameStateLogic;
 import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.enums.GameStateType;
 import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.utils.GameUtils;
 import com.gdxgame.core.utils.SoundManager;
 import com.megaman.menu.MegamanMenu;
 
@@ -22,8 +23,8 @@ public class GameOverPage extends GameMenuPage implements OnCompletionListener {
 
 	@Override
 	public void initialize() {
-		addOption("retry", true, 450, 0, 20, 0);
-		addOption("exit game", true, 0, 0, 0, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.retry"), true, 490, 0, 20, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.quit"), true, 0, 0, 0, 0);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.gdxgame.core;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -147,6 +148,15 @@ public abstract class GameMenuPage {
 	 * A page must contain at least one option.
 	 */
 	public abstract void initialize();
+
+	/**
+	 * This method is called when the GameMenu {@code render} method is called. 
+	 * Use it to customize the rendering of the page.
+	 * 
+	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
+	 */
+	public void render(SpriteBatch spriteBatch) {
+	}
 
 	/**
 	 * Returns the option index of the menu page that should be automatically selected when

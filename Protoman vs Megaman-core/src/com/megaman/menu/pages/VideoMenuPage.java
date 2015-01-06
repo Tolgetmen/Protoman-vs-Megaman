@@ -48,11 +48,12 @@ public class VideoMenuPage extends GameMenuPage {
 			}
 		}
 
-		addOption("fullscreen", true, MegamanConstants.MENU_OFFSET_TOP, 0, 0, 0);
-		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
-		addOption("window size", !GameUtils.getCfgFileValue("fullscreen", Boolean.class), 0, 0, 0, 0);
-		addOption("" + currentMode + " x " + availableResolutions43.get(currentMode), false, skin.get("normal", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
-		addOption("back", true, 0, 0, 0, 0);
+		boolean fullscreen = GameUtils.getCfgFileValue("fullscreen", Boolean.class);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video.fullscreen"), true, MegamanConstants.MENU_OFFSET_TOP, 0, 0, 0);
+		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), false, skin.get("menu_suboption", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video.windowSize"), !fullscreen, !fullscreen ? skin.get("default", LabelStyle.class) : skin.get("menu_option_disabled", LabelStyle.class), 0, 0, 0, 0);
+		addOption("" + currentMode + " x " + availableResolutions43.get(currentMode), false, skin.get("menu_suboption", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.back"), true, 0, 0, 0, 0);
 	}
 
 	private int getPreviousModeKey(int currentMode) {
@@ -97,7 +98,7 @@ public class VideoMenuPage extends GameMenuPage {
 
 		options.get(OPTION_WINDOW_SIZE_INFO).setText("" + width + " x " + height);
 		options.get(OPTION_FULLSCREEN_INFO).setText("" + fullscreen);
-		enableOption(OPTION_WINDOW_SIZE, !fullscreen, fullscreen ? skin.get("title_disabled", LabelStyle.class) : skin.get("default", LabelStyle.class));
+		enableOption(OPTION_WINDOW_SIZE, !fullscreen, fullscreen ? skin.get("menu_option_disabled", LabelStyle.class) : skin.get("default", LabelStyle.class));
 	}
 
 	@Override

@@ -45,16 +45,7 @@
 <node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420533034818" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1420020955608" ID="ID_991042120" MODIFIED="1420151425262" TEXT="internationalisierung ">
-<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420476173071" TEXT="men&#xfc; und highscore und controls"/>
-</node>
-<node CREATED="1420533034819" ID="ID_1007332472" MODIFIED="1420533044130" TEXT="handlecounter einbauen beim resourcemanager">
-<node CREATED="1420533045232" ID="ID_1934312136" MODIFIED="1420533059642" TEXT="momentan wenn 2x music angefordert wird und 1x disposed, dann wird sie disposed"/>
-<node CREATED="1420533060950" ID="ID_606812644" MODIFIED="1420533073570" TEXT="sollte aber erst disposed werden, wenn es tats&#xe4;chlich nicht mehr ben&#xf6;tigt wird"/>
-<node CREATED="1420533081396" ID="ID_1199222667" MODIFIED="1420533095193" TEXT="gamestate logic wieder um&#xe4;ndern,dass loadresources nur bei initialize passiert"/>
-</node>
-<node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
-<node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1419935568614" TEXT="Finalisierungen">
+<node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1420548456493" TEXT="Finalisierungen">
 <node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1419935468246" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung"/>
 <node CREATED="1420533104969" ID="ID_484107891" MODIFIED="1420533117731" TEXT="needleman schuss drehen,dass er nach rechts zeig">
 <node CREATED="1420533118163" ID="ID_1110903827" MODIFIED="1420533128230" TEXT="vmtl einfach neuzeichnen f&#xfc;r beste qualit&#xe4;t"/>
@@ -73,7 +64,7 @@
 </node>
 </node>
 </node>
-<node CREATED="1420462550280" ID="ID_1764830448" MODIFIED="1420462575686" TEXT="GamePad Mapping integrieren, dass gamepad tasten per default keyDown methode aufrufen mit gemapptem key"/>
+<node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
 <node CREATED="1420462640186" ID="ID_606046790" MODIFIED="1420462736668" TEXT="todesanimation for megaman/protoman einf&#xfc;hren">
 <node CREATED="1420462675836" ID="ID_1551772901" MODIFIED="1420462680125" TEXT="wenn protoman stirbt">
@@ -387,6 +378,19 @@
 <node CREATED="1420328803684" ID="ID_1099668751" MODIFIED="1420476152115" TEXT="com.megaman.menu.pages">
 <icon BUILTIN="button_ok"/>
 </node>
+</node>
+<node CREATED="1420462550280" ID="ID_1764830448" MODIFIED="1420545719694" TEXT="GamePad Mapping integrieren, dass gamepad tasten per default keyDown methode aufrufen mit gemapptem key">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420020955608" FOLDED="true" ID="ID_991042120" MODIFIED="1420548439003" TEXT="internationalisierung ">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420476173071" TEXT="men&#xfc; und highscore und controls"/>
+</node>
+<node CREATED="1420533034819" FOLDED="true" ID="ID_1007332472" MODIFIED="1420550449726" TEXT="handlecounter einbauen beim resourcemanager">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420533045232" ID="ID_1934312136" MODIFIED="1420533059642" TEXT="momentan wenn 2x music angefordert wird und 1x disposed, dann wird sie disposed"/>
+<node CREATED="1420533060950" ID="ID_606812644" MODIFIED="1420533073570" TEXT="sollte aber erst disposed werden, wenn es tats&#xe4;chlich nicht mehr ben&#xf6;tigt wird"/>
+<node CREATED="1420533081396" ID="ID_1199222667" MODIFIED="1420533095193" TEXT="gamestate logic wieder um&#xe4;ndern,dass loadresources nur bei initialize passiert"/>
 </node>
 </node>
 </node>

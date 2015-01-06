@@ -67,7 +67,6 @@ public class GSMainMenu extends GameState {
 		ResourceManager.INSTANCE.disposeSound(SoundType.MENU_MOVE);
 		ResourceManager.INSTANCE.disposeSound(SoundType.MENU_SELECT);
 		ResourceManager.INSTANCE.disposeSound(SoundType.MENU_SELECT_SHOOT);
-
 	}
 
 }

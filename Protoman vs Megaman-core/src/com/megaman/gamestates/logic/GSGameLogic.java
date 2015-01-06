@@ -336,6 +336,19 @@ public class GSGameLogic extends GameStateLogic {
 	}
 
 	@Override
+	public boolean buttonDown(Controller controller, int buttonCode) {
+		switch (buttonCode) {
+			case 7: {
+				// XBOX START button
+				keyDown(Keys.ESCAPE);
+				break;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
 	public boolean povMoved(Controller controller, int povCode, PovDirection value) {
 		switch (value) {
 			case north:

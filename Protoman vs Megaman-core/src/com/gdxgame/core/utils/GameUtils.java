@@ -2,6 +2,7 @@ package com.gdxgame.core.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.MissingResourceException;
 
 import org.ini4j.Ini;
 import org.ini4j.InvalidFileFormatException;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.graphics.AnimatedSprite;
 import com.gdxgame.core.model.AnimatedGameObject;
@@ -24,8 +26,21 @@ import com.gdxgame.core.model.GameObject;
  * TODO add support for android and WebGL configuration files (check libgdx Preferences)
  */
 public final class GameUtils {
+	/**
+	 * rectangle to store the current camera viewport
+	 */
 	private static Rectangle	cameraBounds;
+	/**
+	 * bundle that contains the labels of the game
+	 */
+	private static I18NBundle	labelBundle;
+	/**
+	 * config file that stores the desktop game properties like resolution, fullscreen, sound volume
+	 */
 	private static Ini			cfgFile;
+	/**
+	 * section within the config file that contains the desktop game properties
+	 */
 	private static Section		gameCfgSection;
 
 	/**
@@ -143,6 +158,30 @@ public final class GameUtils {
 		}
 
 		return null;
+	}
+
+	/**
+	 * returns localized label {@code labelKey} out of the label bundle file.
+	 * 
+	 * The label bundle file path is specified within the GameConstants class (check LABE_BUNDLE_PATH)
+	 * 
+	 * @param labelKey key to be searched within the label bundle
+	 * 
+	 * @return localized label of key {@code labelKey}
+	 */
+	public static String getLocalizedLabel(String labelKey) {
+		if (labelBundle == null) {
+			labelBundle = I18NBundle.createBundle(Gdx.files.internal(GameConstants.LABEL_BUNDLE_PATH));
+		}
+
+		String result = "";
+		try {
+			result = labelBundle.get(labelKey);
+		} catch (MissingResourceException e) {
+			Gdx.app.error(GameConstants.LOG_TAG_ERROR, "Could not find label for key: " + labelKey, e);
+		}
+
+		return result;
 	}
 
 	private GameUtils() {

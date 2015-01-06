@@ -11,6 +11,7 @@ import com.gdxgame.core.GameStateLogic;
 import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.enums.GameStateType;
 import com.gdxgame.core.enums.MusicType;
+import com.gdxgame.core.utils.GameUtils;
 import com.gdxgame.core.utils.SoundManager;
 import com.megaman.constants.MegamanConstants;
 import com.megaman.menu.MegamanMenu;
@@ -29,10 +30,10 @@ public class MainMenuPage extends GameMenuPage implements OnCompletionListener {
 	public void initialize() {
 		boolean isGameRunning = game.isGameStateAvailable(GameStateType.GAME);
 
-		addOption("resume game", isGameRunning, isGameRunning ? skin.get("default", LabelStyle.class) : skin.get("title_disabled", LabelStyle.class), MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("new game", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("settings", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("exit game", true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.resume"), isGameRunning, isGameRunning ? skin.get("default", LabelStyle.class) : skin.get("menu_option_disabled", LabelStyle.class), MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.new"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.quit"), true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
 	@Override

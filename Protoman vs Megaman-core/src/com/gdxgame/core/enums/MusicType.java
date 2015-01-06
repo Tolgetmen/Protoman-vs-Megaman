@@ -5,18 +5,18 @@ package com.gdxgame.core.enums;
  * Each value contains an optional arbitrary title name and the path to the music file.
  */
 public enum MusicType {
-	MENU("mm3 title theme", "audio/music/menu.mp3"),
+	MENU("MM3 Title Theme", "audio/music/menu.mp3"),
 	MENU_QUIT(null, "audio/sounds/menu_quit.wav"),
-	SPARKMAN("sparkman theme", "audio/music/sparkman.mp3"),
-	SHADOWMAN("shadowman theme", "audio/music/shadowman.mp3"),
-	SNAKEMAN("snakeman theme", "audio/music/snakeman.mp3"),
-	NEEDLEMAN("needleman theme", "audio/music/needleman.mp3"),
-	HARDMAN("hardman theme", "audio/music/hardman.mp3"),
-	TOPMAN("topman theme", "audio/music/topman.mp3"),
-	GEMINIMAN("geminiman theme", "audio/music/geminiman.mp3"),
-	MAGNETMAN("magnetman theme", "audio/music/magnetman.mp3"),
-	PROTOMAN("protoman theme", "audio/music/protoman_theme.mp3"),
-	WILY_STAGE("mm3 wily stage 1", "audio/music/wily_stage_1.mp3");
+	SPARKMAN("Sparkman Theme", "audio/music/sparkman.mp3"),
+	SHADOWMAN("Shadowman Theme", "audio/music/shadowman.mp3"),
+	SNAKEMAN("Snakeman Theme", "audio/music/snakeman.mp3"),
+	NEEDLEMAN("Needleman Theme", "audio/music/needleman.mp3"),
+	HARDMAN("Hardman Theme", "audio/music/hardman.mp3"),
+	TOPMAN("Topman Theme", "audio/music/topman.mp3"),
+	GEMINIMAN("Geminiman Theme", "audio/music/geminiman.mp3"),
+	MAGNETMAN("Magnetman Theme", "audio/music/magnetman.mp3"),
+	PROTOMAN("Protoman Theme", "audio/music/protoman_theme.mp3"),
+	WILY_STAGE("MM3 Wily Stage 1", "audio/music/wily_stage_1.mp3");
 
 	/**
 	 * optional name for the music track

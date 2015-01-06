@@ -68,7 +68,6 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SNAKEMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
-		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.HIT);
 	}
 

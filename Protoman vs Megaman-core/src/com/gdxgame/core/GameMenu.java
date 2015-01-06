@@ -3,6 +3,7 @@ package com.gdxgame.core;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -45,6 +46,21 @@ public abstract class GameMenu {
 		this.logic = logic;
 
 		changeMenuPage(startPage);
+	}
+
+	/**
+	 * This method should be called to render the GameMenu. Internally it renders the stage
+	 * of the menu and the current active menu page
+	 * 
+	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
+	 */
+	public void render(SpriteBatch spriteBatch) {
+		// update all the actors of the stage by delta time
+		stage.act();
+		// render the stage (=render options of the menu page + background of the menu page's table)
+		stage.draw();
+
+		menuPages.peek().render(spriteBatch);
 	}
 
 	/**
@@ -130,6 +146,15 @@ public abstract class GameMenu {
 	}
 
 	/**
+	 * returns the current active game menu page
+	 * 
+	 * @return active menu page
+	 */
+	public GameMenuPage getCurrentPage() {
+		return menuPages.peek();
+	}
+
+	/**
 	 * This method should be called to process the logic of the current selected option.
 	 * It will forward the call to the active menu page.
 	 */
@@ -147,16 +172,6 @@ public abstract class GameMenu {
 	 */
 	public boolean keyDown(int keyOrButtonCode) {
 		return menuPages.peek().keyDown(currentOptionIndex, keyOrButtonCode);
-	}
-
-	/**
-	 * This method should be called to render the GameMenu
-	 */
-	public void render() {
-		// update all the actors of the stage by delta time
-		stage.act();
-		// render the stage (=render options of the menu page + background of the menu page's table)
-		stage.draw();
 	}
 
 	/**

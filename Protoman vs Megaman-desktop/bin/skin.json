@@ -1,19 +1,24 @@
 {
 	"com.badlogic.gdx.graphics.g2d.BitmapFont": 
 	{
-		"8bit_32_bold": 
+		"minecraft_68_bold": 
 		{
-			"file": "fonts/8bit_32_bold.fnt"
+			"file": "fonts/minecraft_68_bold.fnt"
 		},
 
-		"8bit_20": 
+		"minecraft_38_bold": 
 		{
-			"file": "fonts/8bit_20.fnt"
+			"file": "fonts/minecraft_38_bold.fnt"
 		},
 
-		"8bit_25": 
+		"minecraft_31": 
 		{
-			"file": "fonts/8bit_25.fnt"
+			"file": "fonts/minecraft_31.fnt"
+		},
+
+		"minecraft_26": 
+		{
+			"file": "fonts/minecraft_26.fnt"
 		}
 	},
 
@@ -56,25 +61,31 @@
 	{
 		"default": 
 		{
-			"font": "8bit_32_bold",
+			"font": "minecraft_38_bold",
 			"fontColor": "white"
 		},
 
-		"title_disabled": 
+		"menu_title": 
 		{
-			"font": "8bit_32_bold",
+			"font": "minecraft_68_bold",
+			"fontColor": "white"
+		},
+
+		"menu_option_disabled": 
+		{
+			"font": "minecraft_38_bold",
 			"fontColor": "white_transparent"
 		},
 
-		"normal": 
+		"menu_suboption": 
 		{
-			"font": "8bit_20",
+			"font": "minecraft_31",
 			"fontColor": "red"
 		},
 
 		"highscore": 
 		{
-			"font": "8bit_25",
+			"font": "minecraft_26",
 			"fontColor": "white"
 		}
 	},
@@ -85,7 +96,7 @@
 		{
 			"up": "protoman",
 			"down": "megaman",
-			"font": "8bit_32_bold",
+			"font": "minecraft_38_bold",
 			"pressedOffsetY": -4
 		}
 	}

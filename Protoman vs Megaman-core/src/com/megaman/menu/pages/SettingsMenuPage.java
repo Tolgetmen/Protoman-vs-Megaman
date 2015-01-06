@@ -5,6 +5,7 @@ import com.gdxgame.core.GameMenu;
 import com.gdxgame.core.GameMenuPage;
 import com.gdxgame.core.GameStateLogic;
 import com.gdxgame.core.enums.GameMenuPageType;
+import com.gdxgame.core.utils.GameUtils;
 import com.megaman.constants.MegamanConstants;
 
 public class SettingsMenuPage extends GameMenuPage {
@@ -19,10 +20,10 @@ public class SettingsMenuPage extends GameMenuPage {
 
 	@Override
 	public void initialize() {
-		addOption("video", true, MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("audio", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("controls", true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption("back", true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video"), true, MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.audio"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.controls"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.back"), true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
 	@Override
