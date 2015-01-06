@@ -35,7 +35,7 @@ public class HighscorePage extends GameMenuPage implements OnCompletionListener 
 			}
 			case OPTION_QUIT: {
 				SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
-				((HighscoreMenu) gameMenu).quitGame();
+				((HighscoreMenu) gameMenu).disableControls();
 				break;
 			}
 		}

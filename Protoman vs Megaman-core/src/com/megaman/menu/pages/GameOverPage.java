@@ -35,7 +35,7 @@ public class GameOverPage extends GameMenuPage implements OnCompletionListener {
 			}
 			case OPTION_QUIT: {
 				SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
-				((MegamanMenu) gameMenu).quitGame();
+				((MegamanMenu) gameMenu).disableControls();
 				break;
 			}
 		}

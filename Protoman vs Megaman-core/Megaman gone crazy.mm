@@ -42,53 +42,27 @@
 <node CREATED="1419842011225" ID="ID_792054524" MODIFIED="1419842022228" TEXT="arme kleine Roboter, die es zu retten gilt"/>
 </node>
 </node>
-<node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420040330235" POSITION="left" STYLE="fork" TEXT="ToDo">
+<node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420533034818" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1420328669551" ID="ID_663596241" MODIFIED="1420328671951" TEXT="refactoring">
-<node CREATED="1420328673337" ID="ID_394439686" MODIFIED="1420328677987" TEXT="com.megaman.core">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328692713" ID="ID_801467169" MODIFIED="1420362627941" TEXT="com.megaman.core.graphics">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328699974" ID="ID_1386167804" MODIFIED="1420369072904" TEXT="com.megaman.core.model">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328707163" ID="ID_1892478579" MODIFIED="1420375875937" TEXT="com.megaman.core.utils">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328716032" ID="ID_1166159853" MODIFIED="1420380242699" TEXT="come.megaman.core.enums">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328734430" HGAP="21" ID="ID_592631445" MODIFIED="1420380659305" TEXT="com.egaman.enums" VSHIFT="46">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328750101" ID="ID_1659635191" MODIFIED="1420462503842" TEXT="com.egaman.model">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328762915" ID="ID_1824259414" MODIFIED="1420462503841" TEXT="com.egaman.ai.states">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328783308" HGAP="21" ID="ID_1187131992" MODIFIED="1420474906867" TEXT="com.megaman.gamestates." VSHIFT="30">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328789462" ID="ID_89221600" MODIFIED="1420474906866" TEXT="com.egaman.gamestates.logic">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1420328799163" HGAP="18" ID="ID_1227875420" MODIFIED="1420328812098" TEXT="com.egaman.menu" VSHIFT="29"/>
-<node CREATED="1420328803684" ID="ID_1099668751" MODIFIED="1420328807575" TEXT="com.megaman.menu.pages"/>
-</node>
 <node CREATED="1420020955608" ID="ID_991042120" MODIFIED="1420151425262" TEXT="internationalisierung ">
-<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420462542073" TEXT="men&#xfc; und highscore + controls"/>
+<node CREATED="1420130542788" ID="ID_951857993" MODIFIED="1420476173071" TEXT="men&#xfc; und highscore und controls"/>
+</node>
+<node CREATED="1420533034819" ID="ID_1007332472" MODIFIED="1420533044130" TEXT="handlecounter einbauen beim resourcemanager">
+<node CREATED="1420533045232" ID="ID_1934312136" MODIFIED="1420533059642" TEXT="momentan wenn 2x music angefordert wird und 1x disposed, dann wird sie disposed"/>
+<node CREATED="1420533060950" ID="ID_606812644" MODIFIED="1420533073570" TEXT="sollte aber erst disposed werden, wenn es tats&#xe4;chlich nicht mehr ben&#xf6;tigt wird"/>
+<node CREATED="1420533081396" ID="ID_1199222667" MODIFIED="1420533095193" TEXT="gamestate logic wieder um&#xe4;ndern,dass loadresources nur bei initialize passiert"/>
 </node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1419935568614" TEXT="Finalisierungen">
-<node CREATED="1419935444630" ID="ID_1866879479" MODIFIED="1420019687538" TEXT="protoman weiter links platzieren, damit metools dahinter platz haben">
+<node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1419935468246" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung"/>
+<node CREATED="1420533104969" ID="ID_484107891" MODIFIED="1420533117731" TEXT="needleman schuss drehen,dass er nach rechts zeig">
+<node CREATED="1420533118163" ID="ID_1110903827" MODIFIED="1420533128230" TEXT="vmtl einfach neuzeichnen f&#xfc;r beste qualit&#xe4;t"/>
+</node>
+<node CREATED="1419935444630" ID="ID_1866879479" MODIFIED="1420533167974" TEXT="protoman weiter links platzieren, damit metools dahinter platz haben">
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1419935468246" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung"/>
-<node CREATED="1419935503819" FOLDED="true" ID="ID_1496544748" MODIFIED="1420223316758" TEXT="metools als statemachine integrieren">
+<node CREATED="1419935503819" FOLDED="true" ID="ID_1496544748" MODIFIED="1420533167974" TEXT="metools als statemachine integrieren">
 <icon BUILTIN="button_ok"/>
 <node CREATED="1419935513053" ID="ID_320241651" MODIFIED="1419935514316" TEXT="IDLE">
 <node CREATED="1419935516087" ID="ID_654793222" MODIFIED="1419935528447" TEXT="schaut zuf&#xe4;llig aus seinem helm hervor alle X sekunden"/>
@@ -372,6 +346,45 @@
 <icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1420328628555" ID="ID_212061464" MODIFIED="1420375880346" TEXT="com.egaman.core.utils">
+<icon BUILTIN="button_ok"/>
+</node>
+</node>
+<node CREATED="1420328669551" FOLDED="true" ID="ID_663596241" MODIFIED="1420476153532" TEXT="refactoring">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420328673337" ID="ID_394439686" MODIFIED="1420328677987" TEXT="com.megaman.core">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328692713" ID="ID_801467169" MODIFIED="1420362627941" TEXT="com.megaman.core.graphics">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328699974" ID="ID_1386167804" MODIFIED="1420369072904" TEXT="com.megaman.core.model">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328707163" ID="ID_1892478579" MODIFIED="1420375875937" TEXT="com.megaman.core.utils">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328716032" ID="ID_1166159853" MODIFIED="1420380242699" TEXT="come.megaman.core.enums">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328734430" HGAP="21" ID="ID_592631445" MODIFIED="1420380659305" TEXT="com.egaman.enums" VSHIFT="46">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328750101" ID="ID_1659635191" MODIFIED="1420462503842" TEXT="com.egaman.model">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328762915" ID="ID_1824259414" MODIFIED="1420462503841" TEXT="com.egaman.ai.states">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328783308" HGAP="21" ID="ID_1187131992" MODIFIED="1420474906867" TEXT="com.megaman.gamestates." VSHIFT="30">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328789462" ID="ID_89221600" MODIFIED="1420474906866" TEXT="com.egaman.gamestates.logic">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328799163" HGAP="18" ID="ID_1227875420" MODIFIED="1420476152115" TEXT="com.egaman.menu" VSHIFT="29">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420328803684" ID="ID_1099668751" MODIFIED="1420476152115" TEXT="com.megaman.menu.pages">
 <icon BUILTIN="button_ok"/>
 </node>
 </node>

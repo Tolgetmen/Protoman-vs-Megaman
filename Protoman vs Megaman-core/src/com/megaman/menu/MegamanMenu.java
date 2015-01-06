@@ -22,8 +22,10 @@ public class MegamanMenu extends GameMenu {
 	private float				currentMissileFrameX;
 	private float				missileFPS;
 
+	/**
+	 * if true the menu will no longer call the pages keyDown() method
+	 */
 	private boolean				disableControls;
-	private boolean				quitGame;
 
 	public MegamanMenu(GameStateLogic logic, int menuWidth, int menuHeight, boolean stretch, GameMenuPageType startPage) {
 		super(logic, menuWidth, menuHeight, stretch, startPage);
@@ -58,7 +60,7 @@ public class MegamanMenu extends GameMenu {
 	public boolean keyDown(int keyCode) {
 		if (!super.keyDown(keyCode)) {
 
-			if (disableControls || quitGame) {
+			if (disableControls) {
 				// a selection is already in progress -> ignore any other key input
 				return true;
 			}
@@ -76,10 +78,6 @@ public class MegamanMenu extends GameMenu {
 					startSelectionMissile();
 					break;
 				}
-				case Keys.ESCAPE: {
-					//TODO close menu
-					break;
-				}
 			}
 		}
 
@@ -88,8 +86,8 @@ public class MegamanMenu extends GameMenu {
 
 	@Override
 	public void processSelection() {
-		super.processSelection();
 		disableControls = false;
+		super.processSelection();
 	}
 
 	public void startSelectionMissile() {
@@ -129,7 +127,7 @@ public class MegamanMenu extends GameMenu {
 		spriteBatch.end();
 	}
 
-	public void quitGame() {
-		quitGame = true;
+	public void disableControls() {
+		disableControls = true;
 	}
 }

@@ -1,5 +1,6 @@
 package com.megaman.menu.pages;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -35,6 +36,15 @@ public class MainMenuPage extends GameMenuPage implements OnCompletionListener {
 	}
 
 	@Override
+	public boolean keyDown(int optionIndex, int keyOrButtonCode) {
+		if (Keys.ESCAPE == keyOrButtonCode && game.isGameStateAvailable(GameStateType.GAME)) {
+			game.setGameState(GameStateType.GAME, true, false, null);
+		}
+
+		return false;
+	}
+
+	@Override
 	public void processSelection(int optionIndex) {
 		switch (optionIndex) {
 			case OPTION_RESUME: {
@@ -53,7 +63,7 @@ public class MainMenuPage extends GameMenuPage implements OnCompletionListener {
 				// wait until protoman music was played to close the game
 				// check onCompletion(Music music) method
 				SoundManager.INSTANCE.playMusic(MusicType.MENU_QUIT, false, this);
-				((MegamanMenu) gameMenu).quitGame();
+				((MegamanMenu) gameMenu).disableControls();
 				break;
 			}
 		}
