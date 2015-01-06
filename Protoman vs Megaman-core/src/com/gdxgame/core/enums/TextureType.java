@@ -35,7 +35,10 @@ public enum TextureType {
 
 	MENU_MEGAMAN(GameConstants.ATLAS_PATH_MENU, "graphics/menu/megaman.png", "megaman", 3, 1),
 	MENU_PROTOMAN(GameConstants.ATLAS_PATH_MENU, "graphics/menu/protoman.png", "protoman", 2, 1),
-	MENU_MISSLE(GameConstants.ATLAS_PATH_MENU, "graphics/menu/select_missile.png", "select_missile", 9, 1);
+	MENU_MISSLE(GameConstants.ATLAS_PATH_MENU, "graphics/menu/select_missile.png", "select_missile", 9, 1),
+
+	HUD_LIFE(GameConstants.ATLAS_PATH_HUD, "graphics/hud/life.png", "life", 1, 1),
+	HUD_MISSLES(GameConstants.ATLAS_PATH_HUD, "graphics/hud/shots.png", "shots", 1, 1);
 
 	/**
 	 * path to the texture atlas containing the texture

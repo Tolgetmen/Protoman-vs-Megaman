@@ -36,7 +36,7 @@ public enum MegamanState implements State<Megaman> {
 		@Override
 		public void enter(Megaman megaman) {
 			megaman.setTransparency(1);
-			megaman.setY(MathUtils.random(0, GameConstants.GAME_HEIGHT - 33));
+			megaman.setY(MathUtils.random(64, GameConstants.GAME_HEIGHT - 64 - megaman.getHeight()));
 			megaman.setAnimation(1);
 			megaman.fadeTo(0, megaman.getShotFrequency() - MegamanConstants.MEGAMAN_FADE_OUT_TIME);
 		}

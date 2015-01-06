@@ -9,7 +9,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.gdxgame.constants.GameConstants;
@@ -18,6 +21,7 @@ import com.gdxgame.core.GameStateLogic;
 import com.gdxgame.core.enums.GameStateType;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SoundType;
+import com.gdxgame.core.enums.TextureType;
 import com.gdxgame.core.graphics.AnimatedSprite;
 import com.gdxgame.core.model.AnimatedGameObject;
 import com.gdxgame.core.model.GameObject;
@@ -32,11 +36,11 @@ import com.megaman.enums.CharacterType;
 import com.megaman.enums.EffectType;
 import com.megaman.enums.MissileType;
 import com.megaman.model.Boss;
+import com.megaman.model.Effect;
 import com.megaman.model.Megaman;
 import com.megaman.model.Mettool;
 import com.megaman.model.Missile;
 import com.megaman.model.Protoman;
-import com.megaman.model.Effect;
 
 public class GSGameLogic extends GameStateLogic {
 	private MusicType								currentMusicType;
@@ -64,6 +68,12 @@ public class GSGameLogic extends GameStateLogic {
 	private int										blockedNormal;
 	private int										blockedBoss;
 
+	private OrthogonalTiledMapRenderer				renderer;
+
+	private AnimatedSprite							hudIconLife;
+	private AnimatedSprite							hudIconMissile;
+	private BitmapFont								font;
+
 	public GSGameLogic(GDXGame game, Camera camera) {
 		super(game, camera);
 	}
@@ -72,6 +82,14 @@ public class GSGameLogic extends GameStateLogic {
 	public void initialize() {
 		// start initial background music
 		playMusic(MusicType.PROTOMAN);
+
+		// load font and icons for hud
+		font = new BitmapFont(Gdx.files.internal("fonts/minecraft_18.fnt"));
+		hudIconLife = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.HUD_LIFE);
+		hudIconMissile = ResourceManager.INSTANCE.getAnimatedSprite(TextureType.HUD_MISSLES);
+
+		// load tmx background map
+		renderer = new OrthogonalTiledMapRenderer(ResourceManager.INSTANCE.getTMXMap(MegamanConstants.BACKGROUND_MAP_PATH));
 
 		// create array to store all game objects to update them within the update() method
 		gameObjects = new Array<GameObject>();
@@ -265,10 +283,22 @@ public class GSGameLogic extends GameStateLogic {
 
 	@Override
 	public void render(SpriteBatch spriteBatch) {
+		// render background tmx map
+		renderer.setView((OrthographicCamera) camera);
+		renderer.render();
+
+		// render game objects
 		spriteBatch.begin();
 		for (Map.Entry<AnimatedGameObject, AnimatedSprite> entry : animatedObjects.entrySet()) {
 			GameUtils.renderGameObject(spriteBatch, camera, entry.getKey(), entry.getValue());
 		}
+
+		// render hud
+		spriteBatch.draw(hudIconLife, 330, 22);
+		spriteBatch.draw(hudIconMissile, 415, 26);
+
+		font.draw(spriteBatch, "" + life, 355, 29);
+		font.draw(spriteBatch, "" + (MegamanConstants.MEGAMAN_MAX_MISSILES - megaman.getShotCounter()), 430, 29);
 		spriteBatch.end();
 	}
 
@@ -287,7 +317,8 @@ public class GSGameLogic extends GameStateLogic {
 
 	@Override
 	public void dispose() {
-
+		renderer.dispose();
+		font.dispose();
 	}
 
 	@Override

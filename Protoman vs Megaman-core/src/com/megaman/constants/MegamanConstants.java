@@ -29,8 +29,10 @@ public class MegamanConstants {
 	public static final int		MEGAMAN_MAX_MISSILES				= 77;
 	public static final float	MEGAMAN_FADE_OUT_TIME				= 0.5f;
 
-	public static final int		PROTOMAN_SPEED						= 550;
+	public static final int		PROTOMAN_SPEED						= 460;
 	public static final int		MAX_LIFE							= 20;
+
+	public static final String	BACKGROUND_MAP_PATH					= "maps/background.tmx";
 
 	private MegamanConstants() {
 

@@ -45,25 +45,6 @@
 <node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420533034818" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1419935428914" ID="ID_1190959516" MODIFIED="1420548456493" TEXT="Finalisierungen">
-<node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1419935468246" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung"/>
-<node CREATED="1420533104969" ID="ID_484107891" MODIFIED="1420533117731" TEXT="needleman schuss drehen,dass er nach rechts zeig">
-<node CREATED="1420533118163" ID="ID_1110903827" MODIFIED="1420533128230" TEXT="vmtl einfach neuzeichnen f&#xfc;r beste qualit&#xe4;t"/>
-</node>
-<node CREATED="1419935444630" ID="ID_1866879479" MODIFIED="1420533167974" TEXT="protoman weiter links platzieren, damit metools dahinter platz haben">
-<icon BUILTIN="button_ok"/>
-</node>
-<node CREATED="1419935503819" FOLDED="true" ID="ID_1496544748" MODIFIED="1420533167974" TEXT="metools als statemachine integrieren">
-<icon BUILTIN="button_ok"/>
-<node CREATED="1419935513053" ID="ID_320241651" MODIFIED="1419935514316" TEXT="IDLE">
-<node CREATED="1419935516087" ID="ID_654793222" MODIFIED="1419935528447" TEXT="schaut zuf&#xe4;llig aus seinem helm hervor alle X sekunden"/>
-</node>
-<node CREATED="1419935531158" ID="ID_165128738" MODIFIED="1419935539601" TEXT="FLEE">
-<node CREATED="1419935540625" ID="ID_1821785686" MODIFIED="1419935545893" TEXT="wenn metool getroffen wurde"/>
-<node CREATED="1419935547619" ID="ID_1674129534" MODIFIED="1419935554378" TEXT="flieh aus dem rechten bildschirmrand"/>
-</node>
-</node>
-</node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1419842440445" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;"/>
 <node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
 <node CREATED="1420462640186" ID="ID_606046790" MODIFIED="1420462736668" TEXT="todesanimation for megaman/protoman einf&#xfc;hren">
@@ -81,7 +62,7 @@
 <node CREATED="1420462597826" ID="ID_750499834" MODIFIED="1420462602780" TEXT="kann mit escape abgebrochen werden"/>
 <node CREATED="1420462604797" ID="ID_1516714743" MODIFIED="1420462620516" TEXT="intro ist einfach eine kleine cinematic sequence, die nicht l&#xe4;nger als 30 sekunden dauern sollte"/>
 </node>
-<node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420328948403" STYLE="fork" TEXT="Erweiterungen">
+<node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420567295785" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>
 <node CREATED="1419842471751" ID="ID_1589155767" MODIFIED="1419842574874" TEXT="In der Mitte oben des Spielfeldes fallen &quot;M&#xfc;llbl&#xf6;cke&quot; aus MM3 periodisch herunter"/>
@@ -94,7 +75,7 @@
 <node CREATED="1419842447808" ID="ID_1610726709" MODIFIED="1419842455139" TEXT="Light in Szene hinzuf&#xfc;gen"/>
 </node>
 </node>
-<node BACKGROUND_COLOR="#00ccff" CREATED="1420328514925" FOLDED="true" HGAP="15" ID="ID_892494079" MODIFIED="1420328569336" POSITION="left" STYLE="fork" TEXT="Erledigte Aufgaben" VSHIFT="44">
+<node BACKGROUND_COLOR="#00ccff" CREATED="1420328514925" FOLDED="true" HGAP="15" ID="ID_892494079" MODIFIED="1420567129030" POSITION="left" STYLE="fork" TEXT="Erledigte Aufgaben" VSHIFT="44">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
 <node CREATED="1420040332238" FOLDED="true" ID="ID_520736744" MODIFIED="1420134127383" TEXT="renderoptimierung">
@@ -391,6 +372,29 @@
 <node CREATED="1420533045232" ID="ID_1934312136" MODIFIED="1420533059642" TEXT="momentan wenn 2x music angefordert wird und 1x disposed, dann wird sie disposed"/>
 <node CREATED="1420533060950" ID="ID_606812644" MODIFIED="1420533073570" TEXT="sollte aber erst disposed werden, wenn es tats&#xe4;chlich nicht mehr ben&#xf6;tigt wird"/>
 <node CREATED="1420533081396" ID="ID_1199222667" MODIFIED="1420533095193" TEXT="gamestate logic wieder um&#xe4;ndern,dass loadresources nur bei initialize passiert"/>
+</node>
+<node CREATED="1419935428914" FOLDED="true" ID="ID_1190959516" MODIFIED="1420564267737" TEXT="Finalisierungen">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1419935456541" ID="ID_1524849556" MODIFIED="1420563527848" TEXT="hintergrund mit Tiled basteln f&#xfc;r 800x600 aufl&#xf6;sung">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420533104969" FOLDED="true" ID="ID_484107891" MODIFIED="1420564264170" TEXT="needleman schuss drehen,dass er nach rechts zeig">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420533118163" ID="ID_1110903827" MODIFIED="1420533128230" TEXT="vmtl einfach neuzeichnen f&#xfc;r beste qualit&#xe4;t"/>
+</node>
+<node CREATED="1419935444630" ID="ID_1866879479" MODIFIED="1420533167974" TEXT="protoman weiter links platzieren, damit metools dahinter platz haben">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1419935503819" FOLDED="true" ID="ID_1496544748" MODIFIED="1420533167974" TEXT="metools als statemachine integrieren">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1419935513053" ID="ID_320241651" MODIFIED="1419935514316" TEXT="IDLE">
+<node CREATED="1419935516087" ID="ID_654793222" MODIFIED="1419935528447" TEXT="schaut zuf&#xe4;llig aus seinem helm hervor alle X sekunden"/>
+</node>
+<node CREATED="1419935531158" ID="ID_165128738" MODIFIED="1419935539601" TEXT="FLEE">
+<node CREATED="1419935540625" ID="ID_1821785686" MODIFIED="1419935545893" TEXT="wenn metool getroffen wurde"/>
+<node CREATED="1419935547619" ID="ID_1674129534" MODIFIED="1419935554378" TEXT="flieh aus dem rechten bildschirmrand"/>
+</node>
+</node>
 </node>
 </node>
 </node>

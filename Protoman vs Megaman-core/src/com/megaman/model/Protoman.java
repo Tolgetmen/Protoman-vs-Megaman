@@ -24,10 +24,10 @@ public class Protoman extends AnimatedGameObject {
 			setAnimation(1);
 			setPosition(getX() + speedX * deltaTime, getY() + speedY * deltaTime);
 
-			if (getY() < 0) {
-				setY(0);
-			} else if (getY() + getHeight() >= GameConstants.GAME_HEIGHT) {
-				setY(GameConstants.GAME_HEIGHT - getHeight());
+			if (getY() < 64) {
+				setY(64);
+			} else if (getY() >= GameConstants.GAME_HEIGHT - 55 - getHeight()) {
+				setY(GameConstants.GAME_HEIGHT - 55 - getHeight());
 			}
 		} else {
 			setAnimation(0);

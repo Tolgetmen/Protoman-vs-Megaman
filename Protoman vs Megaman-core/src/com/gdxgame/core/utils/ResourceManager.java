@@ -1,14 +1,27 @@
 package com.gdxgame.core.utils;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SkinType;
@@ -98,6 +111,8 @@ public enum ResourceManager {
 	 */
 	private Map<MusicType, Resource<Music>>						musicMap;
 
+	private Map<String, Resource<TiledMap>>						tmxMap;
+
 	private ResourceManager() {
 		skinMap = new HashMap<SkinType, Resource<Skin>>();
 		textureAtlasMap = new HashMap<String, Resource<TextureAtlas>>();
@@ -105,6 +120,7 @@ public enum ResourceManager {
 		spriteMap = new HashMap<TextureType, Resource<AnimatedSprite>>();
 		soundMap = new HashMap<SoundType, Resource<Sound>>();
 		musicMap = new HashMap<MusicType, Resource<Music>>();
+		tmxMap = new HashMap<String, Resource<TiledMap>>();
 	}
 
 	/**
@@ -388,8 +404,116 @@ public enum ResourceManager {
 		}
 	}
 
+	public void loadTMXMap(String tmxMapPath) {
+		if (tmxMap != null && !tmxMap.containsKey(tmxMapPath)) {
+			TiledMap map = new TmxMapLoader().load(tmxMapPath);
+
+			// check if there animated tiles within the map
+			// animated tiles are detected if they have a property that contains the string "Animation"
+
+			// first store all static tiles that are used for an animated tile within a map
+			// key String = propertyname that contained the string "Animation"
+			// key Integer = value of property that contained the string "Animation"
+			Map<String, Map<Integer, StaticTiledMapTile>> tilesForAnimatedTile = new HashMap<String, Map<Integer, StaticTiledMapTile>>();
+			for (TiledMapTileSet tilemap : map.getTileSets()) {
+				for (TiledMapTile tile : tilemap) {
+					if (tile instanceof StaticTiledMapTile && tile.getProperties() != null) {
+						Iterator<String> keys = tile.getProperties().getKeys();
+						while (keys.hasNext()) {
+							String key = keys.next();
+							if (key.contains("Animation") && !"AnimationsPerSecond".equals(key)) {
+								// found a tile that should be part of an animation
+								if (tilesForAnimatedTile.containsKey(key)) {
+									// there were already tiles found for the animation "key"
+									// add the current tile with its animation index value (=property value) to the treemap
+									Map<Integer, StaticTiledMapTile> animatedTileMap = tilesForAnimatedTile.get(key);
+									animatedTileMap.put(Integer.parseInt(tile.getProperties().get(key, String.class)), (StaticTiledMapTile) tile);
+								} else {
+									// there are no tiles available yet for animation "key"
+									// add the current tile with its animation index value (=property value) to the treemap
+									Map<Integer, StaticTiledMapTile> animatedTileMap = new TreeMap<Integer, StaticTiledMapTile>();
+									animatedTileMap.put(Integer.parseInt(tile.getProperties().get(key, String.class)), (StaticTiledMapTile) tile);
+									tilesForAnimatedTile.put(key, animatedTileMap);
+								}
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			// replace StaticTiledMapTiles with new AnimatedTiledMapTiles
+			if (tilesForAnimatedTile.size() > 0) {
+				// there are static tiles that needs to be replaced
+				MapLayers layers = map.getLayers();
+				for (MapLayer layer : layers) {
+					if (layer instanceof TiledMapTileLayer) {
+						TiledMapTileLayer tiledlayer = (TiledMapTileLayer) layer;
+						for (int x = 0; x < tiledlayer.getWidth(); x++) {
+							for (int y = 0; y < tiledlayer.getHeight(); y++) {
+								TiledMapTileLayer.Cell cell = tiledlayer.getCell(x, y);
+								if (cell != null) {
+									Iterator<String> keys = cell.getTile().getProperties().getKeys();
+									while (keys.hasNext()) {
+										String key = keys.next();
+										if (key.contains("Animation") && !"AnimationsPerSecond".equals(key)) {
+											Map<Integer, StaticTiledMapTile> animatedTileMap = tilesForAnimatedTile.get(key);
+											if (animatedTileMap.size() > 1) {
+												// animation found with at least 2 animations
+												Array<StaticTiledMapTile> animationTiles = new Array<StaticTiledMapTile>();
+												for (StaticTiledMapTile statictile : animatedTileMap.values()) {
+													animationTiles.add(statictile);
+												}
+
+												if (cell.getTile().getProperties().containsKey("AnimationsPerSecond")) {
+													cell.setTile(new AnimatedTiledMapTile(1.0f / Integer.parseInt(cell.getTile().getProperties().get("AnimationsPerSecond", String.class)), animationTiles));
+												} else {
+													Gdx.app.log(GameConstants.LOG_TAG_INFO, "TMX map contains animation without property 'AnimationsPerSecond': " + key);
+													cell.setTile(new AnimatedTiledMapTile(1, animationTiles));
+												}
+
+											} else {
+												Gdx.app.log(GameConstants.LOG_TAG_INFO, "TMX map contains an incorrect animation with only one animation: " + key);
+											}
+											break;
+										}
+									}
+
+								}
+							}
+						}
+					}
+				}
+			}
+
+			tmxMap.put(tmxMapPath, new Resource<TiledMap>(map));
+		} else {
+			// increase resource counter
+			tmxMap.get(tmxMapPath).incCounter();
+		}
+	}
+
+	public TiledMap getTMXMap(String tmxMapPath) {
+		if (tmxMap != null && tmxMap.containsKey(tmxMapPath)) {
+			return tmxMap.get(tmxMapPath).getResource();
+		} else {
+			Gdx.app.log(GameConstants.LOG_TAG_INFO, "TMXMap was not successfully loaded yet: " + tmxMapPath);
+			return null;
+		}
+	}
+
+	public void disposeTMXMap(String tmxMapPath) {
+		if (tmxMap != null && tmxMap.containsKey(tmxMapPath)) {
+			Resource<TiledMap> resource = tmxMap.get(tmxMapPath);
+			if (resource.decCounter() <= 0) {
+				tmxMap.get(tmxMapPath).getResource().dispose();
+				tmxMap.remove(tmxMapPath);
+			}
+		}
+	}
+
 	/**
-	 * disposes all resources (texture atlas, sprites, sounds ans music) that were loaded with the ResourceManager.
+	 * disposes all resources (texture atlas, sprites, sounds, music, ...) that were loaded with the ResourceManager.
 	 * There are no more resources available after a call to this method.
 	 * 
 	 * This method is automatically called when the game is closing.
@@ -427,6 +551,14 @@ public enum ResourceManager {
 				entry.getValue().getResource().dispose();
 			}
 			skinMap.clear();
+		}
+
+		if (tmxMap != null) {
+			for (Entry<String, Resource<TiledMap>> entry : tmxMap.entrySet()) {
+				Gdx.app.log(GameConstants.LOG_TAG_INFO, "Undisposed map in disposeAllResources(): " + entry.getKey() + "\tRemaining counter was:" + entry.getValue().counter);
+				entry.getValue().getResource().dispose();
+			}
+			tmxMap.clear();
 		}
 	}
 }

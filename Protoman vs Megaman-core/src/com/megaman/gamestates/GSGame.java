@@ -8,6 +8,7 @@ import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SoundType;
 import com.gdxgame.core.enums.TextureType;
 import com.gdxgame.core.utils.ResourceManager;
+import com.megaman.constants.MegamanConstants;
 
 public class GSGame extends GameState {
 	public GSGame(GameStateType type, GameStateLogic logic) {
@@ -18,6 +19,11 @@ public class GSGame extends GameState {
 	protected void loadResources() {
 		// load texture atlas
 		ResourceManager.INSTANCE.loadTextureAtlas(GameConstants.ATLAS_PATH_GAME);
+		ResourceManager.INSTANCE.loadTextureAtlas(GameConstants.ATLAS_PATH_HUD);
+
+		// hud sprites
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.HUD_LIFE);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.HUD_MISSLES);
 
 		// load character sprites
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.CHARACTER_GEMINIMAN);
@@ -69,12 +75,16 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.HIT);
+
+		// load map
+		ResourceManager.INSTANCE.loadTMXMap(MegamanConstants.BACKGROUND_MAP_PATH);
 	}
 
 	@Override
 	protected void disposeResources() {
 		// free texture atlas and sprites
 		ResourceManager.INSTANCE.disposeTextureAtlasAndSprites(GameConstants.ATLAS_PATH_GAME);
+		ResourceManager.INSTANCE.disposeTextureAtlasAndSprites(GameConstants.ATLAS_PATH_HUD);
 
 		// free music
 		ResourceManager.INSTANCE.disposeMusic(MusicType.GEMINIMAN);
@@ -99,5 +109,8 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_TOPMAN);
 		ResourceManager.INSTANCE.disposeSound(SoundType.HIT);
+
+		// load map
+		ResourceManager.INSTANCE.disposeTMXMap(MegamanConstants.BACKGROUND_MAP_PATH);
 	}
 }

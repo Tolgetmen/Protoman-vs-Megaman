@@ -47,6 +47,7 @@ public class DesktopLauncher {
 
 		Settings settings = new Settings();
 		settings.combineSubdirectories = true;
+		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/hud", "../Protoman vs Megaman-core/assets/packedGraphics", "hud");
 		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/game", "../Protoman vs Megaman-core/assets/packedGraphics", "gameGraphics");
 		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/menu", "../Protoman vs Megaman-core/assets/packedGraphics", "menuGraphics");
 
