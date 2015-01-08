@@ -8,6 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.5.0/6ff91f0cbb70779dc0acdea3f3dc29a2e176bac9/gdx-controllers-1.5.0.jar" sourcepath="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.5.0/8601db089e0d4df2c8487cbb80e7976b34cd7a3f/gdx-controllers-1.5.0-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.box2dlights/box2dlights/1.3/e829c3543ab5a6b3ff818615a8620024f6a14fe0/box2dlights-1.3.jar" sourcepath="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.box2dlights/box2dlights/1.3/c8bde8cd5a1048089c7dd7d266aad71e89e096d8/box2dlights-1.3-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-ai/1.4.0/f7532801d6c1526df4a609341fa145acb9e8eb3a/gdx-ai-1.4.0.jar" sourcepath="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-ai/1.4.0/7bc4832d138196172d4d453511dff7a3cc0f83f4/gdx-ai-1.4.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/ini4j-0.5.2-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ini4j-0.5.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

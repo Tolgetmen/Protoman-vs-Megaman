@@ -35,11 +35,13 @@ import com.megaman.enums.BossType;
 import com.megaman.enums.CharacterType;
 import com.megaman.enums.EffectType;
 import com.megaman.enums.MissileType;
+import com.megaman.enums.ParticleFXType;
 import com.megaman.model.Boss;
 import com.megaman.model.Effect;
 import com.megaman.model.Megaman;
 import com.megaman.model.Mettool;
 import com.megaman.model.Missile;
+import com.megaman.model.ParticleFX;
 import com.megaman.model.Protoman;
 
 public class GSGameLogic extends GameStateLogic {
@@ -73,6 +75,10 @@ public class GSGameLogic extends GameStateLogic {
 	private AnimatedSprite							hudIconLife;
 	private AnimatedSprite							hudIconMissile;
 	private BitmapFont								font;
+
+	private Array<ParticleFX>						activeParticleEffects;
+	private Pool<ParticleFX>						poolParticleEffects;
+	private ParticleFX								protomanFlame;
 
 	public GSGameLogic(GDXGame game, Camera camera) {
 		super(game, camera);
@@ -120,6 +126,15 @@ public class GSGameLogic extends GameStateLogic {
 			@Override
 			protected Effect newObject() {
 				return new Effect(GSGameLogic.this);
+			}
+		};
+
+		// create particle effect pool
+		activeParticleEffects = new Array<ParticleFX>();
+		poolParticleEffects = new Pool<ParticleFX>() {
+			@Override
+			protected ParticleFX newObject() {
+				return new ParticleFX(GSGameLogic.this);
 			}
 		};
 
@@ -202,6 +217,18 @@ public class GSGameLogic extends GameStateLogic {
 	@Override
 	public void update(float deltaTime) {
 		if (!checkEndCondition()) {
+			// update particle effects
+			Iterator<ParticleFX> iterParticleFX = activeParticleEffects.iterator();
+			while (iterParticleFX.hasNext()) {
+				ParticleFX particleFX = iterParticleFX.next();
+				particleFX.update(deltaTime);
+
+				if (particleFX.isComplete()) {
+					poolParticleEffects.free(particleFX);
+					iterParticleFX.remove();
+				}
+			}
+
 			// update all game objects except bosses, effects, missiles and mettools
 			Iterator<GameObject> iterGameObj = gameObjects.iterator();
 			while (iterGameObj.hasNext()) {
@@ -287,8 +314,13 @@ public class GSGameLogic extends GameStateLogic {
 		renderer.setView((OrthographicCamera) camera);
 		renderer.render();
 
-		// render game objects
 		spriteBatch.begin();
+		// render particle effects
+		for (ParticleFX particleFX : activeParticleEffects) {
+			particleFX.draw(spriteBatch);
+		}
+
+		// render game objects
 		for (Map.Entry<AnimatedGameObject, AnimatedSprite> entry : animatedObjects.entrySet()) {
 			GameUtils.renderGameObject(spriteBatch, camera, entry.getKey(), entry.getValue());
 		}
@@ -296,7 +328,6 @@ public class GSGameLogic extends GameStateLogic {
 		// render hud
 		spriteBatch.draw(hudIconLife, 330, 22);
 		spriteBatch.draw(hudIconMissile, 415, 26);
-
 		font.draw(spriteBatch, "" + life, 355, 29);
 		font.draw(spriteBatch, "" + (MegamanConstants.MEGAMAN_MAX_MISSILES - megaman.getShotCounter()), 430, 29);
 		spriteBatch.end();
@@ -327,11 +358,17 @@ public class GSGameLogic extends GameStateLogic {
 			case Keys.UP: {
 				// move protoman up
 				protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
+				if (protomanFlame == null) {
+					protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+				}
 				break;
 			}
 			case Keys.DOWN: {
 				// move protoman down
 				protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
+				if (protomanFlame == null) {
+					protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+				}
 				break;
 			}
 			case Keys.ESCAPE: {
@@ -358,6 +395,10 @@ public class GSGameLogic extends GameStateLogic {
 				} else {
 					// both keys released -> stop protoman
 					protoman.setSpeed(0, 0);
+					if (protomanFlame != null) {
+						protomanFlame.stop();
+						protomanFlame = null;
+					}
 				}
 				break;
 			}
@@ -414,6 +455,15 @@ public class GSGameLogic extends GameStateLogic {
 		animatedObjects.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
 
 		SoundManager.INSTANCE.playSound(type.getSoundType());
+	}
+
+	public ParticleFX createParticleFX(ParticleFXType type, GameObject attachedObj, int objOffsetX, int objOffsetY, float duration, float loopPosition) {
+		ParticleFX effect = poolParticleEffects.obtain();
+
+		effect.initialize(type, attachedObj, objOffsetX, objOffsetY, duration, loopPosition);
+		activeParticleEffects.add(effect);
+
+		return effect;
 	}
 
 	public void createMissile(MissileType type, float startX, float startY) {

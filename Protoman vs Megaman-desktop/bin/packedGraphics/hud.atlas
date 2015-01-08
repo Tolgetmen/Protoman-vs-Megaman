@@ -1,0 +1,20 @@
+
+hud.png
+size: 32,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+life
+  rotate: false
+  xy: 2, 2
+  size: 18, 19
+  orig: 18, 19
+  offset: 0, 0
+  index: -1
+shots
+  rotate: false
+  xy: 22, 13
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
