@@ -46,21 +46,6 @@
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
 <node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
-<node CREATED="1420462640186" ID="ID_606046790" MODIFIED="1420462736668" TEXT="todesanimation for megaman/protoman einf&#xfc;hren">
-<node CREATED="1420462675836" ID="ID_1551772901" MODIFIED="1420462680125" TEXT="wenn protoman stirbt">
-<node CREATED="1420462680922" ID="ID_230668423" MODIFIED="1420462685903" TEXT="megaman h&#xf6;rt auf zu schie&#xdf;en"/>
-<node CREATED="1420462690736" ID="ID_754702406" MODIFIED="1420462704732" TEXT="alle missiles werden gestoppt und ausgefadet"/>
-<node CREATED="1420462706857" ID="ID_1238115127" MODIFIED="1420462713140" TEXT="nach todesanimation -&gt; game over screen"/>
-</node>
-<node CREATED="1420462714855" ID="ID_1107995835" MODIFIED="1420462718823" TEXT="wenn megaman stirbt">
-<node CREATED="1420462720822" ID="ID_1884966656" MODIFIED="1420462728338" TEXT="nach todesanimation -&gt; highscore screen"/>
-</node>
-</node>
-<node CREATED="1420462580696" ID="ID_968365178" MODIFIED="1420462622270" TEXT="intro einbauen">
-<node CREATED="1420462589680" ID="ID_133718904" MODIFIED="1420462596867" TEXT="erkl&#xe4;rt das spiel"/>
-<node CREATED="1420462597826" ID="ID_750499834" MODIFIED="1420462602780" TEXT="kann mit escape abgebrochen werden"/>
-<node CREATED="1420462604797" ID="ID_1516714743" MODIFIED="1420462620516" TEXT="intro ist einfach eine kleine cinematic sequence, die nicht l&#xe4;nger als 30 sekunden dauern sollte"/>
-</node>
 <node CREATED="1420571715580" ID="ID_1803092504" MODIFIED="1420571720836" TEXT="Sprache ausw&#xe4;hlbar in Settings">
 <node CREATED="1420571721739" ID="ID_330094401" MODIFIED="1420571725294" TEXT="in game.cfg abspeichern"/>
 </node>
@@ -75,6 +60,11 @@
 </node>
 <node CREATED="1419935606590" ID="ID_1364228087" MODIFIED="1419935624621" TEXT="protoman muss erst beschleunigen beim rauf/runterfliegen bevor er endgeschwindigkeit erreicht"/>
 <node CREATED="1419842447808" ID="ID_1610726709" MODIFIED="1419842455139" TEXT="Light in Szene hinzuf&#xfc;gen"/>
+<node CREATED="1420462580696" ID="ID_968365178" MODIFIED="1420462622270" TEXT="intro einbauen">
+<node CREATED="1420462589680" ID="ID_133718904" MODIFIED="1420462596867" TEXT="erkl&#xe4;rt das spiel"/>
+<node CREATED="1420462597826" ID="ID_750499834" MODIFIED="1420462602780" TEXT="kann mit escape abgebrochen werden"/>
+<node CREATED="1420462604797" ID="ID_1516714743" MODIFIED="1420462620516" TEXT="intro ist einfach eine kleine cinematic sequence, die nicht l&#xe4;nger als 30 sekunden dauern sollte"/>
+</node>
 </node>
 </node>
 <node BACKGROUND_COLOR="#00ccff" CREATED="1420328514925" FOLDED="true" HGAP="15" ID="ID_892494079" MODIFIED="1420567129030" POSITION="left" STYLE="fork" TEXT="Erledigte Aufgaben" VSHIFT="44">
@@ -400,6 +390,17 @@
 </node>
 <node CREATED="1419842424700" ID="ID_1082518376" MODIFIED="1420704783338" TEXT="Particlesystem hinzuf&#xfc;gen f&#xfc;r einen coolen Effekt, wenn Protoman nach oben/unten &quot;fliegt&quot;">
 <icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420462640186" FOLDED="true" ID="ID_606046790" MODIFIED="1420709473334" TEXT="todesanimation for megaman/protoman einf&#xfc;hren">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420462675836" ID="ID_1551772901" MODIFIED="1420462680125" TEXT="wenn protoman stirbt">
+<node CREATED="1420462680922" ID="ID_230668423" MODIFIED="1420462685903" TEXT="megaman h&#xf6;rt auf zu schie&#xdf;en"/>
+<node CREATED="1420462690736" ID="ID_754702406" MODIFIED="1420462704732" TEXT="alle missiles werden gestoppt und ausgefadet"/>
+<node CREATED="1420462706857" ID="ID_1238115127" MODIFIED="1420462713140" TEXT="nach todesanimation -&gt; game over screen"/>
+</node>
+<node CREATED="1420462714855" ID="ID_1107995835" MODIFIED="1420462718823" TEXT="wenn megaman stirbt">
+<node CREATED="1420462720822" ID="ID_1884966656" MODIFIED="1420462728338" TEXT="nach todesanimation -&gt; highscore screen"/>
+</node>
 </node>
 </node>
 </node>

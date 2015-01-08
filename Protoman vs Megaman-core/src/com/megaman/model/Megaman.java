@@ -18,6 +18,7 @@ public class Megaman extends AnimatedGameObject {
 	private float					stateTime;
 	private float					shotFrequency;
 	private int						shotCounter;
+	private boolean					isAlive;
 
 	public Megaman(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
 		super(logic, textureType, animationsPerSecond);
@@ -25,6 +26,7 @@ public class Megaman extends AnimatedGameObject {
 		shotCounter = 0;
 		shotFrequency = MegamanConstants.MEGAMAN_SHOOT_START_FREQUENCY;
 		stateTime = 0.0f;
+		isAlive = true;
 	}
 
 	@Override
@@ -63,5 +65,14 @@ public class Megaman extends AnimatedGameObject {
 
 	public float getShotFrequency() {
 		return shotFrequency;
+	}
+
+	public void kill() {
+		isAlive = false;
+		setTransparency(1);
+	}
+
+	public boolean isAlive() {
+		return isAlive;
 	}
 }

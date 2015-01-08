@@ -9,11 +9,13 @@ import com.gdxgame.core.model.AnimatedGameObject;
 public class Protoman extends AnimatedGameObject {
 	private float	speedX;
 	private float	speedY;
+	private boolean	isAlive;
 
 	public Protoman(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
 		super(logic, textureType, animationsPerSecond);
 
 		speedX = speedY = 0;
+		isAlive = true;
 	}
 
 	@Override
@@ -37,5 +39,14 @@ public class Protoman extends AnimatedGameObject {
 	public void setSpeed(float speed, float angleInDegrees) {
 		speedX = speed * MathUtils.cos(angleInDegrees * MathUtils.degreesToRadians);
 		speedY = speed * MathUtils.sin(angleInDegrees * MathUtils.degreesToRadians);
+	}
+
+	public void kill() {
+		setTransparency(1);
+		isAlive = false;
+	}
+
+	public boolean isAlive() {
+		return isAlive;
 	}
 }

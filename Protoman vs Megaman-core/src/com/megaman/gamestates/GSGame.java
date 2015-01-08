@@ -40,6 +40,7 @@ public class GSGame extends GameState {
 
 		// effect sprites
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.EFFECT_HIT);
+		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.EFFECT_DEATH);
 
 		// load missile sprites
 		ResourceManager.INSTANCE.loadAnimatedSprite(TextureType.MISSILE_GEMINIMAN);
@@ -75,6 +76,7 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.SHOOT_TOPMAN);
 		ResourceManager.INSTANCE.loadSound(SoundType.HIT);
+		ResourceManager.INSTANCE.loadSound(SoundType.DEATH);
 
 		// load map
 		ResourceManager.INSTANCE.loadTMXMap(MegamanConstants.BACKGROUND_MAP_PATH);
@@ -109,6 +111,7 @@ public class GSGame extends GameState {
 		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_SPARKMAN);
 		ResourceManager.INSTANCE.disposeSound(SoundType.SHOOT_TOPMAN);
 		ResourceManager.INSTANCE.disposeSound(SoundType.HIT);
+		ResourceManager.INSTANCE.disposeSound(SoundType.DEATH);
 
 		// load map
 		ResourceManager.INSTANCE.disposeTMXMap(MegamanConstants.BACKGROUND_MAP_PATH);

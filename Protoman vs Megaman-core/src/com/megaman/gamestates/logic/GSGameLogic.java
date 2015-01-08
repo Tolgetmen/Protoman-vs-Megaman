@@ -61,8 +61,8 @@ public class GSGameLogic extends GameStateLogic {
 	private Pool<Effect>							poolEffects;
 
 	private Megaman									megaman;
-
 	private Protoman								protoman;
+	private float									deathAnimationTime;
 
 	private Array<Mettool>							mettools;
 
@@ -182,21 +182,51 @@ public class GSGameLogic extends GameStateLogic {
 	}
 
 	private boolean checkEndCondition() {
-		// check for end condition
-		if (megaman.getShotCounter() >= MegamanConstants.MEGAMAN_MAX_MISSILES && activeMissiles.size == 0 && life > 0) {
-			// survived -> show highscore
-			Map<String, Integer> highscore = new HashMap<String, Integer>();
-			highscore.put("blocked", blockedNormal + blockedBoss);
-			highscore.put("blocked_normal", blockedNormal);
-			highscore.put("blocked_boss", blockedBoss);
-			highscore.put("leaked", MegamanConstants.MAX_LIFE - life);
-			highscore.put("life", life);
-			highscore.put("points", (life * 1000) + (blockedBoss * 300) + (blockedNormal * 100));
-			game.setGameState(GameStateType.HIGHSCORE, true, true, highscore);
+		if (!megaman.isAlive() || !protoman.isAlive()) {
+			// megaman or protoman is dead -> wait 5 seconds until death animation is over
+			if (deathAnimationTime <= 0) {
+				if (!megaman.isAlive()) {
+					// survived -> show highscore
+					Map<String, Integer> highscore = new HashMap<String, Integer>();
+					highscore.put("blocked", blockedNormal + blockedBoss);
+					highscore.put("blocked_normal", blockedNormal);
+					highscore.put("blocked_boss", blockedBoss);
+					highscore.put("leaked", MegamanConstants.MAX_LIFE - life);
+					highscore.put("life", life);
+					highscore.put("points", (life * 1000) + (blockedBoss * 300) + (blockedNormal * 100));
+					game.setGameState(GameStateType.HIGHSCORE, true, true, highscore);
+				} else {
+					// game over
+					game.setGameState(GameStateType.GAME_OVER, true, true, null);
+				}
+			}
+			return true;
+		} else if (megaman.getShotCounter() >= MegamanConstants.MEGAMAN_MAX_MISSILES && activeMissiles.size == 0 && life > 0) {
+			for (int i = 0; i < 16; ++i) {
+				Missile missile = createMissile(MissileType.DEATH, megaman.getX(), megaman.getY());
+				missile.setColor(0, 0.44f, 0.93f);
+				missile.setSpeed((i / 8) * 80 + 45, (360 / 8) * (i % 8));
+			}
+			deathAnimationTime = 5.0f;
+			megaman.kill();
+			SoundManager.INSTANCE.stopCurrentMusic();
+			SoundManager.INSTANCE.playSound(SoundType.DEATH);
 			return true;
 		} else if (life <= 0) {
-			// game over
-			game.setGameState(GameStateType.GAME_OVER, true, true, null);
+			for (int i = 0; i < 16; ++i) {
+				Missile missile = createMissile(MissileType.DEATH, protoman.getX(), protoman.getY());
+				missile.setColor(1, 0.22f, 0);
+				missile.setSpeed((i / 8) * 80 + 45, (360 / 8) * (i % 8));
+			}
+			deathAnimationTime = 5.0f;
+			protoman.kill();
+			protoman.setSpeed(0, 0);
+			if (protomanFlame != null) {
+				protomanFlame.stop();
+				protomanFlame = null;
+			}
+			SoundManager.INSTANCE.stopCurrentMusic();
+			SoundManager.INSTANCE.playSound(SoundType.DEATH);
 			return true;
 		}
 
@@ -216,7 +246,25 @@ public class GSGameLogic extends GameStateLogic {
 
 	@Override
 	public void update(float deltaTime) {
-		if (!checkEndCondition()) {
+		if (checkEndCondition()) {
+			deathAnimationTime -= deltaTime;
+			// update death animation missiles
+			Iterator<Missile> iterMissiles = activeMissiles.iterator();
+			while (iterMissiles.hasNext()) {
+				Missile missile = iterMissiles.next();
+				missile.update(deltaTime);
+
+				if (deathAnimationTime <= 0) {
+					missile.kill();
+				}
+
+				if (!missile.isAlive()) {
+					poolMissiles.free(missile);
+					animatedObjects.remove(missile);
+					iterMissiles.remove();
+				}
+			}
+		} else {
 			// update particle effects
 			Iterator<ParticleFX> iterParticleFX = activeParticleEffects.iterator();
 			while (iterParticleFX.hasNext()) {
@@ -357,17 +405,21 @@ public class GSGameLogic extends GameStateLogic {
 		switch (keycode) {
 			case Keys.UP: {
 				// move protoman up
-				protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
-				if (protomanFlame == null) {
-					protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+				if (protoman.isAlive()) {
+					protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
+					if (protomanFlame == null) {
+						protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+					}
 				}
 				break;
 			}
 			case Keys.DOWN: {
 				// move protoman down
-				protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
-				if (protomanFlame == null) {
-					protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+				if (protoman.isAlive()) {
+					protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
+					if (protomanFlame == null) {
+						protomanFlame = createParticleFX(ParticleFXType.FLAME, protoman, 13, 5, 0, 0.15f);
+					}
 				}
 				break;
 			}
@@ -386,18 +438,20 @@ public class GSGameLogic extends GameStateLogic {
 		switch (keycode) {
 			case Keys.DOWN:
 			case Keys.UP: {
-				if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-					// down key still pressed -> move protoman down
-					protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
-				} else if (Gdx.input.isKeyPressed(Keys.UP)) {
-					// up key still pressed -> move protoman up
-					protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
-				} else {
-					// both keys released -> stop protoman
-					protoman.setSpeed(0, 0);
-					if (protomanFlame != null) {
-						protomanFlame.stop();
-						protomanFlame = null;
+				if (protoman.isAlive()) {
+					if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+						// down key still pressed -> move protoman down
+						protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 270);
+					} else if (Gdx.input.isKeyPressed(Keys.UP)) {
+						// up key still pressed -> move protoman up
+						protoman.setSpeed(MegamanConstants.PROTOMAN_SPEED, 90);
+					} else {
+						// both keys released -> stop protoman
+						protoman.setSpeed(0, 0);
+						if (protomanFlame != null) {
+							protomanFlame.stop();
+							protomanFlame = null;
+						}
 					}
 				}
 				break;
@@ -447,14 +501,18 @@ public class GSGameLogic extends GameStateLogic {
 		return true;
 	}
 
-	public void createEffect(EffectType type, float startX, float startY, float duration) {
+	public Effect createEffect(EffectType type, float startX, float startY, float duration) {
 		Effect effect = poolEffects.obtain();
 
 		effect.initialize(type, startX, startY, duration);
 		activeEffects.add(effect);
 		animatedObjects.put(effect, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
 
-		SoundManager.INSTANCE.playSound(type.getSoundType());
+		if (type.getSoundType() != null) {
+			SoundManager.INSTANCE.playSound(type.getSoundType());
+		}
+
+		return effect;
 	}
 
 	public ParticleFX createParticleFX(ParticleFXType type, GameObject attachedObj, int objOffsetX, int objOffsetY, float duration, float loopPosition) {
@@ -466,14 +524,18 @@ public class GSGameLogic extends GameStateLogic {
 		return effect;
 	}
 
-	public void createMissile(MissileType type, float startX, float startY) {
+	public Missile createMissile(MissileType type, float startX, float startY) {
 		Missile missile = poolMissiles.obtain();
 
 		missile.initialize(type, startX, startY, 0);
 		activeMissiles.add(missile);
 		animatedObjects.put(missile, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
 
-		SoundManager.INSTANCE.playSound(type.getSoundType());
+		if (type.getSoundType() != null) {
+			SoundManager.INSTANCE.playSound(type.getSoundType());
+		}
+
+		return missile;
 	}
 
 	public void createBoss(BossType type, float spawnX, float spawnY) {

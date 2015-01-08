@@ -22,6 +22,7 @@ public enum TextureType {
 	CHARACTER_METTOOL(GameConstants.ATLAS_PATH_GAME, "graphics/game/characters/mettool.png", "characters/mettool", 5, 1),
 
 	EFFECT_HIT(GameConstants.ATLAS_PATH_GAME, "graphics/game/effects/hit_effect.png", "effects/hit_effect", 3, 1),
+	EFFECT_DEATH(GameConstants.ATLAS_PATH_GAME, "graphics/game/effects/death.png", "effects/death", 5, 1),
 
 	MISSILE_MEGAMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/missiles/megaman_missile.png", "missiles/megaman_missile", 1, 1),
 	MISSILE_SPARKMAN(GameConstants.ATLAS_PATH_GAME, "graphics/game/missiles/sparkman_missile.png", "missiles/sparkman_missile", 4, 1),

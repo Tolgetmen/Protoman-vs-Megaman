@@ -21,7 +21,7 @@ public class ParticleFX extends ParticleEffect implements Poolable {
 	}
 
 	private void initParticleEffect(ParticleFXType type, float duration, float loopPosition) {
-		load(Gdx.files.internal(type.getFilePath()), ResourceManager.INSTANCE.getTextureAtlas(type.getTextureAtlasPath()), "effects/");
+		load(Gdx.files.internal(type.getFilePath()), ResourceManager.INSTANCE.getTextureAtlas(type.getTextureAtlasPath()), type.getAtlasPrefix());
 		scaleEffect(type.getScaleFactor());
 
 		start();

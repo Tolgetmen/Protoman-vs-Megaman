@@ -90,12 +90,22 @@ public abstract class AnimatedGameObject extends GameObject {
 	 */
 	private float	transparencyGainPerSecond;
 	/**
+	 * color attributes of the animated game object
+	 * default is red=1,green=1,blue=1
+	 * value can be between 0 and 1.0
+	 */
+	private float	red;
+	private float	green;
+	private float	blue;
+	/**
 	 * target transparency of the fadeTo() method call
 	 */
 	private float	targetTransparency;
 
 	public AnimatedGameObject(GameStateLogic logic, TextureType textureType, int animationsPerSecond) {
 		super(logic);
+
+		red = green = blue = 1;
 
 		// calculate the time that needs to be passed until updating to the next frame
 		this.animationTime = 1.0f / animationsPerSecond;
@@ -378,5 +388,46 @@ public abstract class AnimatedGameObject extends GameObject {
 	 */
 	public boolean isFlipY() {
 		return flipY;
+	}
+
+	/**
+	 * sets the color of the game object. default is red=1,green=1 and blue=1.
+	 * Color value can be between 0.0 and 1.0.
+	 * 
+	 * @param red red color tone
+	 * @param green green color tone
+	 * @param blue blue color tone
+	 */
+	public void setColor(float red, float green, float blue) {
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+	}
+
+	/**
+	 * returns the current red color tone of the animated game object
+	 * 
+	 * @return red color tone
+	 */
+	public float getRed() {
+		return red;
+	}
+
+	/**
+	 * returns the current green color tone of the animated game object
+	 * 
+	 * @return red green tone
+	 */
+	public float getGreen() {
+		return green;
+	}
+
+	/**
+	 * returns the current blue color tone of the animated game object
+	 * 
+	 * @return blue color tone
+	 */
+	public float getBlue() {
+		return blue;
 	}
 }

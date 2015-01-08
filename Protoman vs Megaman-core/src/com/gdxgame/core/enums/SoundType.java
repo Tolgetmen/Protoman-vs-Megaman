@@ -18,7 +18,8 @@ public enum SoundType {
 	HIT("audio/sounds/hit.wav"),
 	MENU_MOVE("audio/sounds/menu_move.wav"),
 	MENU_SELECT("audio/sounds/menu_select.wav"),
-	MENU_SELECT_SHOOT("audio/sounds/menu_select_shoot.wav");
+	MENU_SELECT_SHOOT("audio/sounds/menu_select_shoot.wav"),
+	DEATH("audio/sounds/death.wav");
 
 	/**
 	 * file path to the sound file in the assets folder

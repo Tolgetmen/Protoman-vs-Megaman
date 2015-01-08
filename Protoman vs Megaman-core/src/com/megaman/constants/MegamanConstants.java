@@ -20,7 +20,7 @@ public class MegamanConstants {
 	// three missiles that megaman shoots
 	public static final int		BOSS_FREQUENCY						= 3;
 
-	public static final float	MEGAMAN_SHOOT_START_FREQUENCY		= 2.25f;
+	public static final float	MEGAMAN_SHOOT_START_FREQUENCY		= 1.90f;
 	public static final float	MEGAMAN_SHOOT_FREQUENCY_DECREMENT	= 0.07f;
 	// defines when the shot frequency should be decreased
 	// f.e. a value of 3 means that after every third shot 

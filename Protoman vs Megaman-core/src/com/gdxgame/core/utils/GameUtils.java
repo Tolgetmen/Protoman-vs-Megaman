@@ -60,7 +60,7 @@ public final class GameUtils {
 			sprite.setFrameIndex(gameObj.getFrameIndexX(), gameObj.getFrameIndexY());
 			sprite.setPosition(gameObj.getX(), gameObj.getY());
 			sprite.setSize(gameObj.getWidth(), gameObj.getHeight());
-			spriteBatch.setColor(sprite.getColor().r, sprite.getColor().g, sprite.getColor().b, 1.0f - gameObj.getTransparency());
+			spriteBatch.setColor(gameObj.getRed(), gameObj.getGreen(), gameObj.getBlue(), 1.0f - gameObj.getTransparency());
 			// render the animated sprite with the animated game object's properties
 			spriteBatch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(), sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
 		}

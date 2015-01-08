@@ -12,7 +12,8 @@ public enum MissileType {
 	TOPMAN(TextureType.MISSILE_TOPMAN, SoundType.SHOOT_TOPMAN, 32, 32, 12, true, 300),
 	GEMINIMAN(TextureType.MISSILE_GEMINIMAN, SoundType.SHOOT_GEMINIMAN, 32, 32, 8, false, 330),
 	MAGNETMAN(TextureType.MISSILE_MAGNETMAN, SoundType.SHOOT_MAGNETMAN, 32, 32, 0, false, 360),
-	SHADOWMAN(TextureType.MISSILE_SHADOWMAN, SoundType.SHOOT_SHADOWMAN, 32, 32, 12, true, 390);
+	SHADOWMAN(TextureType.MISSILE_SHADOWMAN, SoundType.SHOOT_SHADOWMAN, 32, 32, 12, true, 390),
+	DEATH(TextureType.EFFECT_DEATH, null, 32, 32, 24, true, 90);
 
 	private final TextureType	textureType;
 	private final SoundType		soundType;

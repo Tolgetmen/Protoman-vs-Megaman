@@ -60,4 +60,9 @@ public class Missile extends AnimatedGameObject implements Poolable {
 	public MissileType getType() {
 		return missileType;
 	}
+
+	public void setSpeed(int speed, int angle) {
+		speedX = speed * MathUtils.cos(angle * MathUtils.degreesToRadians);
+		speedY = speed * MathUtils.sin(angle * MathUtils.degreesToRadians);
+	}
 }
