@@ -83,6 +83,12 @@
 			"fontColor": "red"
 		},
 
+		"menu_option_red": 
+		{
+			"font": "minecraft_38_bold",
+			"fontColor": "red"
+		},
+
 		"highscore": 
 		{
 			"font": "minecraft_26",

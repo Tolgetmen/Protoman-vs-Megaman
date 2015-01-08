@@ -12,7 +12,8 @@ public class SettingsMenuPage extends GameMenuPage {
 	private final int	OPTION_VIDEO	= 0;
 	private final int	OPTION_AUDIO	= 1;
 	private final int	OPTION_CONTROLS	= 2;
-	private final int	OPTION_BACK		= 3;
+	private final int	OPTION_LANGUAGE	= 3;
+	private final int	OPTION_BACK		= 4;
 
 	public SettingsMenuPage(GameMenuPageType type, GameMenu gameMenu, GDXGame game, GameStateLogic logic) {
 		super(type, gameMenu, game, logic);
@@ -20,9 +21,10 @@ public class SettingsMenuPage extends GameMenuPage {
 
 	@Override
 	public void initialize() {
-		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video"), true, MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.audio"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
-		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.controls"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video"), true, MegamanConstants.MENU_OFFSET_TOP, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS - 10, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.audio"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS - 10, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.controls"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS - 10, 0);
+		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.language"), true, 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS - 10, 0);
 		addOption(GameUtils.getLocalizedLabel("MainMenu.option.back"), true, 0, 0, MegamanConstants.MENU_OFFSET_BOTTOM, 0);
 	}
 
@@ -39,6 +41,10 @@ public class SettingsMenuPage extends GameMenuPage {
 			}
 			case OPTION_AUDIO: {
 				gameMenu.changeMenuPage(GameMenuPageType.MAIN_MENU_SETTINGS_AUDIO);
+				break;
+			}
+			case OPTION_LANGUAGE: {
+				gameMenu.changeMenuPage(GameMenuPageType.MAIN_MENU_SETTINGS_LANGUAGE);
 				break;
 			}
 			case OPTION_BACK: {

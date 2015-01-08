@@ -2,6 +2,7 @@ package com.gdxgame.core.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.MissingResourceException;
 
 import org.ini4j.Ini;
@@ -171,7 +172,15 @@ public final class GameUtils {
 	 */
 	public static String getLocalizedLabel(String labelKey) {
 		if (labelBundle == null) {
-			labelBundle = I18NBundle.createBundle(Gdx.files.internal(GameConstants.LABEL_BUNDLE_PATH));
+			String cfgFileValue = getCfgFileValue(GameConstants.CFG_KEY_LANGUAGE, String.class);
+			Locale locale = null;
+			if (cfgFileValue != null) {
+				locale = new Locale(cfgFileValue);
+			} else {
+				// get default locale
+				locale = Locale.getDefault();
+			}
+			labelBundle = I18NBundle.createBundle(Gdx.files.internal(GameConstants.LABEL_BUNDLE_PATH), locale);
 		}
 
 		String result = "";

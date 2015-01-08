@@ -18,6 +18,7 @@ public final class GameConstants {
 	public static final String	CFG_KEY_FULLSCREEN		= "fullscreen";
 	public static final String	CFG_KEY_MUSIC_VOLUME	= "musicVolume";
 	public static final String	CFG_KEY_SOUND_VOLUME	= "soundVolume";
+	public static final String	CFG_KEY_LANGUAGE		= "language";
 
 	public static final float	CLEAR_COLOR_RED			= 0;
 	public static final float	CLEAR_COLOR_BLUE		= 0.2f;

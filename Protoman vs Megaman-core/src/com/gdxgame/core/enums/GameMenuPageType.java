@@ -3,6 +3,7 @@ package com.gdxgame.core.enums;
 import com.gdxgame.core.GameMenuPage;
 import com.megaman.menu.pages.GameOverPage;
 import com.megaman.menu.pages.HighscorePage;
+import com.megaman.menu.pages.LanguageMenuPage;
 import com.megaman.menu.pages.MainMenuPage;
 import com.megaman.menu.pages.SettingsMenuPage;
 import com.megaman.menu.pages.AudioMenuPage;
@@ -20,6 +21,7 @@ public enum GameMenuPageType {
 	MAIN_MENU_SETTINGS_VIDEO(VideoMenuPage.class, SkinType.SKIN_MAIN_MENU, "background"),
 	MAIN_MENU_SETTINGS_CONTROLS(ControlsMenuPage.class, SkinType.SKIN_MAIN_MENU, "background_infobox"),
 	MAIN_MENU_SETTINGS_AUDIO(AudioMenuPage.class, SkinType.SKIN_MAIN_MENU, "background"),
+	MAIN_MENU_SETTINGS_LANGUAGE(LanguageMenuPage.class, SkinType.SKIN_MAIN_MENU, "background"),
 
 	GAME_OVER(GameOverPage.class, SkinType.SKIN_MAIN_MENU, "background"),
 

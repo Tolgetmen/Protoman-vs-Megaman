@@ -46,9 +46,6 @@
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
 <node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
-<node CREATED="1420571715580" ID="ID_1803092504" MODIFIED="1420571720836" TEXT="Sprache ausw&#xe4;hlbar in Settings">
-<node CREATED="1420571721739" ID="ID_330094401" MODIFIED="1420571725294" TEXT="in game.cfg abspeichern"/>
-</node>
 <node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420567295785" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>
@@ -401,6 +398,10 @@
 <node CREATED="1420462714855" ID="ID_1107995835" MODIFIED="1420462718823" TEXT="wenn megaman stirbt">
 <node CREATED="1420462720822" ID="ID_1884966656" MODIFIED="1420462728338" TEXT="nach todesanimation -&gt; highscore screen"/>
 </node>
+</node>
+<node CREATED="1420571715580" FOLDED="true" ID="ID_1803092504" MODIFIED="1420711977109" TEXT="Sprache ausw&#xe4;hlbar in Settings">
+<icon BUILTIN="button_ok"/>
+<node CREATED="1420571721739" ID="ID_330094401" MODIFIED="1420571725294" TEXT="in game.cfg abspeichern"/>
 </node>
 </node>
 </node>
