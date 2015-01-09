@@ -36,21 +36,25 @@ public class DesktopLauncher {
 	}
 
 	public static void main(String[] arg) throws InvalidFileFormatException, IOException {
+		System.out.println("1");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = GameConstants.WINDOW_TITLE;
 		config.addIcon("gameicon.png", FileType.Internal);
 		config.width = GameConstants.GAME_WIDTH;
 		config.height = GameConstants.GAME_HEIGHT;
 		config.fullscreen = false;
-		readConfigFromFile(config, "../Protoman vs Megaman-core/assets/game.cfg", "Gameconfig");
+		readConfigFromFile(config, "../core/assets/game.cfg", "Gameconfig");
 		config.vSyncEnabled = config.fullscreen;
+		System.out.println("2");
 
 		Settings settings = new Settings();
 		settings.combineSubdirectories = true;
-		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/hud", "../Protoman vs Megaman-core/assets/packedGraphics", "hud");
-		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/game", "../Protoman vs Megaman-core/assets/packedGraphics", "gameGraphics");
-		TexturePacker.process(settings, "../Protoman vs Megaman-core/assets/graphics/menu", "../Protoman vs Megaman-core/assets/packedGraphics", "menuGraphics");
+		TexturePacker.process(settings, "../core/assets/graphics/hud", "../core/assets/packedGraphics", "hud");
+		TexturePacker.process(settings, "../core/assets/graphics/game", "../core/assets/packedGraphics", "gameGraphics");
+		TexturePacker.process(settings, "../core/assets/graphics/menu", "../core/assets/packedGraphics", "menuGraphics");
 
+		System.out.println("3");
 		new LwjglApplication(new GDXGame(), config);
+		System.out.println("4");
 	}
 }

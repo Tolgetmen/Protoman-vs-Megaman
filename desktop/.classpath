@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="src" path="/Protoman vs Megaman-core"/>
+	<classpathentry exported="true" kind="src" path="/core"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.5.0/29b646a3213ebb10f8824e2dadf08332f6c28d06/gdx-backend-lwjgl-1.5.0.jar" sourcepath="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.5.0/e72b5fbb50091dfe44fd415f39a5c1ca941a32a/gdx-backend-lwjgl-1.5.0-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.5.0/857bcb8c34c679871154f7c10d6cc8cc3d159e3c/gdx-platform-1.5.0-natives-desktop.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.5.0/3b66a948dafa259ead47c2b1fc9d8d08d98a6bcb/gdx-box2d-platform-1.5.0-natives-desktop.jar"/>
@@ -25,6 +25,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/385ee093e01f587f30ee1c8a2ee7d408fd732e16/jinput-platform-2.0.5-natives-windows.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Simon/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar"/>
 	<classpathentry kind="src" path="assets"/>
-	<classpathentry exported="true" kind="lib" path="lib/ini4j-0.5.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/ini4j-0.5.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

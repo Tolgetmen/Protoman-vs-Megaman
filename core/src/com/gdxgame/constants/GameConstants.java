@@ -11,7 +11,7 @@ public final class GameConstants {
 
 	public static final String	LABEL_BUNDLE_PATH		= "localization/GameLabels";
 
-	public static final String	CFG_FILE_PATH			= "../Protoman vs Megaman-core/assets/game.cfg";
+	public static final String	CFG_FILE_PATH			= "../core/assets/game.cfg";
 	public static final String	CFG_FILE_CFG_SECTION	= "Gameconfig";
 	public static final String	CFG_KEY_WIDTH			= "windowWidth";
 	public static final String	CFG_KEY_HEIGHT			= "windowHeight";
