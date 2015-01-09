@@ -6,7 +6,7 @@ package com.gdxgame.core.enums;
  */
 public enum MusicType {
 	MENU("MM3 Title Theme", "audio/music/menu.mp3"),
-	MENU_QUIT(null, "audio/sounds/menu_quit.wav"),
+	MENU_QUIT(null, "audio/music/menu_quit.mp3"),
 	SPARKMAN("Sparkman Theme", "audio/music/sparkman.mp3"),
 	SHADOWMAN("Shadowman Theme", "audio/music/shadowman.mp3"),
 	SNAKEMAN("Snakeman Theme", "audio/music/snakeman.mp3"),

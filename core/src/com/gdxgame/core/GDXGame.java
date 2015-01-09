@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.enums.GameStateType;
+import com.gdxgame.core.utils.GameUtils;
 import com.gdxgame.core.utils.ResourceManager;
 
 /**
@@ -48,6 +49,9 @@ public class GDXGame extends Game {
 	 */
 	@Override
 	public void create() {
+		// load the config preference or initialize it to store setting changes
+		GameUtils.loadCfgPreference();
+
 		// set the log level taken from the game constants
 		// to change the log level (ALL,info,error,none) you need to change the LOG_LEVE constant
 		Gdx.app.setLogLevel(GameConstants.LOG_LEVEL);

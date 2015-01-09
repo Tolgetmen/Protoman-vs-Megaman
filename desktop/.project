@@ -20,11 +20,6 @@
 			<type>2</type>
 			<location>F:/Programmierung/git/Protoman-vs-Megaman/core/assets</location>
 		</link>
-		<link>
-			<name>lib</name>
-			<type>2</type>
-			<location>F:/Programmierung/git/Protoman-vs-Megaman/core/lib</location>
-		</link>
 	</linkedResources>
 	<variableList>
 		<variable>

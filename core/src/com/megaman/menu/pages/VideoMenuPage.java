@@ -35,7 +35,7 @@ public class VideoMenuPage extends GameMenuPage {
 
 	@Override
 	public void initialize() {
-		currentMode = GameConstants.GAME_WIDTH;
+		currentMode = Integer.parseInt(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_WIDTH));
 		availableResolutions43 = new TreeMap<Integer, Integer>();
 		DisplayMode[] displayModes = Gdx.graphics.getDisplayModes();
 		// store all remaining 4:3 resolutions
@@ -48,9 +48,9 @@ public class VideoMenuPage extends GameMenuPage {
 			}
 		}
 
-		boolean fullscreen = GameUtils.getCfgFileValue("fullscreen", Boolean.class);
+		boolean fullscreen = Boolean.parseBoolean(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_FULLSCREEN));
 		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video.fullscreen"), true, MegamanConstants.MENU_OFFSET_TOP, 0, 0, 0);
-		addOption("" + GameUtils.getCfgFileValue("fullscreen", Boolean.class), false, skin.get("menu_suboption", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
+		addOption("" + fullscreen, false, skin.get("menu_suboption", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption(GameUtils.getLocalizedLabel("MainMenu.option.settings.video.windowSize"), !fullscreen, !fullscreen ? skin.get("default", LabelStyle.class) : skin.get("menu_option_disabled", LabelStyle.class), 0, 0, 0, 0);
 		addOption("" + currentMode + " x " + availableResolutions43.get(currentMode), false, skin.get("menu_suboption", LabelStyle.class), 0, 0, MegamanConstants.MENU_PADDING_BETWEEN_OPTIONS / 2, 0);
 		addOption(GameUtils.getLocalizedLabel("MainMenu.option.back"), true, 0, 0, 0, 0);
@@ -90,9 +90,9 @@ public class VideoMenuPage extends GameMenuPage {
 	}
 
 	private void updateVideoConfig(int width, int height, boolean fullscreen) {
-		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_FULLSCREEN, "" + fullscreen);
-		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_WIDTH, "" + width);
-		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_HEIGHT, "" + height);
+		GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_FULLSCREEN, "" + fullscreen);
+		GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_WIDTH, "" + width);
+		GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_HEIGHT, "" + height);
 
 		Gdx.graphics.setDisplayMode(currentMode, availableResolutions43.get(currentMode), fullscreen);
 
@@ -106,7 +106,7 @@ public class VideoMenuPage extends GameMenuPage {
 		switch (optionIndex) {
 			case OPTION_FULLSCREEN: {
 				if (Keys.LEFT == keyOrButtonCode || Keys.RIGHT == keyOrButtonCode) {
-					boolean fullscreen = GameUtils.getCfgFileValue("fullscreen", Boolean.class);
+					boolean fullscreen = Boolean.parseBoolean(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_FULLSCREEN));
 					fullscreen = !fullscreen;
 
 					if (fullscreen) {
@@ -128,10 +128,10 @@ public class VideoMenuPage extends GameMenuPage {
 				if (optionEnabled.get(OPTION_WINDOW_SIZE)) {
 					if (Keys.LEFT == keyOrButtonCode) {
 						currentMode = getPreviousModeKey(currentMode);
-						updateVideoConfig(currentMode, availableResolutions43.get(currentMode), GameUtils.getCfgFileValue("fullscreen", Boolean.class));
+						updateVideoConfig(currentMode, availableResolutions43.get(currentMode), Boolean.parseBoolean(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_FULLSCREEN)));
 					} else if (Keys.RIGHT == keyOrButtonCode) {
 						currentMode = getNextModeKey(currentMode);
-						updateVideoConfig(currentMode, availableResolutions43.get(currentMode), GameUtils.getCfgFileValue("fullscreen", Boolean.class));
+						updateVideoConfig(currentMode, availableResolutions43.get(currentMode), Boolean.parseBoolean(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_FULLSCREEN)));
 					} else if (Keys.ENTER == keyOrButtonCode) {
 						//return true in this case to not start the selection missile
 						return true;

@@ -27,7 +27,7 @@ public class LanguageMenuPage extends GameMenuPage {
 	public void initialize() {
 		currentLocale = 0;
 		availableLocales = new String[] { "de", "en" };
-		String currentLanguage = GameUtils.getCfgFileValue(GameConstants.CFG_KEY_LANGUAGE, String.class);
+		String currentLanguage = GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_LANGUAGE);
 		if (currentLanguage != null) {
 			for (int i = 0; i < availableLocales.length; ++i) {
 				if (currentLanguage.equals(availableLocales[i])) {
@@ -60,7 +60,7 @@ public class LanguageMenuPage extends GameMenuPage {
 					return true;
 				}
 
-				GameUtils.setCfgFileValue(GameConstants.CFG_KEY_LANGUAGE, availableLocales[currentLocale]);
+				GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_LANGUAGE, availableLocales[currentLocale]);
 				options.get(OPTION_INFO).setText(GameUtils.getLocalizedLabel("MainMenu.option.settings.language." + availableLocales[currentLocale]));
 				break;
 			}

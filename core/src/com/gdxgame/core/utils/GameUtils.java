@@ -1,15 +1,10 @@
 package com.gdxgame.core.utils;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.MissingResourceException;
 
-import org.ini4j.Ini;
-import org.ini4j.InvalidFileFormatException;
-import org.ini4j.Profile.Section;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
@@ -38,11 +33,7 @@ public final class GameUtils {
 	/**
 	 * config file that stores the desktop game properties like resolution, fullscreen, sound volume
 	 */
-	private static Ini			cfgFile;
-	/**
-	 * section within the config file that contains the desktop game properties
-	 */
-	private static Section		gameCfgSection;
+	private static Preferences	cfgPreference;
 
 	/**
 	 * renders an animated game object using the given animated sprite. The method checks if the game object is within the
@@ -109,20 +100,18 @@ public final class GameUtils {
 	 * 
 	 * The file path and config section are defined in the GameConstants
 	 */
-	private static void loadCfgFile() {
-		if (gameCfgSection != null) {
-			// already loaded
-			return;
-		}
-
-		try {
-			// load config file and configuration section
-			cfgFile = new Ini(new File(GameConstants.CFG_FILE_PATH));
-			gameCfgSection = cfgFile.get(GameConstants.CFG_FILE_CFG_SECTION);
-		} catch (InvalidFileFormatException e) {
-			Gdx.app.error(GameConstants.LOG_TAG_ERROR, "InvalidFileFormatException for loadCfgFile while initializing gameCfgSection attributes", e);
-		} catch (IOException e) {
-			Gdx.app.error(GameConstants.LOG_TAG_ERROR, "IOException for loadCfgFile while initializing gameCfgSection attributes", e);
+	public static void loadCfgPreference() {
+		cfgPreference = Gdx.app.getPreferences(GameConstants.PREFERENCE_CFG_NAME);
+		if (cfgPreference.get().size() <= 0) {
+			// config preference is not available yet on the system
+			// create it and store the default values in it
+			cfgPreference.putInteger(GameConstants.PREFERENCE_KEY_WIDTH, Gdx.graphics.getWidth());
+			cfgPreference.putInteger(GameConstants.PREFERENCE_KEY_HEIGHT, Gdx.graphics.getHeight());
+			cfgPreference.putString(GameConstants.PREFERENCE_KEY_FULLSCREEN, "" + Gdx.graphics.isFullscreen());
+			cfgPreference.putString(GameConstants.PREFERENCE_KEY_MUSIC_VOLUME, "" + 100);
+			cfgPreference.putString(GameConstants.PREFERENCE_KEY_SOUND_VOLUME, "" + 100);
+			cfgPreference.putString(GameConstants.PREFERENCE_KEY_LANGUAGE, Locale.getDefault().getLanguage());
+			cfgPreference.flush();
 		}
 	}
 
@@ -132,15 +121,10 @@ public final class GameUtils {
 	 * @param key key of the entry
 	 * @param value value of the entry
 	 */
-	public static void setCfgFileValue(String key, String value) {
-		loadCfgFile();
-		if (gameCfgSection != null) {
-			gameCfgSection.put(key, value);
-			try {
-				cfgFile.store();
-			} catch (IOException e) {
-				Gdx.app.error(GameConstants.LOG_TAG_ERROR, "IOException for setCfgFileValue: could not save config file value " + key, e);
-			}
+	public static void setCfgPreferenceValue(String key, String value) {
+		if (cfgPreference != null) {
+			cfgPreference.putString(key, value);
+			cfgPreference.flush();
 		}
 	}
 
@@ -152,10 +136,9 @@ public final class GameUtils {
 	 * 
 	 * @return <b>null</b> if entry cannot be found in the config file. Otherwise the value of the specified key will be returned.
 	 */
-	public static <T> T getCfgFileValue(String key, Class<T> type) {
-		loadCfgFile();
-		if (gameCfgSection != null) {
-			return gameCfgSection.get(key, type);
+	public static String getCfgPreferenceValue(String key) {
+		if (cfgPreference != null) {
+			return cfgPreference.getString(key);
 		}
 
 		return null;
@@ -172,7 +155,7 @@ public final class GameUtils {
 	 */
 	public static String getLocalizedLabel(String labelKey) {
 		if (labelBundle == null) {
-			String cfgFileValue = getCfgFileValue(GameConstants.CFG_KEY_LANGUAGE, String.class);
+			String cfgFileValue = getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_LANGUAGE);
 			Locale locale = null;
 			if (cfgFileValue != null) {
 				locale = new Locale(cfgFileValue);

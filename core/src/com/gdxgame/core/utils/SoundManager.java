@@ -1,6 +1,5 @@
 package com.gdxgame.core.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
@@ -31,26 +30,9 @@ public enum SoundManager {
 	private int		soundVolume;
 
 	private SoundManager() {
-		// load real volume values from the config file
-		musicVolume = 100;
-		soundVolume = 100;
-
-		switch (Gdx.app.getType()) {
-			case Android:
-			case WebGL: {
-				// TODO add support for android and webgl
-				// ignore those cases for now as this is a desktop game
-				// to support those types we will need to store volume
-				// values in a preference file (check libgdx wiki preferences)
-				break;
-			}
-			default: {
-				// read from config file
-				musicVolume = GameUtils.getCfgFileValue(GameConstants.CFG_KEY_MUSIC_VOLUME, Integer.class);
-				soundVolume = GameUtils.getCfgFileValue(GameConstants.CFG_KEY_SOUND_VOLUME, Integer.class);
-				break;
-			}
-		}
+		// load real volume values from the config preference
+		musicVolume = Integer.parseInt(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_MUSIC_VOLUME));
+		soundVolume = Integer.parseInt(GameUtils.getCfgPreferenceValue(GameConstants.PREFERENCE_KEY_SOUND_VOLUME));
 	}
 
 	/**
@@ -79,7 +61,7 @@ public enum SoundManager {
 	 */
 	public void setSoundVolume(int volume) {
 		soundVolume = Math.min(100, Math.max(0, volume));
-		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_SOUND_VOLUME, "" + soundVolume);
+		GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_SOUND_VOLUME, "" + soundVolume);
 	}
 
 	/**
@@ -163,7 +145,7 @@ public enum SoundManager {
 	 */
 	public void setMusicVolume(int volume) {
 		musicVolume = Math.min(100, Math.max(0, volume));
-		GameUtils.setCfgFileValue(GameConstants.CFG_KEY_MUSIC_VOLUME, "" + musicVolume);
+		GameUtils.setCfgPreferenceValue(GameConstants.PREFERENCE_KEY_MUSIC_VOLUME, "" + musicVolume);
 		if (currentMusic != null) {
 			currentMusic.setVolume(musicVolume / 100.0f);
 		}
