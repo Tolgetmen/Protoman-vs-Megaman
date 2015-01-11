@@ -45,7 +45,16 @@
 <node COLOR="#ff0033" CREATED="1419842034550" ID="ID_1442541230" MODIFIED="1420533034818" POSITION="left" STYLE="fork" TEXT="ToDo">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <font BOLD="true" NAME="SansSerif" SIZE="14"/>
-<node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420380263151" TEXT="Javadoc gegenlesen und Fehler korrigieren"/>
+<node CREATED="1420380255589" ID="ID_250624794" MODIFIED="1420971935729" TEXT="Javadoc gegenlesen und Fehler korrigieren">
+<node CREATED="1420971955421" ID="ID_1419897050" MODIFIED="1420971960685" TEXT="com.gdxgame.core">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420971962757" ID="ID_342152711" MODIFIED="1420971966665" TEXT="com.gdxgame.core.constants"/>
+<node CREATED="1420971967957" ID="ID_743783751" MODIFIED="1420971971716" TEXT="com.gdxgame.core.enums"/>
+<node CREATED="1420971973103" ID="ID_1838800030" MODIFIED="1420971976962" TEXT="com.gdxgame.core.graphics"/>
+<node CREATED="1420971978369" ID="ID_1806600302" MODIFIED="1420971982685" TEXT="com.gdxgame.core.model"/>
+<node CREATED="1420971984135" ID="ID_259766012" MODIFIED="1420971987837" TEXT="com.gdxgame.core.utils"/>
+</node>
 <node BACKGROUND_COLOR="#33cc00" COLOR="#000000" CREATED="1419842458351" FOLDED="true" ID="ID_1988558492" MODIFIED="1420567295785" STYLE="fork" TEXT="Erweiterungen">
 <edge COLOR="#808080" STYLE="bezier" WIDTH="thin"/>
 <node CREATED="1419842461614" ID="ID_63926541" MODIFIED="1419842574874" TEXT="auf Physicengine umstellen (Box2D)"/>
@@ -402,6 +411,12 @@
 <node CREATED="1420571715580" FOLDED="true" ID="ID_1803092504" MODIFIED="1420711977109" TEXT="Sprache ausw&#xe4;hlbar in Settings">
 <icon BUILTIN="button_ok"/>
 <node CREATED="1420571721739" ID="ID_330094401" MODIFIED="1420571725294" TEXT="in game.cfg abspeichern"/>
+</node>
+<node CREATED="1420804791971" ID="ID_402422936" MODIFIED="1420971935729" TEXT="volume verstellbar mit gedr&#xfc;ckter taste">
+<icon BUILTIN="button_ok"/>
+</node>
+<node CREATED="1420804956451" ID="ID_1391769814" MODIFIED="1420971935729" TEXT="bug,wenn man von fullscreen auf nicht fullscreen wechselt">
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 </node>
