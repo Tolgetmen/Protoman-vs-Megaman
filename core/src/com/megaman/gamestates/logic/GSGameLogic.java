@@ -546,7 +546,7 @@ public class GSGameLogic extends GameStateLogic {
 		animatedObjects.put(boss, ResourceManager.INSTANCE.getAnimatedSprite(type.getTextureType()));
 	}
 
-	private void playMusic(MusicType type) {
+	public void playMusic(MusicType type) {
 		// store the current musictype to resume it when the game is resumed out of the menu game state
 		currentMusicType = type;
 		SoundManager.INSTANCE.playMusic(currentMusicType, true);

@@ -4,7 +4,6 @@ import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.MathUtils;
 import com.gdxgame.core.constants.GameConstants;
-import com.gdxgame.core.utils.SoundManager;
 import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;
 import com.megaman.model.Megaman;
@@ -80,9 +79,6 @@ public enum MegamanState implements State<Megaman> {
 			if (shotCounter == 0) {
 				// start new boss round
 				++bossIndex;
-				if (bossIndex < BossType.values().length) {
-					SoundManager.INSTANCE.playMusic(BossType.values()[bossIndex].getMusicType(), true);
-				}
 			}
 
 			if (shotCounter % MegamanConstants.BOSS_FREQUENCY == 0 && bossIndex < BossType.values().length) {

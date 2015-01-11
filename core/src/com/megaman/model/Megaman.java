@@ -53,6 +53,10 @@ public class Megaman extends AnimatedGameObject {
 
 	public void callBoss(BossType bossType) {
 		((GSGameLogic) logic).createBoss(bossType, getX(), MathUtils.random(64, GameConstants.GAME_HEIGHT - 64 - bossType.getHeight()));
+		if (shotCounter % MegamanConstants.BOSS_FREQUENCY == 0) {
+			// first round for boss -> change music
+			((GSGameLogic) logic).playMusic(bossType.getMusicType());
+		}
 	}
 
 	public int getShotCounter() {
