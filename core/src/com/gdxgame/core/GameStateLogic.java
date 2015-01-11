@@ -4,14 +4,15 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * GameStateLogic is one of the core classes besides GameState. Each game consists of multiple gamestates (f.e. show main menu, game, show highscore, game over, ...).
- * Each GameState has its own resources (f.e. audio or graphic files that are important for that state) and its own GameStateLogic instance.
- * The GameStateLogic instance is used to handle the real logic of the gamestate while the GameState instance is used to handle the resource
+ * GameStateLogic is one of the core classes besides {@link GameState} to handle game states. Each game consists of multiple 
+ * gamestates (f.e. show main menu, game, show highscore, game over, ...).
+ * Each {@link GameState} has its own resources (f.e. audio or graphic files that are important for that state) and its own GameStateLogic instance.
+ * The GameStateLogic instance is used to handle the real logic of the game state while the {@link GameState} instance is used to handle the resource
  * management.
- * 
- * It extends the GameInputAdapter class to listen to keyboard,mouse,touch and controller events.
- * 
- * A GameStateLogic is configured (=which logic is used for which gamestate) within the GameStateType enum.					
+ * <br><br>
+ * It extends the {@link GameInputAdapter} class to listen to keyboard,mouse,touch and controller events.
+ * <br><br>
+ * A GameStateLogic is configured (=which logic is used for which gamestate) within the {@link com.gdxgame.core.enums.GameStateType} enum.					
  *
  */
 public abstract class GameStateLogic extends GameInputAdapter {
@@ -46,27 +47,30 @@ public abstract class GameStateLogic extends GameInputAdapter {
 	}
 
 	/**
-	 * This method is called when the corresponding gamestate gets active and the logic was not yet
-	 * initialized or should get reinitialized (check GDXGame setGameState() method).
+	 * automatically called whenever the {@link GameState#show()} method is called and the logic was not initialized yet.
+	 * Initializes the game state logic.
 	 */
 	public abstract void initialize();
 
 	/**
-	 * This method is called each frame. It is used to update the logic by deltaTime steps.
+	 * automatically called whenever the {@link GameState#update(float)} method is called.
+	 * Updates the game state logic.
 	 * 
-	 * @param deltaTime time passed between the previous frame and the current frame
+	 * @param deltaTime time passed since last frame
 	 */
 	public abstract void update(float deltaTime);
 
 	/**
-	 * This method is called each frame. Is is used to render graphics(sprites,font,etc.).
+	 * automatically called whenever the {@link GameState#render(SpriteBatch)} method is called.
+	 * Renders the game state logic.
 	 * 
-	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
+	 * @param spriteBatch reference to the {@link GDXGame} SpriteBatch to draw things
 	 */
 	public abstract void render(SpriteBatch spriteBatch);
 
 	/**
-	 * This method is called whenever the window resolution is modified.
+	 * automatically called whenever the {@link GameState#resize(int, int)} method is called.
+	 * Handles any resize logic.
 	 * 
 	 * @param width new window width
 	 * @param height new window height
@@ -76,27 +80,25 @@ public abstract class GameStateLogic extends GameInputAdapter {
 	}
 
 	/**
-	 * This method is called whenever the corresponding gamestate enters the pause state. This happens
-	 * during the setGameState() call of the GDXGame instance if the corresponding gamestate is set
-	 * to inactive..
-	 * It can be followed by a call to dispose() if the gamestate gets removed from the game.
+	 * automatically called whenever the {@link GameState#hide()} or {@link GameState#pause()} method is called.
+	 * It can be followed by a call to {@link #dispose()} if the game state logic is no longer needed.
+	 * Pauses the game state logic.
 	 */
 	public void pause() {
 
 	}
 
 	/**
-	 * This method is called whenever the corresponding gamestate enters the resume state. This happens
-	 * during the setGameState() call of the GDXGame instance if the corresponding gamestate is set to
-	 * active again.
+	 * automatically called whenever the {@link GameState#show()} or {@link GameState#resume()} method is called.
+	 * Resumes the game state logic.
 	 */
 	public void resume() {
 
 	}
 
 	/**
-	 * This method is called when the corresponding gamestate's dispose() method is called. It is used
-	 * to dispose any resources that were created by the logic itself.
+	 * automatically called whenever the {@link GameState#dispose()} method is called.
+	 * Disposes all resources of the game state logic.
 	 */
 	public abstract void dispose();
 }

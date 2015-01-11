@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.5.0\e4272f711228f3cd214802949f18124e2eef1cbc\gdx-1.5.0.jar;C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.5.0\190fcbf9111e2b2ea798ecc5dd8995b861193828\gdx-box2d-1.5.0.jar;C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers\1.5.0\6ff91f0cbb70779dc0acdea3f3dc29a2e176bac9\gdx-controllers-1.5.0.jar;C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.box2dlights\box2dlights\1.3\e829c3543ab5a6b3ff818615a8620024f6a14fe0\box2dlights-1.3.jar;C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-ai\1.4.0\f7532801d6c1526df4a609341fa145acb9e8eb3a\gdx-ai-1.4.0.jar;C:\Users\Simon\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-freetype\1.5.0\69b7592d64aeccb21cad51f89544df8770a81f7c\gdx-freetype-1.5.0.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.gdxgame.core.enums,com.gdxgame.core.graphics,com.gdxgame.core,com.gdxgame.core.constants,com.gdxgame.core.model,com.gdxgame.core.utils" source="1.6" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="http://docs.oracle.com/javase/8/docs/api/"/>
+            <link href="file:/F:/Programmierung/git/Protoman-vs-Megaman/core/doc/"/>
+            <link href="http://libgdx.badlogicgames.com/nightlies/docs/api/"/>
+        </javadoc>
+    </target>
+</project>

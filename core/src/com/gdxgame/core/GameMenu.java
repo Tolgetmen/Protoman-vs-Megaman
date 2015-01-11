@@ -7,18 +7,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameMenuPageType;
 
 /**
  * 
- * GameMenu is the one of core classes for Label based keyboard menus. It consists of at least one menu page and each menu page
- * contains the menu options for that page. 
- * It uses the libgdx Stage class to have a scene graph in the background that contains actors(=the Labels). The stage
- * of the GameMenu class is always a StretchViewport to stretch the menu to the given size.
- * 
- * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
- * A Skin is configured within the SkinType enum.
+ * GameMenu is one of the core classes for {@link Label} based keyboard menus. It consists of at least one {@link GameMenuPage} and each menu page
+ * contains the menu options for that page.<br>
+ * It uses the libgdx {@link Stage} class to have a scene graph in the background that contains actors(=the Labels). The stage
+ * of the GameMenu class is always a {@link StretchViewport} to stretch the menu to the given size.
+ * <br><br>
+ * A {@link GameMenuPage} is configured (=which class defines the page, which skin is used and the page's background image) within 
+ * the {@link GameMenuPageType} enum.
+ * <br><br>
+ * A {@link com.badlogic.gdx.scenes.scene2d.ui.Skin} is configured within the {@link com.gdxgame.core.enums.SkinType} enum.
  * 
  */
 public abstract class GameMenu {
@@ -49,29 +51,39 @@ public abstract class GameMenu {
 	}
 
 	/**
-	 * This method should be called to render the GameMenu. Internally it renders the stage
-	 * of the menu and the current active menu page
+	 * updates the menu by delta time(=time passed since last frame) by internally calling the
+	 * active menu page's update method. Also updates the actors of the stage.<br>
+	 * Can be used to f.e. add animations or periodically change a menu value.
 	 * 
-	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
+	 * @param deltaTime time passed since last frame
+	 */
+	public void update(float deltaTime) {
+		stage.act(deltaTime);
+
+		menuPages.peek().update(deltaTime);
+	}
+
+	/**
+	 * render the menu by drawing the stage of the menu and calling the active menu page's
+	 * render method.
+	 * 
+	 * @param spriteBatch reference to the {@link GDXGame} SpriteBatch to draw things
 	 */
 	public void render(SpriteBatch spriteBatch) {
-		// update all the actors of the stage by delta time
-		stage.act();
-		// render the stage (=render options of the menu page + background of the menu page's table)
 		stage.draw();
 
 		menuPages.peek().render(spriteBatch);
 	}
 
 	/**
-	 * This method is used to change the current active GameMenuPage of the GameMenu. If the <b>newPage</b> parameter
+	 * changes the active menu page to the give menu page type. If the {@code newPage} parameter
 	 * is <b>null</b> then the menu will change to the previous page. Otherwise it will create a new page instance
-	 * of type <b>newPage</b> and will put it on top of the menuPages stack.
-	 * The page that is on top of the menuPages stack is the active menu page.
+	 * of type <b>newPage</b> and will put it on top of the menu pages stack.
+	 * The page that is on top of the menu pages stack is the active menu page.
+	 * <br><br>
+	 * A {@link GameMenuPage} is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
 	 * 
-	 * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
-	 * 
-	 * @param newPage new page that should get active. <b>null</b> to remove the current page and go back to the previous page
+	 * @param newPage page type to get active. <b>null</b> to remove the current page and go back to the previous page
 	 */
 	public void changeMenuPage(GameMenuPageType newPage) {
 		if (menuPages == null) {
@@ -115,7 +127,7 @@ public abstract class GameMenu {
 	}
 
 	/**
-	 * This method should be called to move to the next enabled option of the active menu page
+	 * increases the current selected option of the active menu page
 	 */
 	public void increaseSelection() {
 		do {
@@ -125,7 +137,7 @@ public abstract class GameMenu {
 	}
 
 	/**
-	 * This method should be called to move to the previous enabled option of the active menu page
+	 * decreases the current selected option of the active menu page
 	 */
 	public void decreaseSelection() {
 		do {
@@ -137,7 +149,7 @@ public abstract class GameMenu {
 	}
 
 	/**
-	 * This method returns the current selected option (=Label) of the active menu page
+	 * returns the current selected option (=Label) of the active menu page
 	 * 
 	 * @return current selected Label of active menu page
 	 */
@@ -155,28 +167,41 @@ public abstract class GameMenu {
 	}
 
 	/**
-	 * This method should be called to process the logic of the current selected option.
-	 * It will forward the call to the active menu page.
+	 * processes the current selected option by forwarding the call to the active menu page's
+	 * {@link GameMenuPage#processSelection(int)} method
 	 */
 	public void processSelection() {
 		menuPages.peek().processSelection(currentOptionIndex);
 	}
 
 	/**
-	 * This method should be called to process keyboard and controller button events of
-	 * the current selected option
+	 * handles keyboard's keyDown events by forwarding the call to the active menu page.
+	 * The mapping between controller buttons and keyboard buttons should happen already before this call
+	 * in the {@link GameStateLogic} logic.
 	 * 
-	 * @param keyOrButtonCode code of pressed key or button
+	 * @param keyCode code of pressed key
 	 * 
 	 * @return <b>true</b> when event was successfully handled. <b>false</b> otherwise.
 	 */
-	public boolean keyDown(int keyOrButtonCode) {
-		return menuPages.peek().keyDown(currentOptionIndex, keyOrButtonCode);
+	public boolean keyDown(int keyCode) {
+		return menuPages.peek().keyDown(currentOptionIndex, keyCode);
 	}
 
 	/**
-	 * This method should be called to dispose any resources of the GameMenu.
-	 * It disposes the stage instance of the GameMenu.
+	 * handles keyboard's keyUp events by forwarding the call to the active menu page.
+	 * The mapping between controller buttons and keyboard buttons should happen already before this call
+	 * in the {@link GameStateLogic} logic.
+	 * 
+	 * @param keyCode code of released key
+	 * 
+	 * @return <b>true</b> when event was successfully handled. <b>false</b> otherwise.
+	 */
+	public boolean keyUp(int keyCode) {
+		return menuPages.peek().keyUp(currentOptionIndex, keyCode);
+	}
+
+	/**
+	 * disposes any resources of the game menu (f.e. the stage).
 	 */
 	public void dispose() {
 		stage.dispose();

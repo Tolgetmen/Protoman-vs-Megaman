@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.graphics.AnimatedSprite;
 import com.gdxgame.core.model.AnimatedGameObject;
 import com.gdxgame.core.model.GameObject;
@@ -95,10 +95,10 @@ public final class GameUtils {
 	}
 
 	/**
-	 * loads the game config file for a desktop application. The config files contains information like
+	 * loads the game config preference. The config preference contains information like
 	 * the resolution, music volume or sound volume.
 	 * 
-	 * The file path and config section are defined in the GameConstants
+	 * The file path is defined in the {@link GameConstants}
 	 */
 	public static void loadCfgPreference() {
 		cfgPreference = Gdx.app.getPreferences(GameConstants.PREFERENCE_CFG_NAME);
@@ -116,7 +116,7 @@ public final class GameUtils {
 	}
 
 	/**
-	 * adds or updates an entry in the game config file
+	 * adds or updates an entry in the game config preference
 	 * 
 	 * @param key key of the entry
 	 * @param value value of the entry
@@ -124,17 +124,24 @@ public final class GameUtils {
 	public static void setCfgPreferenceValue(String key, String value) {
 		if (cfgPreference != null) {
 			cfgPreference.putString(key, value);
+		}
+	}
+
+	/**
+	 * stores the current config preference on the local file system of the user
+	 */
+	public static void saveCfgPreference() {
+		if (cfgPreference != null) {
 			cfgPreference.flush();
 		}
 	}
 
 	/**
-	 * returns value of the specified key within the game config file
+	 * returns value of the specified key within the game config preference
 	 * 
 	 * @param key key of the entry
-	 * @param type type of the entry (int,float,boolean,etc.)
 	 * 
-	 * @return <b>null</b> if entry cannot be found in the config file. Otherwise the value of the specified key will be returned.
+	 * @return <b>null</b> if entry cannot be found in the config preference. Otherwise the value of the specified key will be returned.
 	 */
 	public static String getCfgPreferenceValue(String key) {
 		if (cfgPreference != null) {

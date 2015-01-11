@@ -3,7 +3,7 @@ package com.gdxgame.core.utils;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SoundType;
 

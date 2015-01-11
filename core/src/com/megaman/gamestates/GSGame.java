@@ -1,8 +1,8 @@
 package com.megaman.gamestates;
 
-import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.GameState;
 import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameStateType;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SoundType;

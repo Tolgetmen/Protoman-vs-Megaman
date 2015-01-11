@@ -48,6 +48,7 @@ public class SettingsMenuPage extends GameMenuPage {
 				break;
 			}
 			case OPTION_BACK: {
+				GameUtils.saveCfgPreference();
 				gameMenu.changeMenuPage(null);
 				break;
 			}

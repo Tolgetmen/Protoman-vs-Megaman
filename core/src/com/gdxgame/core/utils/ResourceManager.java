@@ -22,7 +22,7 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.enums.SkinType;
 import com.gdxgame.core.enums.SoundType;
@@ -202,7 +202,7 @@ public enum ResourceManager {
 	 * getAnimatedSprite() method.
 	 * Increases the accesscounter of the sprite if already loaded.
 	 * 
-	 * @param TextureType type of texture to be used for the sprite
+	 * @param texture type of texture to be used for the sprite
 	 */
 	public void loadAnimatedSprite(TextureType texture) {
 		// check if texture atlas map contains the atlas type that should be used 
@@ -404,6 +404,16 @@ public enum ResourceManager {
 		}
 	}
 
+	/**
+	 * Loads a map created with <b>Tiled</b>. Checks for animations within each tile layer by going through tile properties.
+	 * If a property is defined with key <b>AnimationXXX</b> then the animation <b>XXX</b> will be stored to use it for
+	 * {@link AnimatedTiledMapTile}. The values for animation <b>XXX</b> must be numbers between <b>1</b> and maximum number
+	 * of animations used.
+	 * If a property is defined with key <b>AnimationsPerSecond</b> then the animation that is also defined within the same tile
+	 * will use the given animations per second defined.
+	 * 
+	 * @param tmxMapPath file path to the tmx map
+	 */
 	public void loadTMXMap(String tmxMapPath) {
 		if (tmxMap != null && !tmxMap.containsKey(tmxMapPath)) {
 			TiledMap map = new TmxMapLoader().load(tmxMapPath);
@@ -493,6 +503,13 @@ public enum ResourceManager {
 		}
 	}
 
+	/**
+	 * returns tmxmap that was already loaded with the {@link #loadTMXMap(String)} method.
+	 * 
+	 * @param tmxMapPath file path to the tmx map
+	 * 
+	 * @return <b>null</b> if map was not successfully loaded yet. Otherwise the loaded {@link TiledMap} is returned.
+	 */
 	public TiledMap getTMXMap(String tmxMapPath) {
 		if (tmxMap != null && tmxMap.containsKey(tmxMapPath)) {
 			return tmxMap.get(tmxMapPath).getResource();
@@ -502,6 +519,11 @@ public enum ResourceManager {
 		}
 	}
 
+	/**
+	 * disposes tmxmap that was already loaded with the {@link #loadTMXMap(String)} method.
+	 * 
+	 * @param tmxMapPath file path to the tmx map
+	 */
 	public void disposeTMXMap(String tmxMapPath) {
 		if (tmxMap != null && tmxMap.containsKey(tmxMapPath)) {
 			Resource<TiledMap> resource = tmxMap.get(tmxMapPath);

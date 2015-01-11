@@ -1,4 +1,4 @@
-package com.gdxgame.constants;
+package com.gdxgame.core.constants;
 
 import com.badlogic.gdx.Application;
 

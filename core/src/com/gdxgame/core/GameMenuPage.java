@@ -10,15 +10,16 @@ import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.utils.ResourceManager;
 
 /**
- * GameMenuPage is one of the core classes for Label based keyboard menus. It contains different options that can be selected by the user. 
- * It uses the libgdx Table class to have an actor for the stage attribute of the GameMenu and to automatically layout the options(=Labels) in
- * a specified manner.
- * It also uses the libgdx Skin class in order to define properties how the options should look like (font,color,background,...). A skin consists
- * of a JSON file that describes the properties how options should look like and of a texture atlas containing graphics of the skin.
  * 
- * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the GameMenuPageType enum.
- * 
- * A Skin is configured within the SkinType enum.				
+ * GameMenuPage is one of the core classes for {@link Label} based keyboard menus. It contains different options that can be selected by the user. 
+ * It uses the libgdx {@link Table} class to have an actor for the stage attribute of the {@link GameMenu} and to automatically layout the options(=Labels) in
+ * a specified manner.<br>
+ * It also uses the libgdx {@link Skin} class in order to define properties how the options should look like (font,color,background,...). A skin consists
+ * of a <b>JSON file</b> that describes the properties how options should look like and of a {@link com.badlogic.gdx.graphics.g2d.TextureAtlas} containing graphics of the skin.
+ * <br><br>
+ * A GameMenuPage is configured (=which class defines the page, which skin is used and the page's background image) within the {@link GameMenuPageType} enum.
+ * <br><br>
+ * A {@link Skin} is configured within the {@link com.gdxgame.core.enums.SkinType} enum.				
  *
  */
 public abstract class GameMenuPage {
@@ -70,11 +71,11 @@ public abstract class GameMenuPage {
 	}
 
 	/**
-	 * This method is used to add an option to the menu page. Each menu page must have at least one option.
+	 * adds an option to the menu page. Each menu page must have at least one option.
 	 * An option can either be enabled or disabled.
-	 * 
-	 * If it is disabled then it will be ignored for the increase-/decreaseSelection() calls and for the
-	 * getInitialOptioinIndex() method.
+	 * <br><br>
+	 * If it is disabled then it will be ignored for the {@link GameMenu#increaseSelection()} and {@link GameMenu#decreaseSelection()} calls and for the
+	 * {@link #getInitialOptionIndex()} method.
 	 * 
 	 * @param label 		text of the option
 	 * @param enabled		<b>true</b> to enable the option. <b>false</b> to disable the option and to
@@ -127,13 +128,13 @@ public abstract class GameMenuPage {
 
 	/**
 	 * Enables or disables an option of the menu page.  
+	 * <br><br>
+	 * If it is disabled then it will be ignored for the {@link GameMenu#increaseSelection()} and {@link GameMenu#decreaseSelection()} calls and for the
+	 * {@link #getInitialOptionIndex()} method.
 	 * 
-	 * If an option is disabled then it will be ignored for the increase-/decreaseSelection() calls and for the
-	 * getInitialOptioinIndex() method.
-	 * 
-	 * @param optionIndex index of option that should be enabled/disabled. Must be greater or equal 0 and <code>options.size()</code>
-	 * @param enabled <b>true</b> to enable an option. <b>false</b> to disable an option.
-	 * @param style new LabelStyle that should be used for the option
+	 * @param optionIndex 	index of option that should be enabled/disabled. Must be greater or equal 0 and <code>options.size()</code>
+	 * @param enabled 		<b>true</b> to enable an option. <b>false</b> to disable an option.
+	 * @param style 		new LabelStyle that should be used for the option
 	 */
 	public void enableOption(int optionIndex, boolean enabled, LabelStyle style) {
 		optionEnabled.set(optionIndex, enabled);
@@ -143,14 +144,24 @@ public abstract class GameMenuPage {
 	}
 
 	/**
-	 * This method is automatically called from the constructor of the GameMenuPage class. 
-	 * Use it to make calls to the <code>addOption</code>) method to add options to the page.
+	 * automatically called from the constructor of the {@link GameMenuPage} class. 
+	 * Use it to make calls to the {@link #addOption(String, boolean, int, int, int, int)} method to add options to the page.<br>
 	 * A page must contain at least one option.
 	 */
 	public abstract void initialize();
 
 	/**
-	 * This method is called when the GameMenu {@code render} method is called. 
+	 * automatically called by the {@link GameMenu#update(float)} method if the page is the current active one.
+	 * Use it to update any page logic.
+	 * 
+	 * @param deltaTime time passed since last frame
+	 */
+	public void update(float deltaTime) {
+
+	}
+
+	/**
+	 * automatically called by the {@link GameMenu#render(SpriteBatch)} method if the page is the current active one.
 	 * Use it to customize the rendering of the page.
 	 * 
 	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
@@ -161,7 +172,7 @@ public abstract class GameMenuPage {
 	/**
 	 * Returns the option index of the menu page that should be automatically selected when
 	 * the page gets active.
-	 * Per default this method returns the first enabled option of the <code>options</code> array.
+	 * Per default this method returns the first enabled option of the {@code options} array.
 	 * 
 	 * @return option index of option that should be selected when the page gets active
 	 */
@@ -174,7 +185,7 @@ public abstract class GameMenuPage {
 	}
 
 	/**
-	 * This method is called when the GameMenu <code>processSelection</code> method is called.
+	 * automatically called by the {@link GameMenu#update(float)} method if the page is the current active one.
 	 * Use it to handle the logic of the given option index.
 	 * 
 	 * @param optionIndex index of option that should be processed
@@ -182,7 +193,7 @@ public abstract class GameMenuPage {
 	public abstract void processSelection(int optionIndex);
 
 	/**
-	 * This method is called when the GameMenu <code>keyDown</code> method is called.
+	 * automatically called by the {@link GameMenu#keyDown(int)} method if the page is the current active one.
 	 * Use it to handle the logic of keyboard or controller events.
 	 * 
 	 * @param optionIndex index of option that should be processed
@@ -191,6 +202,19 @@ public abstract class GameMenuPage {
 	 * @return <b>true</b> if event was successfully handled. <b>false</b> otherwise.
 	 */
 	public boolean keyDown(int optionIndex, int keyOrButtonCode) {
+		return false;
+	}
+
+	/**
+	 * automatically called by the {@link GameMenu#keyUp(int)} method if the page is the current active one.
+	 * Use it to handle the logic of keyboard or controller events.
+	 * 
+	 * @param optionIndex index of option that should be processed
+	 * @param keyOrButtonCode code of pressed key or button
+	 * 
+	 * @return <b>true</b> if event was successfully handled. <b>false</b> otherwise.
+	 */
+	public boolean keyUp(int optionIndex, int keyOrButtonCode) {
 		return false;
 	}
 }

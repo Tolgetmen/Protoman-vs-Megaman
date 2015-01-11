@@ -24,6 +24,10 @@ public class AudioMenuPage extends GameMenuPage {
 
 	private MusicType[]	jukeBoxMusic;
 	private int			currentJukeboxTitle;
+	private final float	volumeUpdateTime		= 0.25f;
+	private float		volumeUpdateTimeCurrent;
+	private int			volumeChange;
+	private boolean		music;
 
 	public AudioMenuPage(GameMenuPageType type, GameMenu gameMenu, GDXGame game, GameStateLogic logic) {
 		super(type, gameMenu, game, logic);
@@ -44,12 +48,37 @@ public class AudioMenuPage extends GameMenuPage {
 	}
 
 	@Override
+	public void update(float deltaTime) {
+		super.update(deltaTime);
+
+		if (volumeChange != 0) {
+			volumeUpdateTimeCurrent += deltaTime;
+			if (volumeUpdateTimeCurrent >= volumeUpdateTime) {
+				if (music) {
+					SoundManager.INSTANCE.setMusicVolume(SoundManager.INSTANCE.getMusicVolume() + volumeChange);
+					options.get(OPTION_INFO).setText("" + SoundManager.INSTANCE.getMusicVolume());
+				} else {
+					SoundManager.INSTANCE.setSoundVolume(SoundManager.INSTANCE.getSoundVolume() + volumeChange);
+					options.get(OPTION_SOUND_INFO).setText("" + SoundManager.INSTANCE.getSoundVolume());
+				}
+				volumeUpdateTimeCurrent = 0;
+			}
+		}
+	}
+
+	@Override
 	public boolean keyDown(int optionIndex, int keyOrButtonCode) {
 		switch (optionIndex) {
 			case OPTION_MUSIC: {
 				if (Keys.LEFT == keyOrButtonCode) {
+					music = true;
+					volumeUpdateTimeCurrent = 0;
+					volumeChange = -5;
 					SoundManager.INSTANCE.setMusicVolume(SoundManager.INSTANCE.getMusicVolume() - 5);
 				} else if (Keys.RIGHT == keyOrButtonCode) {
+					music = true;
+					volumeUpdateTimeCurrent = 0;
+					volumeChange = 5;
 					SoundManager.INSTANCE.setMusicVolume(SoundManager.INSTANCE.getMusicVolume() + 5);
 				} else if (Keys.ENTER == keyOrButtonCode) {
 					//return true in this case to not start the selection missile
@@ -61,9 +90,15 @@ public class AudioMenuPage extends GameMenuPage {
 			}
 			case OPTION_SOUND: {
 				if (Keys.LEFT == keyOrButtonCode) {
+					music = false;
+					volumeUpdateTimeCurrent = 0;
+					volumeChange = -5;
 					SoundManager.INSTANCE.setSoundVolume(SoundManager.INSTANCE.getSoundVolume() - 5);
 					SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 				} else if (Keys.RIGHT == keyOrButtonCode) {
+					music = false;
+					volumeUpdateTimeCurrent = 0;
+					volumeChange = 5;
 					SoundManager.INSTANCE.setSoundVolume(SoundManager.INSTANCE.getSoundVolume() + 5);
 					SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 				} else if (Keys.ENTER == keyOrButtonCode) {
@@ -90,6 +125,26 @@ public class AudioMenuPage extends GameMenuPage {
 
 				SoundManager.INSTANCE.playMusic(jukeBoxMusic[currentJukeboxTitle], true);
 				options.get(OPTION_JUKEBOX_TITLE).setText(jukeBoxMusic[currentJukeboxTitle].getName());
+				break;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int optionIndex, int keyOrButtonCode) {
+		switch (optionIndex) {
+			case OPTION_MUSIC: {
+				if (Keys.LEFT == keyOrButtonCode || Keys.RIGHT == keyOrButtonCode) {
+					volumeChange = 0;
+				}
+				break;
+			}
+			case OPTION_SOUND: {
+				if (Keys.LEFT == keyOrButtonCode || Keys.RIGHT == keyOrButtonCode) {
+					volumeChange = 0;
+				}
 				break;
 			}
 		}

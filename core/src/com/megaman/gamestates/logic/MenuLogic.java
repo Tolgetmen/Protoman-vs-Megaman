@@ -34,6 +34,13 @@ public abstract class MenuLogic extends GameStateLogic {
 	}
 
 	@Override
+	public boolean keyUp(int keycode) {
+		menu.keyUp(keycode);
+
+		return true;
+	}
+
+	@Override
 	public boolean buttonDown(Controller controller, int buttonCode) {
 		switch (buttonCode) {
 			case 0: {
@@ -44,6 +51,24 @@ public abstract class MenuLogic extends GameStateLogic {
 			case 7: {
 				// xbox START button
 				keyDown(Keys.ESCAPE);
+				break;
+			}
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean buttonUp(Controller controller, int buttonCode) {
+		switch (buttonCode) {
+			case 0: {
+				// xbox A button
+				keyUp(Keys.ENTER);
+				break;
+			}
+			case 7: {
+				// xbox START button
+				keyUp(Keys.ESCAPE);
 				break;
 			}
 		}
@@ -72,6 +97,13 @@ public abstract class MenuLogic extends GameStateLogic {
 			}
 			case west: {
 				keyDown(Keys.LEFT);
+				break;
+			}
+			case center: {
+				keyUp(Keys.LEFT);
+				keyUp(Keys.RIGHT);
+				keyUp(Keys.DOWN);
+				keyUp(Keys.UP);
 				break;
 			}
 			default: {

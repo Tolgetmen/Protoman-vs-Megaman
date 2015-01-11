@@ -2,11 +2,11 @@ package com.megaman.menu.pages;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.GDXGame;
 import com.gdxgame.core.GameMenu;
 import com.gdxgame.core.GameMenuPage;
 import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.utils.GameUtils;
 import com.megaman.constants.MegamanConstants;

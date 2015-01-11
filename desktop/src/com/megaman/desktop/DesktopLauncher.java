@@ -13,8 +13,8 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
-import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.constants.GameConstants;
 
 public class DesktopLauncher {
 	private static void readConfigFromPreference(LwjglApplicationConfiguration config) throws FileNotFoundException, IOException {

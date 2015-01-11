@@ -1,6 +1,6 @@
 package com.megaman.enums;
 
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 
 public enum ParticleFXType {
 	FLAME("particles/flame.p", GameConstants.ATLAS_PATH_GAME, "effects/", 0.7f);

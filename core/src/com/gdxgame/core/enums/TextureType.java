@@ -1,6 +1,6 @@
 package com.gdxgame.core.enums;
 
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 
 /**
  * TextureType enum is the configuration enum for textures that are used for the game.

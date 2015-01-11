@@ -1,6 +1,6 @@
 package com.gdxgame.core.enums;
 
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 
 /**
  * SkinType enum is the configuration enum for libgdx Skins. Each value contains

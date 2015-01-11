@@ -1,8 +1,8 @@
 package com.megaman.gamestates.logic;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.GDXGame;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.enums.MusicType;
 import com.gdxgame.core.utils.GameUtils;

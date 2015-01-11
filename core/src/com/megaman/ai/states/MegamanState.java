@@ -3,7 +3,7 @@ package com.megaman.ai.states;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.math.MathUtils;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.utils.SoundManager;
 import com.megaman.constants.MegamanConstants;
 import com.megaman.enums.BossType;

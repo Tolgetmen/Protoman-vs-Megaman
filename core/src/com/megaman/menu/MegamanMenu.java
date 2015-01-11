@@ -4,9 +4,9 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.gdxgame.constants.GameConstants;
 import com.gdxgame.core.GameMenu;
 import com.gdxgame.core.GameStateLogic;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameMenuPageType;
 import com.gdxgame.core.enums.SkinType;
 import com.gdxgame.core.enums.SoundType;
@@ -115,7 +115,10 @@ public class MegamanMenu extends GameMenu {
 		SoundManager.INSTANCE.playSound(SoundType.MENU_SELECT_SHOOT);
 	}
 
+	@Override
 	public void update(float deltaTime) {
+		super.update(deltaTime);
+
 		missileX += missileSpeed * deltaTime;
 		currentMissileFrameX = (currentMissileFrameX + missileFPS * deltaTime) % 9;
 		missile.setFrameIndex((int) currentMissileFrameX, 0);

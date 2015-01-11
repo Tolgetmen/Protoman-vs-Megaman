@@ -9,15 +9,16 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.gdxgame.constants.GameConstants;
+import com.gdxgame.core.constants.GameConstants;
 import com.gdxgame.core.enums.GameStateType;
 import com.gdxgame.core.utils.GameUtils;
 import com.gdxgame.core.utils.ResourceManager;
 
 /**
- * GDXGame is the entrypoint for each game made with libgdx. It extends the libgdx Game class
- * to have the screen switching functionality available (check Screen class of libgdx).
+ * GDXGame is the entrypoint for each game made with libgdx. It extends the libgdx {@link Game} class
+ * to have the screen switching functionality available (check {@link com.badlogic.gdx.Screen} class of libgdx).
  * 
  * We use the Screen functionality to switch between game states
  * 
@@ -41,11 +42,14 @@ public class GDXGame extends Game {
 	 * the current input adapter of the game that is currently listening to key/mouse/touch/controller events. 
 	 */
 	private GameInputAdapter	currentInputAdapter;
+	/**
+	 * cursor pixmap that is used to hide the mouse cursor. it is disposed at the end of the game
+	 */
+	private Pixmap				cursor;
 
 	/**
-	 * create() is called once when the game is created.
-	 * 
-	 * We use it to initialize the first gamestate and to create the SpriteBatch and Camera.
+	 * automatically called by {@link Game#create()} method once the game gets created.
+	 * Initializes the first game state, the spritebatch, the camera and the game config preference
 	 */
 	@Override
 	public void create() {
@@ -72,14 +76,19 @@ public class GDXGame extends Game {
 		setGameState(GameStateType.getInitialState(), true, true, null);
 
 		// show(=false) or hide(=true) the mousecursor of the game inside the game window
-		Gdx.input.setCursorCatched(GameConstants.HIDE_MOUSE);
+		if (GameConstants.HIDE_MOUSE) {
+			// hide mouse -> create an empty pixmap to set it as a new cursor image
+			cursor = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
+			Gdx.input.setCursorImage(cursor, 0, 0);
+		} else {
+			cursor = null;
+		}
 	}
 
 	/**
-	 * render() is called per frame and will forward this call to the current active gamestate.
-	 * Each frame the entire screen is cleared by specified color within the GameConstants.
-	 * 
-	 * We use it to call the current gamestate's update() and render() method
+	 * automatically called by {@link Game#render()} method per frame.
+	 * Each frame the entire screen is cleared by a specified color within the {@link GameConstants}.
+	 * Updates and renders the current active game state.
 	 */
 	@Override
 	public void render() {
@@ -105,9 +114,8 @@ public class GDXGame extends Game {
 	}
 
 	/**
-	 * dispose() is called when the game is closing or the game process is getting killed/terminated.
-	 * 
-	 * We use it to cleanup any game resources that are still not yet disposed by the game.
+	 * automatically called by {@link Game#dispose()} method once the game gets closed or the process gets killed/terminated. 
+	 * Cleans up the game's resources by disposing all game states, the resourcemanager and the cursor pixmap.
 	 */
 	@Override
 	public void dispose() {
@@ -115,35 +123,42 @@ public class GDXGame extends Game {
 		for (GameState gs : gameStates) {
 			gs.dispose();
 		}
+
 		// dispose all resources of the game
 		ResourceManager.INSTANCE.disposeAllResources();
+
+		// dispose mouse cursor pixmap
+		if (cursor != null) {
+			cursor.dispose();
+		}
+
 		// finally dispose the spritebatch that was created within this class
 		spriteBatch.dispose();
 	}
 
 	/**
-	 * This method is called whenever the current gamestate should be changed. If the passed <b>newState</b>
+	 * Changes the current gamestate to the given {@code newState}. If the passed {@code newState}
 	 * parameter is <b>null</b> then the game will be closed.
-	 * 
-	 * It automatically creates the gamestate and the gamestate's logic instance that are defined in the
-	 * GameStateType enum if the gamestate of type <b>newState</b> is not yet available in the gamestates stack.
-	 * Otherwise we will reuse the already existing gamestate.
-	 * 
-	 * If we want to just pause the active gamestate (f.e. to pause the game to switch to a menu) and put
-	 * another gamestate on top, simply pass <b>false</b> for the <b>disposeActiveState</b> parameter. This will
-	 * keep the current active gamestate in the gamestates stack and will ignore the dispose() call to this gamestate.
-	 * 
-	 * When switching back to an already existing gamestate we can choose to reinitialize it (=calling its initialize()
-	 * method) or to just continue updating/rendering.
+	 * <br><br>
+	 * Creates the gamestate and the gamestate's logic instance that are defined in the
+	 * {@link GameStateType} enum if the gamestate of type {@code newState} is not yet available in the gamestates stack.
+	 * Otherwise the existing gamestate will be reused.
+	 * <br><br>
+	 * To pause the active gamestate (f.e. to pause the game to switch to a menu) and put
+	 * another gamestate on top, pass <b>false</b> for the {@code disposeActiveState} parameter. This will
+	 * keep the current active gamestate in the gamestates stack and will ignore the {@link GameState#dispose()} call to this gamestate.
+	 * <br><br>
+	 * When switching back to an already existing gamestate you can choose to reinitialize it (=calling its {@link GameStateLogic#initialize()} method)
+	 * or to just continue updating/rendering. To reinizialite it pass <b>true</b> for {@code reinitializeExisting} parameter.
 	 * 
 	 * @param newState 				new state that should get active. <b>null</b> to close the game.
-	 * @param disposeActiveState 	<b>true</b> to call the dispose() method of the current active gamestate and to remove it
+	 * @param disposeActiveState 	<b>true</b> to call the {@link GameState#dispose()} method of the current active gamestate and to remove it
 	 * 								from the gameStates stack.
 	 * 								<b>false</b> to keep the current active state in the gamestates stack and to avoid calling
-	 * 								its dispose() method.
-	 * @param reinitializeExisting	<b>true</b> to call initialize() method of already existing gamestate when switching to it
-	 * 								<b>false</b> to ignore the initialize() call
-	 * @param data					Data that will be forwarded to the active gamestate that is set with this call. Can be null.
+	 * 								its {@link GameState#dispose()} method.
+	 * @param reinitializeExisting	<b>true</b> to call {@link GameStateLogic#initialize()} method of already existing gamestate when switching to it
+	 * 								<b>false</b> to ignore the {@link GameStateLogic#initialize()} call
+	 * @param data					Data that will be forwarded to the active gamestate that is set with this call. Can be <b>null</b>.
 	 */
 	public void setGameState(GameStateType newState, boolean disposeActiveState, boolean reinitializeExisting, Object data) {
 		if (gameStates == null) {
@@ -230,10 +245,11 @@ public class GDXGame extends Game {
 	}
 
 	/**
-	 * Checks if a gamestate of type <b>type</b> is available in the gamestates stack.
+	 * Checks if a gamestate of type {@code type} is available in the gamestates stack.
 	 * 
 	 * @param type type of gamestate to be checked
-	 * @return <b>true</b> when a gamestate of type <b>type</b> was found. <b>false</b> otherwise.
+	 * 
+	 * @return <b>true</b> when a gamestate of type {@code type} was found. <b>false</b> otherwise.
 	 */
 	public boolean isGameStateAvailable(GameStateType type) {
 		for (GameState gs : gameStates) {
@@ -245,12 +261,11 @@ public class GDXGame extends Game {
 	}
 
 	/**
-	 * This method is automatically called from the setGameState method when a gamestate gets active.
-	 * 
-	 * Sets the active inputadapter of the game. Each GameStateLogic instance is a GameInputAdapter
+	 * automatically called when a gamestate gets active within a call to {@link #setGameState(GameStateType, boolean, boolean, Object)}
+	 * Sets the active inputadapter of the game. Each {@link GameStateLogic} instance is a {@link GameInputAdapter}
 	 * to listen to keyboard/mouse/touch/controller events.
 	 *  
-	 * @param gameInputAdapter
+	 * @param gameInputAdapter active input adapater to listen to keyboard,mouse,touch and controller events
 	 */
 	private void setGameInput(GameInputAdapter gameInputAdapter) {
 		if (currentInputAdapter != null) {

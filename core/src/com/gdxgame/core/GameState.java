@@ -5,15 +5,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gdxgame.core.enums.GameStateType;
 
 /**
- * GameState is one of the core classes besides GameStateLogic. Each game consists of multiple gamestates (f.e. show main menu, game, show highscore, game over, ...).
- * Each GameState has its own resources (f.e. audio or graphic files that are important for that state) and its own GameStateLogic instance.
- * The GameStateLogic instance is used to handle the real logic of the gamestate while the GameState instance is used to handle the resource
+ * 
+ * GameState is one of the core classes besides {@link GameStateLogic} to handle game states. Each game consists of multiple gamestates
+ * (f.e. show main menu, game, show highscore, game over, ...).
+ * Each GameState has its own resources (f.e. audio or graphic files that are important for that state) and its own {@link GameStateLogic} instance.
+ * The {@link GameStateLogic} instance is used to handle the real logic of the gamestate while the GameState instance is used to handle the resource
  * management.
- * 
- * It extends the libgdx Screen class so that the GDXGame class can use it for the setScreen() method. The class also forwards the important
- * Screen methods (=show,hide,render,resize,pause,resume and dispose) to its GameStateLogic instance.
- * 
- * A GameState is configured (=which gamestate uses which logic) within the GameStateType enum.				
+ * <br><br>
+ * It extends the libgdx {@link Screen} class so that the {@link GDXGame} class can use it for the {@link GDXGame#setScreen(Screen)} method. 
+ * The class also forwards the important {@link Screen} methods (=show,hide,render,resize,pause,resume and dispose) to its {@link GameStateLogic} instance.
+ * <br><br>
+ * A GameState is configured (=which gamestate uses which logic) within the {@link GameStateType} enum.				
  *
  */
 public abstract class GameState implements Screen {
@@ -34,8 +36,10 @@ public abstract class GameState implements Screen {
 	}
 
 	/**
-	 * This method is called whenever a gamestate gets active (=setScreen() call in GDXGame class). 
-	 * It is used to load the resources of the gamestate and to initialize or unpause the logic.
+	 * automatically called whenever the {@link GDXGame#setScreen(Screen)} method is called and the gamestate gets active.
+	 * This normally happens within the {@link GDXGame#setGameState(GameStateType, boolean, boolean, Object)} method.
+	 * It is used to load the resources of the gamestate by calling its {@link #loadResources()} method and to make a call to the
+	 * logic's {@link GameStateLogic#initialize()} or {@link GameStateLogic#resume()} method.
 	 */
 	@Override
 	public void show() {
@@ -54,9 +58,10 @@ public abstract class GameState implements Screen {
 	}
 
 	/**
-	 * This method is called whenever a gamestate gets inactive. It can be followed up by a call to dispose()
-	 * if the gamestate gets removed from the game (check setGameState() method of GDXGame class).
-	 * The call is forwarded to the logic's pause method.
+	 * automatically called whenever the {@link GDXGame#setScreen(Screen)} method is called and the gamestate gets inactive.
+	 * This normally happens within the {@link GDXGame#setGameState(GameStateType, boolean, boolean, Object)} method.
+	 * It can be followed up by a call to {@link #dispose()} if the gamestate is no longer needed and gets removed.
+	 * The call is forwarded to the logic's {@link GameStateLogic#pause()} method.
 	 */
 	@Override
 	public void hide() {
@@ -64,18 +69,20 @@ public abstract class GameState implements Screen {
 	}
 
 	/**
-	 * This method is called per frame and will forward this call to the logic's update method.
+	 * automatically called whenever the {@link GDXGame#render()} method is called and the gamestate is active.
+	 * Updates the gamestate by forwarding the call to the {@link GameStateLogic#update(float)} method.
 	 * 
-	 * @param deltaTime time passed between the previous frame and the current frame
+	 * @param deltaTime time passed since last frame
 	 */
 	public void update(float deltaTime) {
 		logic.update(deltaTime);
 	}
 
 	/**
-	 * This method is called per frame and will forward this call to the logic's render method.
+	 * automatically called whenever the {@link GDXGame#render()} method is called and the gamestate is active.
+	 * Renders the gamestate by forwarding the call to the {@link GameStateLogic#render(SpriteBatch)} method.
 	 * 
-	 * @param spriteBatch reference to the GDXGame SpriteBatch to draw things
+	 * @param spriteBatch reference to the {@link GDXGame} SpriteBatch to draw things
 	 */
 	public void render(SpriteBatch spriteBatch) {
 		logic.render(spriteBatch);
@@ -83,15 +90,16 @@ public abstract class GameState implements Screen {
 
 	/**
 	 * This method is not used anymore since we split up the render call into our own update
-	 * and render method within the GDXGame class.
+	 * and render method within the {@link GDXGame} class.<br>
+	 * <b>Do not use this method</b>
 	 */
 	@Override
 	public void render(float delta) {
 	}
 
 	/**
-	 * This method is called whenever the window is resized in any way. The call is forwarded
-	 * to the logic's resize method.
+	 * automatically called whenever the {@link GDXGame#resize(int, int)} method is called and the gamestate is active.
+	 * Handles the gamestate resize logic by forwarding the call to the {@link GameStateLogic#resize(int, int)} method.
 	 */
 	@Override
 	public void resize(int width, int height) {
@@ -100,7 +108,7 @@ public abstract class GameState implements Screen {
 
 	/**
 	 * This method is called only on android devices whenever the game loses focus.
-	 * The call is forwarded to the logic's pause method.
+	 * Pauses the gamestate by forwarding the call to the {@link GameStateLogic#pause()} method.
 	 */
 	@Override
 	public void pause() {
@@ -108,8 +116,10 @@ public abstract class GameState implements Screen {
 	}
 
 	/**
-	 * This method is called only on android devices whenever the game gets focus again.
-	 * The call is forwarded to the logic's resume method.
+	 * automatically called whenever the {@link GDXGame#setScreen(Screen)} method is called and the gamestate gets active and was already initialized.
+	 * This normally happens within the {@link GDXGame#setGameState(GameStateType, boolean, boolean, Object)} method.
+	 * It is also called on android devices whenever the game gains focus again.
+	 * Resumes the gamestate by forwarding the call to the {@link GameStateLogic#resume()} method.
 	 */
 	@Override
 	public void resume() {
@@ -117,8 +127,9 @@ public abstract class GameState implements Screen {
 	}
 
 	/**
-	 * This method is called whenever the gamestate gets removed from the game. 
-	 * Is is used to dispose all the resources of the logic and the gamestate itself.
+	 * automatically called whenever the {@link GDXGame#setScreen(Screen)} method is called and the gamestate gets inactive and is no longer needed.
+	 * This normally happens within the {@link GDXGame#setGameState(GameStateType, boolean, boolean, Object)} method.
+	 * Disposes the gamestate's resources by forwarding the call to the {@link GameStateLogic#dispose()} method and to the {@link #disposeResources()} method.
 	 */
 	@Override
 	public void dispose() {
@@ -128,13 +139,13 @@ public abstract class GameState implements Screen {
 
 	/**
 	 * This method should contain the logic to load all resources (=graphic,audio,...) for the gamestate.
-	 * It is called by the show() method.
+	 * It is called by the {@link #show()} method.
 	 */
 	protected abstract void loadResources();
 
 	/**
 	 * This method should contain the logic to dispose all resources (=graphic,audio,...) for the gamestate.
-	 * It is called by the dispose() method.
+	 * It is called by the {@link #dispose()} method.
 	 */
 	protected abstract void disposeResources();
 }
